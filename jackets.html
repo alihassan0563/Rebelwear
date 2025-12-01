@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jackets - REBELWEAR</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        .collection-hero.jackets-hero { background: linear-gradient(135deg, #0d0d0d 0%, #232323 100%); }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-wrapper">
+                <div class="logo"><a href="index.html" style="text-decoration: none; color: inherit;">REBELWEAR</a></div>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="streetwear.html">Streetwear</a></li>
+                    <li><a href="index.html#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="collection-hero jackets-hero">
+        <div class="hero-overlay"></div>
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Jackets</h1>
+                <p class="hero-subtitle">Elevate every layer.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="collection-products">
+        <div class="container">
+            <h2 class="section-title">Jackets Collection</h2>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-image">
+                        <div class="image-slider" data-slider="street-jacket">
+                            <div class="slider-container">
+                                <img src="pictures/jacket1.avif" alt="Street Jacket" class="slider-image active">
+                                <img src="streetwear images/jacket2.avif" alt="Street Jacket" class="slider-image">
+                                <img src="pictures/jacket2.avif" alt="Street Jacket" class="slider-image">
+                                <img src="pictures/jacket3.avif" alt="Street Jacket" class="slider-image">
+                            </div>
+                            <button class="slider-btn prev" aria-label="Previous image">‹</button>
+                            <button class="slider-btn next" aria-label="Next image">›</button>
+                            <div class="slider-dots"></div>
+                        </div>
+                        <span class="product-badge">Hot</span>
+                    </div>
+                    <div class="product-info">
+                        <h3>Street Jacket</h3>
+                        <p class="product-price">$89.00</p>
+                        <p class="product-category">Streetwear</p>
+                        <p class="product-description">Weather-resistant with bold design.</p>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <div class="image-slider" data-slider="utility-jacket">
+                            <div class="slider-container">
+                                <img src="pictures/jacket2.avif" alt="Utility Jacket" class="slider-image active">
+                                <img src="streetwear images/jacket2.avif" alt="Utility Jacket" class="slider-image">
+                                <img src="pictures/jacket1.avif" alt="Utility Jacket" class="slider-image">
+                                <img src="pictures/jacket3.avif" alt="Utility Jacket" class="slider-image">
+                            </div>
+                            <button class="slider-btn prev" aria-label="Previous image">‹</button>
+                            <button class="slider-btn next" aria-label="Next image">›</button>
+                            <div class="slider-dots"></div>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Utility Jacket</h3>
+                        <p class="product-price">$99.00</p>
+                        <p class="product-category">Streetwear</p>
+                        <p class="product-description">Functional pockets, durable build.</p>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <div class="image-slider" data-slider="bomber-jacket">
+                            <div class="slider-container">
+                                <img src="pictures/jacket3.avif" alt="Bomber Jacket" class="slider-image active">
+                                <img src="pictures/jacket1.avif" alt="Bomber Jacket" class="slider-image">
+                                <img src="pictures/jacket2.avif" alt="Bomber Jacket" class="slider-image">
+                                <img src="streetwear images/jacket2.avif" alt="Bomber Jacket" class="slider-image">
+                            </div>
+                            <button class="slider-btn prev" aria-label="Previous image">‹</button>
+                            <button class="slider-btn next" aria-label="Next image">›</button>
+                            <div class="slider-dots"></div>
+                        </div>
+                    </div>
+                    <div class="product-info">
+                        <h3>Bomber Jacket</h3>
+                        <p class="product-price">$109.00</p>
+                        <p class="product-category">Streetwear</p>
+                        <p class="product-description">Iconic silhouette with modern materials.</p>
+                    </div>
+                </div>
+                <a href="index.html#contact" class="product-card" data-aos="zoom-in" data-aos-delay="300" style="text-decoration: none; color: inherit; display: block; cursor: pointer; border: 2px dashed var(--text-light);">
+                    <div class="product-image">
+                        <div class="placeholder-img" style="background: linear-gradient(135deg, var(--secondary-color), var(--primary-color)); display: flex; align-items: center; justify-content: center;">
+                            <div style="font-size: 3rem; color: white;">🎨</div>
+                        </div>
+                        <span class="product-badge" style="background: var(--secondary-color);">Custom</span>
+                    </div>
+                    <div class="product-info">
+                        <h3>Custom Design & Queries</h3>
+                        <p class="product-price">Custom Quote</p>
+                        <p class="product-category">Special Orders</p>
+                        <p class="product-description">Have a unique design in mind? Need custom sizing or special requests? Contact us for personalized solutions.</p>
+                        <div style="margin-top: 1rem; text-align: center;">
+                            <span class="btn btn-primary" style="display: inline-block;">Get Quote</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="products-cta">
+                <a href="streetwear.html" class="btn btn-secondary">Back to Categories</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2024 REBELWEAR. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+
