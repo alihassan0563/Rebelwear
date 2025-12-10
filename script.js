@@ -104,10 +104,16 @@ if (contactForm) {
         formInputs.forEach(input => input.disabled = true);
         
         try {
-            // API endpoint - adjust this URL based on your deployment
-            const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
-                ? 'http://localhost:3000/api/contact' 
-                : '/api/contact';
+            // API endpoint - robust detection for different environments
+            let API_URL;
+            if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                API_URL = 'http://localhost:3000/api/contact';
+            } else {
+                // For production (Render, Netlify, etc.), use same origin
+                API_URL = `${window.location.origin}/api/contact`;
+            }
+            
+            console.log('Submitting to API URL:', API_URL);
             
             const response = await fetch(API_URL, {
                 method: 'POST',
@@ -143,6 +149,7 @@ if (contactForm) {
             }
         } catch (error) {
             console.error('Form submission error:', error);
+            console.error('API URL was:', API_URL);
             showNotification('Network error. Please check your connection and try again.', 'error');
         } finally {
             // Re-enable form

@@ -9,7 +9,10 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Middleware
-app.use(cors());
+app.use(cors({
+    origin: true, // Allow all origins in development, configure for production
+    credentials: true
+}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -36,6 +39,12 @@ const contactValidation = [
 
 // Contact Form API Endpoint
 app.post('/api/contact', contactValidation, async (req, res) => {
+    console.log('📧 Contact form submission received:', {
+        timestamp: new Date().toISOString(),
+        origin: req.get('origin'),
+        userAgent: req.get('user-agent')
+    });
+    
     try {
         // Check for validation errors
         const errors = validationResult(req);
@@ -118,7 +127,18 @@ app.get('/api/health', (req, res) => {
     res.json({
         status: 'OK',
         message: 'REBELWEAR API is running',
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
+        environment: process.env.NODE_ENV || 'development'
+    });
+});
+
+// Test endpoint for debugging
+app.get('/api/test', (req, res) => {
+    res.json({
+        success: true,
+        message: 'API is working correctly',
+        timestamp: new Date().toISOString(),
+        headers: req.headers
     });
 });
 
