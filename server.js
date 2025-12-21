@@ -3,6 +3,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const nodemailer = require('nodemailer');
 const { body, validationResult } = require('express-validator');
+const path = require('path');
 require('dotenv').config();
 
 const app = express();
@@ -16,8 +17,10 @@ app.use(cors({
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Serve static files (optional - if you want to serve the frontend from here)
-app.use(express.static('.'));
+// Serve static files in development
+if (process.env.NODE_ENV !== 'production') {
+    app.use(express.static('.'));
+}
 
 // Configure Nodemailer
 const transporter = nodemailer.createTransport({
@@ -151,13 +154,21 @@ app.use((err, req, res, next) => {
     });
 });
 
-// 404 handler
-app.use((req, res) => {
-    res.status(404).json({
-        success: false,
-        message: 'Endpoint not found'
+// In production, serve React app for all non-API routes
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static('dist'));
+    app.get('*', (req, res) => {
+        res.sendFile(path.join(__dirname, 'dist', 'index.html'));
     });
-});
+} else {
+    // 404 handler for development
+    app.use((req, res) => {
+        res.status(404).json({
+            success: false,
+            message: 'Endpoint not found'
+        });
+    });
+}
 
 // Start server
 app.listen(PORT, () => {

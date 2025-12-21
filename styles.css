@@ -546,9 +546,14 @@ section {
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     opacity: 0;
     transition: opacity 0.5s ease-in-out;
+    background: #fff;
+    border-radius: 12px;
+    padding: 10px;
+    display: block;
+    margin: auto;
 }
 
 .slider-image.active {
