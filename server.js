@@ -106,6 +106,12 @@ app.post('/api/contact', contactValidation, async (req, res) => {
 
         // Send emails
         await transporter.sendMail(mailOptions);
+            console.log('✅ Business notification email sent');
+        } catch (emailError) {
+            console.error('❌ Failed to send business email:', emailError.message);
+        }
+        
+        try {
         await transporter.sendMail(confirmationMailOptions);
 
         res.json({
