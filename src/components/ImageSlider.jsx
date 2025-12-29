@@ -1,7 +1,11 @@
 import { useState, useEffect } from 'react'
 
-const ImageSlider = ({ images, autoPlay = false, interval = 4000 }) => {
-  const [currentIndex, setCurrentIndex] = useState(0)
+const ImageSlider = ({ images, autoPlay = false, interval = 4000, initialIndex = 0, onIndexChange }) => {
+  const [currentIndex, setCurrentIndex] = useState(initialIndex)
+
+  useEffect(() => {
+    setCurrentIndex(initialIndex)
+  }, [initialIndex])
 
   useEffect(() => {
     if (autoPlay && images.length > 1) {
@@ -11,6 +15,12 @@ const ImageSlider = ({ images, autoPlay = false, interval = 4000 }) => {
       return () => clearInterval(timer)
     }
   }, [autoPlay, interval, images.length])
+
+  useEffect(() => {
+    if (onIndexChange) {
+      onIndexChange(currentIndex)
+    }
+  }, [currentIndex, onIndexChange])
 
   const goToSlide = (index) => {
     setCurrentIndex(index)

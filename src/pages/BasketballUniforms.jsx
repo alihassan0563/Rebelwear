@@ -4,7 +4,7 @@ const BasketballUniforms = () => {
   const products = [
     {
       title: 'Professional Basketball uniform',
-      price: '69.99',
+      price: '59.99',
       category: 'Basketball Uniforms',
       description: 'Complete basketball uniform set with jersey and shorts. Custom team colors and logos available.',
       images: [
@@ -23,7 +23,7 @@ const BasketballUniforms = () => {
     },
     {
       title: 'Elite Basketball Jersey',
-      price: '49.99',
+      price: '39.99',
       category: 'Basketball Uniforms',
       description: 'Premium basketball uniform with moisture-wicking fabric and professional design.',
       images: [
@@ -38,7 +38,7 @@ const BasketballUniforms = () => {
     },
     {
       title: 'Custom Team Basketball Kit',
-      price: '149.99',
+      price: '189.99',
       category: 'Basketball Uniforms',
       description: 'Customizable basketball uniform kit for teams. Available in all sizes and colors.',
       images: [

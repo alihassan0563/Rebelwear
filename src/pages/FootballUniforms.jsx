@@ -4,31 +4,56 @@ const FootballUniforms = () => {
   const products = [
     {
       title: 'Professional Football Uniform',
-      price: '85.00',
+      price: '89.99',
       category: 'American Football Uniforms',
       description: 'Complete football uniform set with jersey and pants. Custom team colors and logos available.',
       images: [
-        '/sports image/football1.jpeg',
+        '/streetwear images/sportswear images/american football uniform 10.jpeg',
+        '/streetwear images/sportswear images/american football uniform 1.jpeg',
+        '/streetwear images/sportswear images/american football uniform 2.jpeg',
+        '/streetwear images/sportswear images/american football uniform 3.jpeg',
+        '/streetwear images/sportswear images/american football uniform 4.jpeg',
+        '/streetwear images/sportswear images/american football uniform 5.jpeg',
+        '/streetwear images/sportswear images/american football uniform 6.jpeg',
+        '/streetwear images/sportswear images/american football uniform 7.jpeg',
+        '/streetwear images/sportswear images/american football uniform 8.jpeg',
+        '/streetwear images/sportswear images/american football uniform 9.jpeg',
+
       ],
       badge: 'Popular'
     },
     {
       title: 'Elite Football Jersey',
-      price: '95.00',
+      price: '49.99',
       category: 'American Football Uniforms',
       description: 'Premium football uniform with quick-dry fabric and professional design.',
       images: [
-        '/sports image/football1.jpeg',
+        '/streetwear images/sportswear images/american jersey 2.jpeg',
+        '/streetwear images/sportswear images/american jersey 1.jpeg',
+        '/streetwear images/sportswear images/american jersey 3.jpeg',
+        '/streetwear images/sportswear images/american jersey 4.jpeg',
+        '/streetwear images/sportswear images/american jersey 5.jpeg',
+        '/streetwear images/sportswear images/american jersey 6.jpeg',
+        '/streetwear images/sportswear images/american jersey 7.jpeg',
+        '/streetwear images/sportswear images/american jersey 8.jpeg',
+        '/streetwear images/sportswear images/american jersey 9.jpeg',
+        '/streetwear images/sportswear images/american jersey 10.jpeg',
+
+
       ],
       badge: 'Premium'
     },
     {
       title: 'Custom Team Football Kit',
-      price: '75.00',
+      price: '149.99',
       category: 'American Football Uniforms',
       description: 'Customizable football uniform kit for teams. Available in all sizes and colors.',
       images: [
-        '/sports image/football1.jpeg',
+        '/streetwear images/sportswear images/american kit 3.jpeg',
+        '/streetwear images/sportswear images/american kit 1.jpeg',
+        '/streetwear images/sportswear images/american kit 2.jpeg',
+        '/streetwear images/sportswear images/american kit 4.jpeg',
+
       ]
     }
   ]

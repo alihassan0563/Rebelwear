@@ -4,7 +4,7 @@ const SoccerUniforms = () => {
   const products = [
     {
       title: 'Professional Soccer Uniform',
-      price: '70.00',
+      price: '79.99',
       category: 'Soccer Uniforms',
       description: 'Complete soccer uniform set with jersey and shorts. Custom team colors and logos available.',
       images: [
@@ -20,7 +20,7 @@ const SoccerUniforms = () => {
     },
     {
       title: 'Elite Soccer Jersey',
-      price: '80.00',
+      price: '49.99',
       category: 'Soccer Uniforms',
       description: 'Premium soccer uniform with weather-resistant fabric and professional design.',
       images: [
@@ -38,7 +38,7 @@ const SoccerUniforms = () => {
     },
     {
       title: 'Custom Team Soccer Kit',
-      price: '60.00',
+      price: '169.99',
       category: 'Soccer Uniforms',
       description: 'Customizable soccer uniform kit for teams. Available in all sizes and colors.',
       images: [

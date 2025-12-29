@@ -17,6 +17,7 @@ const Uniforms = () => {
       features: ['Breathable Material', 'Flexible Design', 'Team Branding'],
       link: '/baseball-uniforms',
       badge: 'Best Seller',
+      image:         '/streetwear images/sportswear images/baseball uniform 2.jpeg',
     },
     {
       title: 'American Football Uniforms',
@@ -24,6 +25,7 @@ const Uniforms = () => {
       features: ['Quick-Dry Fabric', 'Custom Colors', 'Perfect Fit'],
       link: '/football-uniforms',
       badge: 'New',
+      image:         '/streetwear images/sportswear images/american football uniform 7.jpeg',
     },
     {
       title: 'Soccer Uniforms',
@@ -32,18 +34,6 @@ const Uniforms = () => {
       link: '/soccer-uniforms',
       image:         '/streetwear images/sportswear images/soccer jersey 8.jpeg',
 
-    },
-    {
-      title: 'Hockey Uniforms',
-      description: 'Professional hockey jerseys designed for maximum mobility and team identity.',
-      features: ['Durable Construction', 'Team Colors', 'Comfortable Fit'],
-      link: '/hockey-uniforms',
-    },
-    {
-      title: 'Boxing Uniforms',
-      description: 'Professional boxing gear designed for training and competition.',
-      features: ['Breathable Fabric', 'Custom Design', 'Premium Quality'],
-      link: '/boxing-uniforms',
     },
   ]
 

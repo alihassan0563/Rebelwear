@@ -4,33 +4,35 @@ const BaseballUniforms = () => {
   const products = [
     {
       title: 'Professional Baseball Uniform',
-      price: '75.00',
+      price: '89.99',
       category: 'Baseball Uniforms',
       description: 'Complete baseball uniform set with jersey and pants. Custom team colors and logos available.',
       images: [
-        '/sports image/baseball1.jpeg',
+        '/streetwear images/sportswear images/baseball uniform 1.jpeg',
+        '/streetwear images/sportswear images/baseball uniform 2.jpeg',
+        '/streetwear images/sportswear images/baseball uniform 3.jpeg',
+        '/streetwear images/sportswear images/baseball uniform 4.jpeg',
+
       ],
       badge: 'Popular'
     },
     {
       title: 'Elite Baseball Jersey',
-      price: '85.00',
+      price: '49.99',
       category: 'Baseball Uniforms',
       description: 'Premium baseball uniform with breathable fabric and professional design.',
       images: [
-        '/sports image/baseball1.jpeg',
+        '/streetwear images/sportswear images/baseball jersey 1.jpeg',
+        '/streetwear images/sportswear images/baseball jersey 2.jpeg',
+        '/streetwear images/sportswear images/baseball jersey 3.jpeg',
+        '/streetwear images/sportswear images/baseball jersey 4.jpeg',
+        '/streetwear images/sportswear images/baseball jersey 5.jpeg',
+        '/streetwear images/sportswear images/baseball jersey 6.jpeg',
+
       ],
       badge: 'Premium'
     },
-    {
-      title: 'Custom Team Baseball Kit',
-      price: '65.00',
-      category: 'Baseball Uniforms',
-      description: 'Customizable baseball uniform kit for teams. Available in all sizes and colors.',
-      images: [
-        '/sports image/baseball1.jpeg',
-      ]
-    }
+    
   ]
 
   return (
