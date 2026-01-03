@@ -36,29 +36,6 @@
   .container {
     @apply max-w-7xl mx-auto px-5;
   }
-
-  /* Custom CSS for Accessories page images */
-  .accessories-page .h-96 {
-    height: 28rem !important; /* Increased height for better image display */
-    background-color: #ffffff;
-  }
-
-  .accessories-page .h-96 img,
-  .accessories-page img[alt="Product"],
-  .accessories-page img[alt^="Slide"] {
-    object-fit: contain !important;
-    object-position: center;
-    max-width: 100%;
-    max-height: 100%;
-  }
-
-  .accessories-page .relative.w-full.h-full.overflow-hidden {
-    background-color: #ffffff;
-  }
-
-  .accessories-page .rounded-t-3xl {
-    background-color: #ffffff;
-  }
 }
 
 

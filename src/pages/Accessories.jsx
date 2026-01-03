@@ -66,7 +66,7 @@ const Accessories = () => {
           <p className="text-xl font-light mb-4 text-gray-300">Complete your look with our accessories.</p>
         </div>
       </section>
-      <section className="py-24 bg-white accessories-page">
+      <section className="py-24 bg-white">
         <div className="container">
           <h2 className="section-title mb-12">Accessories Collection</h2>
           <ProductGallery products={products} />

@@ -17,7 +17,7 @@ const ProductCard = ({
       className="block bg-bg-light rounded-3xl overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-xl group"
       style={{ animationDelay: `${delay}ms` }}
     >
-      <div className="h-96 relative">
+      <div className="h-72 relative">
         {images.length > 0 ? (
           <ImageSlider images={images} />
         ) : (

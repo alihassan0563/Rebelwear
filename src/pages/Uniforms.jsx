@@ -35,6 +35,13 @@ const Uniforms = () => {
       image:         '/streetwear images/sportswear images/soccer jersey 8.jpeg',
 
     },
+    
+    {
+      title: 'Boxing Uniforms',
+      description: 'Professional boxing gear designed for training and competition.',
+      features: ['Breathable Fabric', 'Custom Design', 'Premium Quality'],
+      link: '/boxing-uniforms',
+    },
   ]
 
   return (

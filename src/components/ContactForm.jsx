@@ -52,12 +52,8 @@ const ContactForm = () => {
     setIsSubmitting(true)
 
     try {
-      const API_URL =
-        window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-          ? 'http://localhost:3000/api/contact'
-          : '/api/contact'
+      const API_URL = 'http://localhost:3000/api/contact'
 
-      // Use FormData to support file uploads
       const formDataToSend = new FormData()
       formDataToSend.append('name', formData.name)
       formDataToSend.append('email', formData.email)
@@ -65,26 +61,16 @@ const ContactForm = () => {
       formDataToSend.append('inquiry', formData.inquiry)
       formDataToSend.append('message', formData.message)
       
-      // Append file if it exists
       if (formData.designFile) {
         formDataToSend.append('designFile', formData.designFile)
       }
 
       const response = await fetch(API_URL, {
         method: 'POST',
-        // Don't set Content-Type header - browser will set it automatically with boundary for FormData
         body: formDataToSend,
       })
 
-      let data
-      try {
-        data = await response.json()
-      } catch (jsonError) {
-        console.error('Failed to parse response:', jsonError)
-        showNotification('Server error. Please try again later.', 'error')
-        setIsSubmitting(false)
-        return
-      }
+      const data = await response.json()
 
       if (response.ok && data.success) {
         showNotification(

@@ -67,7 +67,7 @@ const Streetwear = () => {
                 to={category.link}
                 className="bg-bg-light rounded-3xl overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-xl group"
               >
-                <div className="h-96 bg-gradient-to-br from-gray-900 to-gray-800 relative overflow-hidden">
+                <div className="h-72 bg-gradient-to-br from-gray-900 to-gray-800 relative overflow-hidden">
                   <img
                     src={category.image}
                     alt={category.title}
