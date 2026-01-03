@@ -220,10 +220,10 @@ app.post('/api/order', async (req, res) => {
 
         const totalPrice = (parseFloat(price) * parseInt(quantity)).toFixed(2)
         
-        // Convert relative image path to full URL for email
-        const fullImageUrl = productImage.startsWith('http') 
-            ? productImage 
-            : `http://localhost:${PORT}${productImage}`
+        // Get image path for attachment
+        const imagePath = productImage.startsWith('/') 
+            ? path.join(__dirname, productImage.substring(1))
+            : path.join(__dirname, productImage)
 
         // Email to business owner
         const orderMailOptions = {
@@ -235,7 +235,7 @@ app.post('/api/order', async (req, res) => {
                     <h2 style="color: #ff3d00;">New Product Order</h2>
                     
                     <div style="text-align: center; margin: 20px 0;">
-                        <img src="${fullImageUrl}" alt="${productName}" style="max-width: 300px; height: auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" />
+                        <img src="cid:productImage" alt="${productName}" style="max-width: 300px; height: auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" />
                     </div>
                     
                     <div style="background: #f8f8f8; padding: 20px; border-radius: 10px; margin: 20px 0;">
@@ -272,7 +272,12 @@ app.post('/api/order', async (req, res) => {
                     </div>
                     <p style="color: #666; font-size: 12px;">This email was sent from the REBELWEAR order system.</p>
                 </div>
-            `
+            `,
+            attachments: [{
+                filename: `${productName.replace(/\s+/g, '_')}.jpg`,
+                path: imagePath,
+                cid: 'productImage'
+            }]
         }
 
         // Confirmation email to customer
