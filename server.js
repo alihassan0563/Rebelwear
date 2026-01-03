@@ -193,7 +193,126 @@ app.post('/api/contact', upload.single('designFile'), async (req, res) => {
     }
 });
 
-// Health check endpoint
+// Order API Endpoint
+app.post('/api/order', async (req, res) => {
+    console.log('📦 Order submission received:', {
+        timestamp: new Date().toISOString(),
+        body: req.body
+    })
+    
+    try {
+        const { productName, productImage, size, quantity, price, customerName, email, phone, address } = req.body
+
+        // Validation
+        if (!productName || !size || !quantity || !customerName || !email || !phone || !address) {
+            return res.status(400).json({
+                success: false,
+                message: 'All fields are required'
+            })
+        }
+
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            return res.status(400).json({
+                success: false,
+                message: 'Please provide a valid email address'
+            })
+        }
+
+        const totalPrice = (parseFloat(price) * parseInt(quantity)).toFixed(2)
+
+        // Email to business owner
+        const orderMailOptions = {
+            from: process.env.EMAIL_USER,
+            to: process.env.CONTACT_EMAIL || process.env.EMAIL_USER,
+            subject: `New Order: ${productName} - REBELWEAR`,
+            html: `
+                <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+                    <h2 style="color: #ff3d00;">New Product Order</h2>
+                    <div style="background: #f8f8f8; padding: 20px; border-radius: 10px; margin: 20px 0;">
+                        <h3>Product Details:</h3>
+                        <p><strong>Product:</strong> ${productName}</p>
+                        <p><strong>Size:</strong> ${size}</p>
+                        <p><strong>Quantity:</strong> ${quantity}</p>
+                        <p><strong>Unit Price:</strong> $${price}</p>
+                        <p><strong>Total Price:</strong> $${totalPrice}</p>
+                        
+                        <h3>Customer Information:</h3>
+                        <p><strong>Name:</strong> ${customerName}</p>
+                        <p><strong>Email:</strong> ${email}</p>
+                        <p><strong>Phone:</strong> ${phone}</p>
+                        <p><strong>Address:</strong></p>
+                        <p style="background: white; padding: 15px; border-radius: 5px; margin-top: 10px;">${address.replace(/\n/g, '<br>')}</p>
+                    </div>
+                    <p style="color: #666; font-size: 12px;">This email was sent from the REBELWEAR order system.</p>
+                </div>
+            `
+        }
+
+        // Confirmation email to customer
+        const customerOrderConfirmation = {
+            from: process.env.EMAIL_USER,
+            to: email,
+            subject: 'Order Confirmation - REBELWEAR',
+            html: `
+                <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+                    <h2 style="color: #ff3d00;">Order Confirmation</h2>
+                    <p>Dear ${customerName},</p>
+                    <p>Thank you for your order! We have received your order and will process it within 24-48 hours.</p>
+                    
+                    <div style="background: #f8f8f8; padding: 20px; border-radius: 10px; margin: 20px 0;">
+                        <h3>Order Summary:</h3>
+                        <p><strong>Product:</strong> ${productName}</p>
+                        <p><strong>Size:</strong> ${size}</p>
+                        <p><strong>Quantity:</strong> ${quantity}</p>
+                        <p><strong>Total:</strong> $${totalPrice}</p>
+                        
+                        <h3>Shipping Address:</h3>
+                        <p style="background: white; padding: 15px; border-radius: 5px; margin-top: 10px;">${address.replace(/\n/g, '<br>')}</p>
+                    </div>
+                    
+                    <p>We will contact you at ${phone} or ${email} with shipping details and payment instructions.</p>
+                    
+                    <p>If you have any questions, feel free to contact us:</p>
+                    <ul>
+                        <li>Email: <a href="mailto:rebelwear40@gmail.com">rebelwear40@gmail.com</a></li>
+                        <li>Phone: <a href="tel:+923313337574">+92 3313337574</a></li>
+                    </ul>
+                    
+                    <p style="margin-top: 30px;">Best regards,<br><strong>The REBELWEAR Team</strong></p>
+                    <hr style="border: none; border-top: 1px solid #eee; margin: 30px 0;">
+                    <p style="color: #666; font-size: 12px;">This is an automated confirmation email.</p>
+                </div>
+            `
+        }
+
+        // Send emails
+        try {
+            await transporter.sendMail(orderMailOptions)
+            console.log('✅ Order notification email sent')
+        } catch (emailError) {
+            console.error('❌ Failed to send order email:', emailError.message)
+        }
+        
+        try {
+            await transporter.sendMail(customerOrderConfirmation)
+            console.log('✅ Customer order confirmation sent')
+        } catch (emailError) {
+            console.error('❌ Failed to send customer confirmation:', emailError.message)
+        }
+
+        res.json({
+            success: true,
+            message: 'Order placed successfully! We will contact you within 24-48 hours with payment and shipping details.'
+        })
+
+    } catch (error) {
+        console.error('Error processing order:', error)
+        res.status(500).json({
+            success: false,
+            message: 'An error occurred while processing your order. Please try again later.'
+        })
+    }
+})
 app.get('/api/health', (req, res) => {
     res.json({
         status: 'OK',

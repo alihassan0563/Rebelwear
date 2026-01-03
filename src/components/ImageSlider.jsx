@@ -1,27 +1,40 @@
 import { useState, useEffect } from 'react'
 
-const ImageSlider = ({ images, autoPlay = false, interval = 4000 }) => {
+const ImageSlider = ({ images, autoPlay = false, interval = 4000, onImageChange }) => {
   const [currentIndex, setCurrentIndex] = useState(0)
 
   useEffect(() => {
     if (autoPlay && images.length > 1) {
       const timer = setInterval(() => {
-        setCurrentIndex((prev) => (prev + 1) % images.length)
+        setCurrentIndex((prev) => {
+          const newIndex = (prev + 1) % images.length
+          onImageChange?.(newIndex)
+          return newIndex
+        })
       }, interval)
       return () => clearInterval(timer)
     }
-  }, [autoPlay, interval, images.length])
+  }, [autoPlay, interval, images.length, onImageChange])
 
   const goToSlide = (index) => {
     setCurrentIndex(index)
+    onImageChange?.(index)
   }
 
   const nextSlide = () => {
-    setCurrentIndex((prev) => (prev + 1) % images.length)
+    setCurrentIndex((prev) => {
+      const newIndex = (prev + 1) % images.length
+      onImageChange?.(newIndex)
+      return newIndex
+    })
   }
 
   const prevSlide = () => {
-    setCurrentIndex((prev) => (prev - 1 + images.length) % images.length)
+    setCurrentIndex((prev) => {
+      const newIndex = (prev - 1 + images.length) % images.length
+      onImageChange?.(newIndex)
+      return newIndex
+    })
   }
 
   if (images.length === 0) return null

@@ -18,6 +18,7 @@ import HockeyUniforms from './pages/HockeyUniforms'
 import BoxingUniforms from './pages/BoxingUniforms'
 import About from './pages/About'
 import ProductDetail from './pages/ProductDetail'
+import OrderPage from './pages/OrderPage'
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/product/:slug" element={<ProductDetail />} />
+            <Route path="/order/:productSlug/:imageIndex" element={<OrderPage />} />
             <Route path="/streetwear" element={<Streetwear />} />
             <Route path="/uniforms" element={<Uniforms />} />
             <Route path="/hoodies" element={<Hoodies />} />
