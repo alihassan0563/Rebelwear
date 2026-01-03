@@ -143,7 +143,7 @@ const OrderPage = () => {
           ← Back to Products
         </button>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 display-inline">
           {/* Product Image */}
           <div className="bg-white rounded-2xl p-6 shadow-lg">
             <img
@@ -246,32 +246,57 @@ const OrderPage = () => {
               </div>
 
               {/* Order Summary */}
-              <div className="bg-gray-50 p-4 rounded-lg">
-                <h4 className="font-semibold mb-2">Order Summary</h4>
-                <div className="flex justify-between text-sm">
-                  <span>Product:</span>
-                  <span>{product.title}</span>
-                </div>
-                <div className="flex justify-between text-sm">
-                  <span>Size:</span>
-                  <span>{orderData.size || 'Not selected'}</span>
-                </div>
-                <div className="flex justify-between text-sm">
-                  <span>Quantity:</span>
-                  <span>{orderData.quantity}</span>
-                </div>
-                <div className="flex justify-between font-semibold text-lg mt-2 pt-2 border-t">
-                  <span>Total:</span>
-                  <span>${(parseFloat(product.price) * orderData.quantity).toFixed(2)}</span>
+              <div className="bg-gradient-to-r from-gray-50 to-gray-100 p-6 rounded-xl border border-gray-200">
+                <h4 className="text-lg font-bold mb-4 text-gray-800">Order Summary</h4>
+                <div className="space-y-3">
+                  <div className="flex justify-between items-center">
+                    <span className="text-gray-600">Product:</span>
+                    <span className="font-semibold text-gray-800">{product.title}</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-gray-600">Size:</span>
+                    <span className={`font-semibold px-3 py-1 rounded-full text-sm ${
+                      orderData.size 
+                        ? 'bg-secondary text-white' 
+                        : 'bg-gray-200 text-gray-500'
+                    }`}>
+                      {orderData.size || 'Not selected'}
+                    </span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-gray-600">Quantity:</span>
+                    <span className="font-semibold bg-white px-3 py-1 rounded-lg border">{orderData.quantity}</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-gray-600">Unit Price:</span>
+                    <span className="font-semibold text-gray-800">${product.price}</span>
+                  </div>
+                  <hr className="border-gray-300" />
+                  <div className="flex justify-between items-center text-lg">
+                    <span className="font-bold text-gray-800">Total:</span>
+                    <span className="font-bold text-2xl text-secondary">
+                      ${(parseFloat(product.price) * orderData.quantity).toFixed(2)}
+                    </span>
+                  </div>
                 </div>
               </div>
 
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-secondary text-white py-4 px-6 rounded-lg font-semibold hover:bg-secondary/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full bg-gradient-to-r from-secondary to-red-600 text-white py-4 px-6 rounded-xl font-bold text-lg hover:from-secondary/90 hover:to-red-600/90 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
               >
-                {isSubmitting ? 'Placing Order...' : 'Place Order'}
+                {isSubmitting ? (
+                  <div className="flex items-center justify-center gap-2">
+                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                    Processing Order...
+                  </div>
+                ) : (
+                  <div className="flex items-center justify-center gap-2">
+                    <span>🛒</span>
+                    Place Order - ${(parseFloat(product.price) * orderData.quantity).toFixed(2)}
+                  </div>
+                )}
               </button>
             </form>
           </div>

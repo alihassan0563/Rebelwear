@@ -219,6 +219,11 @@ app.post('/api/order', async (req, res) => {
         }
 
         const totalPrice = (parseFloat(price) * parseInt(quantity)).toFixed(2)
+        
+        // Convert relative image path to full URL for email
+        const fullImageUrl = productImage.startsWith('http') 
+            ? productImage 
+            : `http://localhost:${PORT}${productImage}`
 
         // Email to business owner
         const orderMailOptions = {
@@ -228,15 +233,37 @@ app.post('/api/order', async (req, res) => {
             html: `
                 <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
                     <h2 style="color: #ff3d00;">New Product Order</h2>
+                    
+                    <div style="text-align: center; margin: 20px 0;">
+                        <img src="${fullImageUrl}" alt="${productName}" style="max-width: 300px; height: auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" />
+                    </div>
+                    
                     <div style="background: #f8f8f8; padding: 20px; border-radius: 10px; margin: 20px 0;">
-                        <h3>Product Details:</h3>
-                        <p><strong>Product:</strong> ${productName}</p>
-                        <p><strong>Size:</strong> ${size}</p>
-                        <p><strong>Quantity:</strong> ${quantity}</p>
-                        <p><strong>Unit Price:</strong> $${price}</p>
-                        <p><strong>Total Price:</strong> $${totalPrice}</p>
+                        <h3 style="color: #333; margin-top: 0;">Order Summary:</h3>
+                        <table style="width: 100%; border-collapse: collapse;">
+                            <tr style="border-bottom: 1px solid #ddd;">
+                                <td style="padding: 8px 0; font-weight: bold;">Product:</td>
+                                <td style="padding: 8px 0;">${productName}</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #ddd;">
+                                <td style="padding: 8px 0; font-weight: bold;">Size:</td>
+                                <td style="padding: 8px 0;">${size}</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #ddd;">
+                                <td style="padding: 8px 0; font-weight: bold;">Quantity:</td>
+                                <td style="padding: 8px 0;">${quantity}</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #ddd;">
+                                <td style="padding: 8px 0; font-weight: bold;">Unit Price:</td>
+                                <td style="padding: 8px 0;">$${price}</td>
+                            </tr>
+                            <tr style="border-bottom: 2px solid #ff3d00;">
+                                <td style="padding: 12px 0; font-weight: bold; font-size: 18px;">Total:</td>
+                                <td style="padding: 12px 0; font-weight: bold; font-size: 18px; color: #ff3d00;">$${totalPrice}</td>
+                            </tr>
+                        </table>
                         
-                        <h3>Customer Information:</h3>
+                        <h3 style="color: #333; margin-top: 20px;">Customer Information:</h3>
                         <p><strong>Name:</strong> ${customerName}</p>
                         <p><strong>Email:</strong> ${email}</p>
                         <p><strong>Phone:</strong> ${phone}</p>
@@ -312,7 +339,9 @@ app.post('/api/order', async (req, res) => {
             message: 'An error occurred while processing your order. Please try again later.'
         })
     }
-})
+});
+
+// Health check endpoint
 app.get('/api/health', (req, res) => {
     res.json({
         status: 'OK',
