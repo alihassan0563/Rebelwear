@@ -51,9 +51,9 @@ const Navbar = () => {
               alt="REBELWEAR Logo"
               className="h-12 w-12 rounded-full object-cover"
             />
-            <span className="text-3xl font-semibold font-black tracking-wider text-primary">
-              REBELWEAR
-            </span>
+            <p className="text-3xl font-semibold font-black tracking-wider text-primary">
+            <span className='text-secondary'>REBEL</span>WEAR
+            </p>
           </Link>
 
           <ul className="hidden md:flex list-none gap-6">

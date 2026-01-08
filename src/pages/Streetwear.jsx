@@ -1,6 +1,10 @@
+import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 const Streetwear = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
   const categories = [
     {
       title: 'Hoodies',

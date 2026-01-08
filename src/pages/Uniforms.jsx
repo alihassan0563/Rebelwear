@@ -1,6 +1,10 @@
+import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 const Uniforms = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
   const uniformTypes = [
     {
       title: 'Basketball Uniforms',

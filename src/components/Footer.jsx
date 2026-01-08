@@ -1,6 +1,16 @@
-import { Link } from 'react-router-dom'
+import React from 'react'
 
 const Footer = () => {
+  // Handles in-page smooth scroll navigation
+  const handleFooterLink = (e) => {
+    e.preventDefault();
+    const sectionId = e.currentTarget.getAttribute('href').replace('#', '');
+    const el = document.getElementById(sectionId);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <footer className="bg-primary text-white py-16">
       <div className="container">
@@ -23,24 +33,40 @@ const Footer = () => {
             <h4 className="text-lg font-bold mb-6">Quick Links</h4>
             <ul className="list-none space-y-2">
               <li>
-                <Link to="/#collections" className="text-gray-400 hover:text-secondary transition-colors">
+                <a
+                  href="#collections"
+                  onClick={handleFooterLink}
+                  className="text-gray-400 hover:text-secondary transition-colors"
+                >
                   Collections
-                </Link>
+                </a>
               </li>
               <li>
-                <Link to="/#about" className="text-gray-400 hover:text-secondary transition-colors">
+                <a
+                  href="#about"
+                  onClick={handleFooterLink}
+                  className="text-gray-400 hover:text-secondary transition-colors"
+                >
                   About Us
-                </Link>
+                </a>
               </li>
               <li>
-                <Link to="/#products" className="text-gray-400 hover:text-secondary transition-colors">
+                <a
+                  href="#products"
+                  onClick={handleFooterLink}
+                  className="text-gray-400 hover:text-secondary transition-colors"
+                >
                   Products
-                </Link>
+                </a>
               </li>
               <li>
-                <Link to="/#contact" className="text-gray-400 hover:text-secondary transition-colors">
+                <a
+                  href="#contact"
+                  onClick={handleFooterLink}
+                  className="text-gray-400 hover:text-secondary transition-colors"
+                >
                   Contact
-                </Link>
+                </a>
               </li>
             </ul>
           </div>
@@ -103,5 +129,3 @@ const Footer = () => {
 }
 
 export default Footer
-
-

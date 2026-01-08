@@ -1,11 +1,16 @@
 import { useParams, Link } from 'react-router-dom'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import ImageSlider from '../components/ImageSlider'
 
 const ProductDetail = () => {
   const { slug } = useParams()
   const [selectedSize, setSelectedSize] = useState('')
   const [quantity, setQuantity] = useState(1)
+
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [slug])
 
   // Mock product data - in a real app, this would come from an API
   const getProductBySlug = (slug) => {
