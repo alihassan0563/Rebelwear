@@ -10,6 +10,7 @@ import Tracksuits from './pages/Tracksuits'
 import Jackets from './pages/Jackets'
 import Sweatshirts from './pages/Sweatshirts'
 import Accessories from './pages/Accessories'
+import UniformAccessories from './pages/UniformAccessories'
 import BasketballUniforms from './pages/BasketballUniforms'
 import FootballUniforms from './pages/FootballUniforms'
 import SoccerUniforms from './pages/SoccerUniforms'
@@ -38,6 +39,7 @@ function App() {
             <Route path="/jackets" element={<Jackets />} />
             <Route path="/sweatshirts" element={<Sweatshirts />} />
             <Route path="/accessories" element={<Accessories />} />
+            <Route path="/uniform-accessories" element={<UniformAccessories />} />
             <Route path="/basketball-uniforms" element={<BasketballUniforms />} />
             <Route path="/football-uniforms" element={<FootballUniforms />} />
             <Route path="/soccer-uniforms" element={<SoccerUniforms />} />

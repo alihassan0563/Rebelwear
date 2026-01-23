@@ -1,6 +1,11 @@
+import { useEffect } from 'react'
 import ProductGallery from '../components/ProductGallery'
 
 const BaseballUniforms = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+  
   const products = [
     {
       title: 'Professional Baseball Uniform',

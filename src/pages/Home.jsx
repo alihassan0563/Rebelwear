@@ -7,6 +7,9 @@ const Home = () => {
   const reviewsRef = useRef(null)
 
   useEffect(() => {
+    // Scroll to top on page load
+    window.scrollTo(0, 0)
+    
     // Smooth scroll for anchor links
     const handleHashChange = () => {
       const hash = window.location.hash
