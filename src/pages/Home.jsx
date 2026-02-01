@@ -168,7 +168,7 @@ const Home = () => {
             >
               <div className="h-96 bg-gradient-to-br from-gray-900 to-gray-800 relative overflow-hidden">
                 <img
-                  src="/streetwear.avif"
+                  src="streetwear.avif"
                   alt="Streetwear Collection"
                   className="w-full h-full object-cover"
                 />
