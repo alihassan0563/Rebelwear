@@ -21,7 +21,7 @@ const Streetwear = () => {
     {
       title: 'Sweatshirts',
       description: 'Cozy layers with street-ready style.',
-      image: '/streetwear images/Sweat1.jpg',
+      image: '/streetwear images/sweatshirt3.jpg',
       link: '/sweatshirts',
     },
     {

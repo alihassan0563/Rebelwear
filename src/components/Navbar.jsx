@@ -22,7 +22,7 @@ const Navbar = () => {
     { path: '/', label: 'Contact', hash: '#contact' },
   ]
 
-  const handleNavClick = (e, hash) => {
+  const handleNavClick = (e, hash, path) => {
     if (hash && location.pathname === '/') {
       e.preventDefault()
       const element = document.querySelector(hash)
@@ -32,6 +32,9 @@ const Navbar = () => {
         const offsetPosition = elementPosition + window.pageYOffset - headerOffset
         window.scrollTo({ top: offsetPosition, behavior: 'smooth' })
       }
+    } else if (path !== location.pathname) {
+      // Scroll to top when navigating to different page
+      setTimeout(() => window.scrollTo(0, 0), 100)
     }
   }
 
@@ -61,7 +64,7 @@ const Navbar = () => {
               <li key={link.label}>
                 <Link
                   to={link.path + link.hash}
-                  onClick={(e) => handleNavClick(e, link.hash)}
+                  onClick={(e) => handleNavClick(e, link.hash, link.path)}
                   className="text-text-dark font-medium text-xl text-orange-700 font-semibold text-red-600  transition-all duration-300 relative hover:text-secondary after:content-[''] after:absolute after:bottom-[-5px] after:left-0 after:w-0 after:h-0.5 after:bg-secondary after:transition-all after:duration-300 hover:after:w-full"
                 >
                   {link.label}
@@ -86,7 +89,7 @@ const Navbar = () => {
                 key={link.label}
                 to={link.path + link.hash}
                 onClick={(e) => {
-                  handleNavClick(e, link.hash)
+                  handleNavClick(e, link.hash, link.path)
                   setIsMenuOpen(false)
                 }}
                 className="text-text-dark font-medium py-2 hover:text-secondary transition-colors"
