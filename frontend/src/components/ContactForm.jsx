@@ -54,7 +54,7 @@ const ContactForm = () => {
     try {
       const API_URL = window.location.hostname === 'localhost' 
         ? 'http://localhost:3000/api/contact'
-        : '/api/contact'
+        : 'https://rebelwear.onrender.com/api/contact'
 
       const formDataToSend = new FormData()
       formDataToSend.append('name', formData.name)

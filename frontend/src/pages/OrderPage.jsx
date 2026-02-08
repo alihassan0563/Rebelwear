@@ -82,7 +82,7 @@ const OrderPage = () => {
 
       const API_URL = window.location.hostname === 'localhost' 
         ? 'http://localhost:3000/api/order'
-        : '/api/order'
+        : 'https://rebelwear.onrender.com/api/order'
 
       const response = await fetch(API_URL, {
         method: 'POST',
