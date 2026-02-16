@@ -430,6 +430,20 @@ app.post("/api/order", async (req, res) => {
   }
 });
 
+// Root endpoint
+app.get("/", (req, res) => {
+  res.json({
+    message: "REBELWEAR API Server",
+    status: "Running",
+    endpoints: [
+      "POST /api/contact",
+      "POST /api/order",
+      "GET /api/health",
+      "GET /api/test"
+    ]
+  });
+});
+
 // Health check endpoint
 app.get("/api/health", (req, res) => {
   res.json({
@@ -437,6 +451,11 @@ app.get("/api/health", (req, res) => {
     message: "REBELWEAR API is running",
     timestamp: new Date().toISOString(),
     environment: process.env.NODE_ENV || "development",
+    emailConfigured: {
+      user: process.env.EMAIL_USER ? '✅ Set' : '❌ Missing',
+      pass: process.env.EMAIL_PASS ? '✅ Set' : '❌ Missing',
+      contact: process.env.CONTACT_EMAIL ? '✅ Set' : '❌ Missing'
+    }
   });
 });
 
