@@ -7,6 +7,7 @@ import { body, validationResult } from "express-validator";
 import dotenv from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";
+import fs from "fs";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -15,6 +16,13 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+// Create uploads directory if it doesn't exist
+const uploadsDir = path.join(__dirname, 'uploads');
+if (!fs.existsSync(uploadsDir)) {
+  fs.mkdirSync(uploadsDir, { recursive: true });
+  console.log('📁 Created uploads directory');
+}
 
 // Configure multer for file uploads
 const storage = multer.diskStorage({
@@ -102,6 +110,11 @@ app.post("/api/contact", upload.single("designFile"), async (req, res) => {
     timestamp: new Date().toISOString(),
     body: req.body,
     file: req.file ? req.file.originalname : "No file",
+    envCheck: {
+      emailUser: process.env.EMAIL_USER ? 'Set' : 'Missing',
+      emailPass: process.env.EMAIL_PASS ? 'Set' : 'Missing',
+      contactEmail: process.env.CONTACT_EMAIL ? 'Set' : 'Missing'
+    }
   });
 
   try {
@@ -467,7 +480,10 @@ app.use((req, res) => {
 // Start server
 app.listen(PORT, () => {
   console.log(`🚀 REBELWEAR Backend Server running on port ${PORT}`);
-  console.log(
-    `📧 Email service configured: ${process.env.EMAIL_USER ? "Ready" : "Not configured"}`,
-  );
+  console.log(`📧 Email service configured: ${process.env.EMAIL_USER ? 'Ready' : 'Not configured'}`);
+  console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
+  console.log(`✅ Server is ready to accept requests`);
+}).on('error', (err) => {
+  console.error('❌ Server failed to start:', err);
+  process.exit(1);
 });
