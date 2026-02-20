@@ -18,10 +18,10 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Create uploads directory if it doesn't exist
-const uploadsDir = path.join(__dirname, 'uploads');
+const uploadsDir = path.join(__dirname, "uploads");
 if (!fs.existsSync(uploadsDir)) {
   fs.mkdirSync(uploadsDir, { recursive: true });
-  console.log('📁 Created uploads directory');
+  console.log("📁 Created uploads directory");
 }
 
 // Configure multer for file uploads
@@ -58,7 +58,7 @@ const upload = multer({
 // Middleware
 app.use(
   cors({
-    origin: true, // Allow all origins in development, configure for production
+    origin: "https://rebelwearstore.netlify.app", // Allow all origins in development, configure for production
     credentials: true,
   }),
 );
@@ -66,11 +66,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Serve static files (optional - if you want to serve the frontend from here)
-app.use(express.static("."));
+// app.use(express.static("."));
+app.set("trust proxy", 1);
 
 // Configure Nodemailer
 const transporter = nodemailer.createTransport({
-  host: 'smtp.gmail.com',
+  host: "smtp.gmail.com",
   port: 587,
   secure: false,
   auth: {
@@ -78,7 +79,14 @@ const transporter = nodemailer.createTransport({
     pass: process.env.EMAIL_PASS,
   },
   tls: {
-    rejectUnauthorized: false
+    rejectUnauthorized: false,
+  },
+});
+transporter.verify(function (error, success) {
+  if (error) {
+    console.error("SMTP Error:", error);
+  } else {
+    console.log("SMTP Server is ready to take messages");
   }
 });
 
@@ -111,10 +119,10 @@ app.post("/api/contact", upload.single("designFile"), async (req, res) => {
     body: req.body,
     file: req.file ? req.file.originalname : "No file",
     envCheck: {
-      emailUser: process.env.EMAIL_USER ? 'Set' : 'Missing',
-      emailPass: process.env.EMAIL_PASS ? 'Set' : 'Missing',
-      contactEmail: process.env.CONTACT_EMAIL ? 'Set' : 'Missing'
-    }
+      emailUser: process.env.EMAIL_USER ? "Set" : "Missing",
+      emailPass: process.env.EMAIL_PASS ? "Set" : "Missing",
+      contactEmail: process.env.CONTACT_EMAIL ? "Set" : "Missing",
+    },
   });
 
   try {
@@ -208,33 +216,37 @@ app.post("/api/contact", upload.single("designFile"), async (req, res) => {
 
     // Send emails with error handling
     let emailErrors = [];
-    
+
     try {
       await transporter.sendMail(mailOptions);
       console.log("✅ Business notification email sent");
     } catch (emailError) {
       console.error("❌ Failed to send business email:", emailError.message);
-      emailErrors.push('business email');
+      emailErrors.push("business email");
     }
 
     try {
       await transporter.sendMail(confirmationMailOptions);
       console.log("✅ Customer confirmation email sent");
     } catch (emailError) {
-      console.error("❌ Failed to send confirmation email:", emailError.message);
-      emailErrors.push('confirmation email');
+      console.error(
+        "❌ Failed to send confirmation email:",
+        emailError.message,
+      );
+      emailErrors.push("confirmation email");
     }
 
     if (emailErrors.length > 0) {
       return res.status(500).json({
         success: false,
-        message: `Failed to send ${emailErrors.join(' and ')}. Please contact us directly at rebelwear40@gmail.com or +92 3313337574.`
+        message: `Failed to send ${emailErrors.join(" and ")}. Please contact us directly at rebelwear40@gmail.com or +92 3313337574.`,
       });
     }
 
     res.json({
       success: true,
-      message: "Your inquiry has been sent successfully! We will get back to you within 24-48 hours.",
+      message:
+        "Your inquiry has been sent successfully! We will get back to you within 24-48 hours.",
     });
   } catch (error) {
     console.error("Error sending email:", error);
@@ -392,33 +404,37 @@ app.post("/api/order", async (req, res) => {
 
     // Send emails
     let emailErrors = [];
-    
+
     try {
       await transporter.sendMail(orderMailOptions);
       console.log("✅ Order notification email sent");
     } catch (emailError) {
       console.error("❌ Failed to send order email:", emailError.message);
-      emailErrors.push('order notification');
+      emailErrors.push("order notification");
     }
 
     try {
       await transporter.sendMail(customerOrderConfirmation);
       console.log("✅ Customer order confirmation sent");
     } catch (emailError) {
-      console.error("❌ Failed to send customer confirmation:", emailError.message);
-      emailErrors.push('customer confirmation');
+      console.error(
+        "❌ Failed to send customer confirmation:",
+        emailError.message,
+      );
+      emailErrors.push("customer confirmation");
     }
 
     if (emailErrors.length > 0) {
       return res.status(500).json({
         success: false,
-        message: `Failed to send ${emailErrors.join(' and ')}. Please contact us directly at rebelwear40@gmail.com or +92 3313337574.`
+        message: `Failed to send ${emailErrors.join(" and ")}. Please contact us directly at rebelwear40@gmail.com or +92 3313337574.`,
       });
     }
 
     res.json({
       success: true,
-      message: "Order placed successfully! We will contact you within 24-48 hours with payment and shipping details.",
+      message:
+        "Order placed successfully! We will contact you within 24-48 hours with payment and shipping details.",
     });
   } catch (error) {
     console.error("Error processing order:", error);
@@ -439,8 +455,8 @@ app.get("/", (req, res) => {
       "POST /api/contact",
       "POST /api/order",
       "GET /api/health",
-      "GET /api/test"
-    ]
+      "GET /api/test",
+    ],
   });
 });
 
@@ -452,10 +468,10 @@ app.get("/api/health", (req, res) => {
     timestamp: new Date().toISOString(),
     environment: process.env.NODE_ENV || "development",
     emailConfigured: {
-      user: process.env.EMAIL_USER ? '✅ Set' : '❌ Missing',
-      pass: process.env.EMAIL_PASS ? '✅ Set' : '❌ Missing',
-      contact: process.env.CONTACT_EMAIL ? '✅ Set' : '❌ Missing'
-    }
+      user: process.env.EMAIL_USER ? "✅ Set" : "❌ Missing",
+      pass: process.env.EMAIL_PASS ? "✅ Set" : "❌ Missing",
+      contact: process.env.CONTACT_EMAIL ? "✅ Set" : "❌ Missing",
+    },
   });
 });
 
@@ -497,12 +513,16 @@ app.use((req, res) => {
 });
 
 // Start server
-app.listen(PORT, () => {
-  console.log(`🚀 REBELWEAR Backend Server running on port ${PORT}`);
-  console.log(`📧 Email service configured: ${process.env.EMAIL_USER ? 'Ready' : 'Not configured'}`);
-  console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
-  console.log(`✅ Server is ready to accept requests`);
-}).on('error', (err) => {
-  console.error('❌ Server failed to start:', err);
-  process.exit(1);
-});
+app
+  .listen(PORT, () => {
+    console.log(`🚀 REBELWEAR Backend Server running on port ${PORT}`);
+    console.log(
+      `📧 Email service configured: ${process.env.EMAIL_USER ? "Ready" : "Not configured"}`,
+    );
+    console.log(`🌍 Environment: ${process.env.NODE_ENV || "development"}`);
+    console.log(`✅ Server is ready to accept requests`);
+  })
+  .on("error", (err) => {
+    console.error("❌ Server failed to start:", err);
+    process.exit(1);
+  });
