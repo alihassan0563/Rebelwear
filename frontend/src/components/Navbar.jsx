@@ -15,7 +15,7 @@ const Navbar = () => {
   }, [])
 
   const navLinks = [
-    { path: '/', label: 'Homeee', hash: '' },
+    { path: '/', label: 'Home', hash: '' },
     { path: '/', label: 'Collections', hash: '#collections' },
     { path: '/about', label: 'About', hash: '' },
     { path: '/', label: 'Products', hash: '#products' },

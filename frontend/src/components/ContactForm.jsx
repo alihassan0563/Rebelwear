@@ -20,11 +20,18 @@ const ContactForm = () => {
 
   const handleChange = (e) => {
     const { name, value, files } = e.target
-    if (name === 'designFile' && files[0]) {
-      setFormData({ ...formData, designFile: files[0] })
+    if (name === 'designFile' && files && files[0]) {
+      const file = files[0]
+      if (file.size > 5 * 1024 * 1024) {
+        showNotification('File size must be less than 5MB', 'error')
+        e.target.value = ''
+        return
+      }
+      setFormData({ ...formData, designFile: file })
       const reader = new FileReader()
       reader.onloadend = () => setPreview(reader.result)
-      reader.readAsDataURL(files[0])
+      reader.onerror = () => showNotification('Failed to read file', 'error')
+      reader.readAsDataURL(file)
     } else {
       setFormData({ ...formData, [name]: value })
     }
@@ -53,7 +60,7 @@ const ContactForm = () => {
 
     try {
       const API_URL = window.location.hostname === 'localhost' 
-        ? 'http://localhost:3000/api/contact'
+        ? '/api/contact'
         : 'https://rebelwear.onrender.com/api/contact'
 
       const formDataToSend = new FormData()
@@ -71,6 +78,10 @@ const ContactForm = () => {
         method: 'POST',
         body: formDataToSend,
       })
+
+      if (!response.ok && response.status >= 500) {
+        throw new Error('Server error')
+      }
 
       const data = await response.json()
 
@@ -97,7 +108,6 @@ const ContactForm = () => {
         }
       }
     } catch (error) {
-      console.error('Form submission error:', error)
       showNotification('Network error. Please check your connection and try again.', 'error')
     } finally {
       setIsSubmitting(false)

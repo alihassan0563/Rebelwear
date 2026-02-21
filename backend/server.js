@@ -303,12 +303,7 @@ app.post("/api/order", async (req, res) => {
 
     const totalPrice = (parseFloat(price) * parseInt(quantity)).toFixed(2);
 
-    // Get image path for attachment
-    const imagePath = productImage.startsWith("/")
-      ? path.join(__dirname, productImage.substring(1))
-      : path.join(__dirname, productImage);
-
-    // Email to business owner
+    // Email to business owner (without image attachment since it's a frontend URL)
     const orderMailOptions = {
       from: process.env.EMAIL_USER,
       to: process.env.CONTACT_EMAIL || process.env.EMAIL_USER,
@@ -316,10 +311,6 @@ app.post("/api/order", async (req, res) => {
       html: `
                 <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
                     <h2 style="color: #ff3d00;">New Product Order</h2>
-                    
-                    <div style="text-align: center; margin: 20px 0;">
-                        <img src="cid:productImage" alt="${productName}" style="max-width: 300px; height: auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" />
-                    </div>
                     
                     <div style="background: #f8f8f8; padding: 20px; border-radius: 10px; margin: 20px 0;">
                         <h3 style="color: #333; margin-top: 0;">Order Summary:</h3>
@@ -356,13 +347,6 @@ app.post("/api/order", async (req, res) => {
                     <p style="color: #666; font-size: 12px;">This email was sent from the REBELWEAR order system.</p>
                 </div>
             `,
-      attachments: [
-        {
-          filename: `${productName.replace(/\s+/g, "_")}.jpg`,
-          path: imagePath,
-          cid: "productImage",
-        },
-      ],
     };
 
     // Confirmation email to customer
