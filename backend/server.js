@@ -69,7 +69,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // app.use(express.static("."));
 app.set("trust proxy", 1);
 
-// Configure Nodemailer
+// Configure Nodemail
 const transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
   port: 587,
