@@ -104,7 +104,7 @@ const contactValidation = [
     .withMessage("Please provide a valid email address"),
   body("phone").optional().trim(),
   body("inquiry").notEmpty().withMessage("Please select an inquiry type"),
-  body("message")
+  body("message") // this is not a valid syntasx
     .trim()
     .notEmpty()
     .withMessage("Message is required")
