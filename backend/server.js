@@ -303,10 +303,14 @@ app.post("/api/order", async (req, res) => {
 
     const totalPrice = (parseFloat(price) * parseInt(quantity)).toFixed(2);
 
-    // Get image path for attachment
-    const imagePath = productImage.startsWith("/")
-      ? path.join(__dirname, productImage.substring(1))
-      : path.join(__dirname, productImage);
+    // Get image path for attachment (only if it's a local file that exists)
+    let imagePath = null;
+    if (productImage && !productImage.startsWith("http")) {
+      const candidate = productImage.startsWith("/")
+        ? path.join(__dirname, productImage.substring(1))
+        : path.join(__dirname, productImage);
+      if (fs.existsSync(candidate)) imagePath = candidate;
+    }
 
     // Email to business owner
     const orderMailOptions = {
@@ -318,7 +322,7 @@ app.post("/api/order", async (req, res) => {
                     <h2 style="color: #ff3d00;">New Product Order</h2>
                     
                     <div style="text-align: center; margin: 20px 0;">
-                        <img src="cid:productImage" alt="${productName}" style="max-width: 300px; height: auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" />
+                        ${imagePath ? `<img src="cid:productImage" alt="${productName}" style="max-width: 300px; height: auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" />` : (productImage ? `<img src="${productImage}" alt="${productName}" style="max-width: 300px; height: auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" />` : "")}
                     </div>
                     
                     <div style="background: #f8f8f8; padding: 20px; border-radius: 10px; margin: 20px 0;">
@@ -356,13 +360,9 @@ app.post("/api/order", async (req, res) => {
                     <p style="color: #666; font-size: 12px;">This email was sent from the REBELWEAR order system.</p>
                 </div>
             `,
-      attachments: [
-        {
-          filename: `${productName.replace(/\s+/g, "_")}.jpg`,
-          path: imagePath,
-          cid: "productImage",
-        },
-      ],
+      attachments: imagePath
+        ? [{ filename: `${productName.replace(/\s+/g, "_")}.jpg`, path: imagePath, cid: "productImage" }]
+        : [],
     };
 
     // Confirmation email to customer
