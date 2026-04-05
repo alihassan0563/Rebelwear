@@ -8,11 +8,14 @@ import dotenv from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";
 import fs from "fs";
+import { Resend } from "resend";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 dotenv.config();
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -402,40 +405,27 @@ app.post("/api/order", async (req, res) => {
             `,
     };
 
-    // Send emails
-    let emailErrors = [];
-
-    try {
-      await transporter.sendMail(orderMailOptions);
-      console.log("✅ Order notification email sent");
-    } catch (emailError) {
-      console.error("❌ Failed to send order email:", emailError.message);
-      emailErrors.push("order notification");
-    }
-
-    try {
-      await transporter.sendMail(customerOrderConfirmation);
-      console.log("✅ Customer order confirmation sent");
-    } catch (emailError) {
-      console.error(
-        "❌ Failed to send customer confirmation:",
-        emailError.message,
-      );
-      emailErrors.push("customer confirmation");
-    }
-
-    if (emailErrors.length > 0) {
-      return res.status(500).json({
-        success: false,
-        message: `Failed to send ${emailErrors.join(" and ")}. Please contact us directly at rebelwear40@gmail.com or +92 3313337574.`,
-      });
-    }
-
+    // Respond immediately
     res.json({
       success: true,
       message:
         "Order placed successfully! We will contact you within 24-48 hours with payment and shipping details.",
     });
+
+    // Send business notification via nodemailer (fire and forget)
+    transporter.sendMail(orderMailOptions)
+      .then(() => console.log("✅ Order notification email sent"))
+      .catch((err) => console.error("❌ Failed to send order email:", err.message));
+
+    // Send customer confirmation via Resend (fire and forget)
+    resend.emails.send({
+      from: "REBELWEAR <onboarding@resend.dev>",
+      to: email,
+      subject: "Order Confirmation - REBELWEAR",
+      html: customerOrderConfirmation.html,
+    })
+      .then(() => console.log("✅ Customer order confirmation sent via Resend"))
+      .catch((err) => console.error("❌ Failed to send customer confirmation via Resend:", err.message));
   } catch (error) {
     console.error("Error processing order:", error);
     res.status(500).json({
