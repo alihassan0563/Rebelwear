@@ -430,7 +430,7 @@ app.post("/api/order", async (req, res) => {
     resend.emails
       .send({
         from: "REBELWEAR <onboarding@resend.dev>",
-        to: process.env.TEST_EMAIL || "rebelwear40@gmail.com",
+        to: process.env.TEST_EMAIL || "alihassan940210@gmail.com",
         subject: "Order Confirmation - REBELWEAR",
         html: customerOrderConfirmation.html,
       })
