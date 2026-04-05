@@ -325,7 +325,7 @@ app.post("/api/order", async (req, res) => {
                     <h2 style="color: #ff3d00;">New Product Order</h2>
                     
                     <div style="text-align: center; margin: 20px 0;">
-                        ${imagePath ? `<img src="cid:productImage" alt="${productName}" style="max-width: 300px; height: auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" />` : (productImage ? `<img src="${productImage}" alt="${productName}" style="max-width: 300px; height: auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" />` : "")}
+                        ${imagePath ? `<img src="cid:productImage" alt="${productName}" style="max-width: 300px; height: auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" />` : productImage ? `<img src="${productImage}" alt="${productName}" style="max-width: 300px; height: auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" />` : ""}
                     </div>
                     
                     <div style="background: #f8f8f8; padding: 20px; border-radius: 10px; margin: 20px 0;">
@@ -364,7 +364,13 @@ app.post("/api/order", async (req, res) => {
                 </div>
             `,
       attachments: imagePath
-        ? [{ filename: `${productName.replace(/\s+/g, "_")}.jpg`, path: imagePath, cid: "productImage" }]
+        ? [
+            {
+              filename: `${productName.replace(/\s+/g, "_")}.jpg`,
+              path: imagePath,
+              cid: "productImage",
+            },
+          ]
         : [],
     };
 
@@ -413,19 +419,28 @@ app.post("/api/order", async (req, res) => {
     });
 
     // Send business notification via nodemailer (fire and forget)
-    transporter.sendMail(orderMailOptions)
+    transporter
+      .sendMail(orderMailOptions)
       .then(() => console.log("✅ Order notification email sent"))
-      .catch((err) => console.error("❌ Failed to send order email:", err.message));
+      .catch((err) =>
+        console.error("❌ Failed to send order email:", err.message),
+      );
 
     // Send customer confirmation via Resend (fire and forget)
-    resend.emails.send({
-      from: "REBELWEAR <onboarding@resend.dev>",
-      to: email,
-      subject: "Order Confirmation - REBELWEAR",
-      html: customerOrderConfirmation.html,
-    })
+    resend.emails
+      .send({
+        from: "REBELWEAR <onboarding@resend.dev>",
+        to: process.env.TEST_EMAIL || "rebelwear40@gmail.com",
+        subject: "Order Confirmation - REBELWEAR",
+        html: customerOrderConfirmation.html,
+      })
       .then(() => console.log("✅ Customer order confirmation sent via Resend"))
-      .catch((err) => console.error("❌ Failed to send customer confirmation via Resend:", err.message));
+      .catch((err) =>
+        console.error(
+          "❌ Failed to send customer confirmation via Resend:",
+          err.message,
+        ),
+      );
   } catch (error) {
     console.error("Error processing order:", error);
     res.status(500).json({
