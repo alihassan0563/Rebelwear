@@ -15,6 +15,12 @@ const __dirname = path.dirname(__filename);
 
 dotenv.config();
 
+console.log("🔍 ENV CHECK:", {
+  user: process.env.EMAIL_USER,
+  passLength: process.env.EMAIL_PASS ? process.env.EMAIL_PASS.length : 0,
+  passFirst4: process.env.EMAIL_PASS ? process.env.EMAIL_PASS.substring(0, 4) : "MISSING"
+});
+
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 const app = express();
