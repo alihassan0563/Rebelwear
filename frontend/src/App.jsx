@@ -20,8 +20,6 @@ import BoxingUniforms from "./pages/BoxingUniforms";
 import About from "./pages/About";
 import ProductDetail from "./pages/ProductDetail";
 import OrderPage from "./pages/OrderPage";
-import Checkoutform from "../public/Checkoutform";
-// import StripeProvider from "./stripe";
 
 function App() {
   return (
