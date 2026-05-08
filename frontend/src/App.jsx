@@ -1,25 +1,27 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import Navbar from './components/Navbar'
-import Footer from './components/Footer'
-import Home from './pages/Home'
-import Streetwear from './pages/Streetwear'
-import Uniforms from './pages/Uniforms'
-import Hoodies from './pages/Hoodies'
-import Tshirts from './pages/Tshirts'
-import Tracksuits from './pages/Tracksuits'
-import Jackets from './pages/Jackets'
-import Sweatshirts from './pages/Sweatshirts'
-import Accessories from './pages/Accessories'
-import UniformAccessories from './pages/UniformAccessories'
-import BasketballUniforms from './pages/BasketballUniforms'
-import FootballUniforms from './pages/FootballUniforms'
-import SoccerUniforms from './pages/SoccerUniforms'
-import BaseballUniforms from './pages/BaseballUniforms'
-import HockeyUniforms from './pages/HockeyUniforms'
-import BoxingUniforms from './pages/BoxingUniforms'
-import About from './pages/About'
-import ProductDetail from './pages/ProductDetail'
-import OrderPage from './pages/OrderPage'
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+import Home from "./pages/Home";
+import Streetwear from "./pages/Streetwear";
+import Uniforms from "./pages/Uniforms";
+import Hoodies from "./pages/Hoodies";
+import Tshirts from "./pages/Tshirts";
+import Tracksuits from "./pages/Tracksuits";
+import Jackets from "./pages/Jackets";
+import Sweatshirts from "./pages/Sweatshirts";
+import Accessories from "./pages/Accessories";
+import UniformAccessories from "./pages/UniformAccessories";
+import BasketballUniforms from "./pages/BasketballUniforms";
+import FootballUniforms from "./pages/FootballUniforms";
+import SoccerUniforms from "./pages/SoccerUniforms";
+import BaseballUniforms from "./pages/BaseballUniforms";
+import HockeyUniforms from "./pages/HockeyUniforms";
+import BoxingUniforms from "./pages/BoxingUniforms";
+import About from "./pages/About";
+import ProductDetail from "./pages/ProductDetail";
+import OrderPage from "./pages/OrderPage";
+import Checkoutform from "../public/Checkoutform";
+// import StripeProvider from "./stripe";
 
 function App() {
   return (
@@ -28,9 +30,13 @@ function App() {
         <Navbar />
         <main className="flex-grow">
           <Routes>
+            {/* <Route path="/checkout" element={<StripeProvider />} /> */}
             <Route path="/" element={<Home />} />
             <Route path="/product/:slug" element={<ProductDetail />} />
-            <Route path="/order/:productSlug/:imageIndex" element={<OrderPage />} />
+            <Route
+              path="/order/:productSlug/:imageIndex"
+              element={<OrderPage />}
+            />
             <Route path="/streetwear" element={<Streetwear />} />
             <Route path="/uniforms" element={<Uniforms />} />
             <Route path="/hoodies" element={<Hoodies />} />
@@ -39,8 +45,14 @@ function App() {
             <Route path="/jackets" element={<Jackets />} />
             <Route path="/sweatshirts" element={<Sweatshirts />} />
             <Route path="/accessories" element={<Accessories />} />
-            <Route path="/uniform-accessories" element={<UniformAccessories />} />
-            <Route path="/basketball-uniforms" element={<BasketballUniforms />} />
+            <Route
+              path="/uniform-accessories"
+              element={<UniformAccessories />}
+            />
+            <Route
+              path="/basketball-uniforms"
+              element={<BasketballUniforms />}
+            />
             <Route path="/football-uniforms" element={<FootballUniforms />} />
             <Route path="/soccer-uniforms" element={<SoccerUniforms />} />
             <Route path="/baseball-uniforms" element={<BaseballUniforms />} />
@@ -52,9 +64,7 @@ function App() {
         <Footer />
       </div>
     </Router>
-  )
+  );
 }
 
-export default App
-
-
+export default App;
