@@ -23,7 +23,8 @@
     "express-validator": "^7.0.1",
     "multer": "^2.0.2",
     "nodemailer": "^6.10.1",
-    "rebelwear-backend": "file:"
+    "rebelwear-backend": "file:",
+    "resend": "^6.10.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.11"

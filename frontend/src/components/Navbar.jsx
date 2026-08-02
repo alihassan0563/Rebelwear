@@ -1,49 +1,50 @@
-import { useState, useEffect } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 const Navbar = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
-  const location = useLocation()
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50)
-    }
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+      setScrolled(window.scrollY > 50);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const navLinks = [
-    { path: '/', label: 'Homeee', hash: '' },
-    { path: '/', label: 'Collections', hash: '#collections' },
-    { path: '/about', label: 'About', hash: '' },
-    { path: '/', label: 'Products', hash: '#products' },
-    { path: '/', label: 'Contact', hash: '#contact' },
-  ]
+    { path: "/", label: "Home", hash: "" },
+    { path: "/", label: "Collections", hash: "#collections" },
+    { path: "/about", label: "About", hash: "" },
+    { path: "/", label: "Products", hash: "#products" },
+    { path: "/", label: "Contact", hash: "#contact" },
+  ];
 
   const handleNavClick = (e, hash, path) => {
-    if (hash && location.pathname === '/') {
-      e.preventDefault()
-      const element = document.querySelector(hash)
+    if (hash && location.pathname === "/") {
+      e.preventDefault();
+      const element = document.querySelector(hash);
       if (element) {
-        const headerOffset = 80
-        const elementPosition = element.getBoundingClientRect().top
-        const offsetPosition = elementPosition + window.pageYOffset - headerOffset
-        window.scrollTo({ top: offsetPosition, behavior: 'smooth' })
+        const headerOffset = 80;
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition =
+          elementPosition + window.pageYOffset - headerOffset;
+        window.scrollTo({ top: offsetPosition, behavior: "smooth" });
       }
     } else if (path !== location.pathname) {
       // Scroll to top when navigating to different page
-      setTimeout(() => window.scrollTo(0, 0), 100)
+      setTimeout(() => window.scrollTo(0, 0), 100);
     }
-  }
+  };
 
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 py-4 transition-all duration-300 ${
         scrolled
-          ? 'bg-white/98 backdrop-blur-md shadow-lg'
-          : 'bg-white/95 backdrop-blur-sm shadow-md'
+          ? "bg-white/98 backdrop-blur-md shadow-lg"
+          : "bg-white/95 backdrop-blur-sm shadow-md"
       }`}
     >
       <div className="container">
@@ -55,7 +56,7 @@ const Navbar = () => {
               className="h-12 w-12 rounded-full object-cover"
             />
             <p className="text-3xl font-semibold font-black tracking-wider text-primary">
-            <span className='text-secondary'>REBEL</span>WEAR
+              <span className="text-secondary">REBEL</span>WEAR
             </p>
           </Link>
 
@@ -89,8 +90,8 @@ const Navbar = () => {
                 key={link.label}
                 to={link.path + link.hash}
                 onClick={(e) => {
-                  handleNavClick(e, link.hash, link.path)
-                  setIsMenuOpen(false)
+                  handleNavClick(e, link.hash, link.path);
+                  setIsMenuOpen(false);
                 }}
                 className="text-text-dark font-medium py-2 hover:text-secondary transition-colors"
               >
@@ -101,9 +102,7 @@ const Navbar = () => {
         )}
       </div>
     </nav>
-  )
-}
+  );
+};
 
-export default Navbar
-
-
+export default Navbar;
