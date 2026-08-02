@@ -52,31 +52,26 @@ const ContactForm = () => {
     setIsSubmitting(true)
 
     try {
-      const API_URL = window.location.hostname === 'localhost' 
-        ? 'http://localhost:3000/api/contact'
-        : 'https://rebelwear.onrender.com/api/contact'
-
       const formDataToSend = new FormData()
       formDataToSend.append('name', formData.name)
       formDataToSend.append('email', formData.email)
-      formDataToSend.append('phone', formData.phone || '')
+      formDataToSend.append('phone', formData.phone)
       formDataToSend.append('inquiry', formData.inquiry)
       formDataToSend.append('message', formData.message)
-      
       if (formData.designFile) {
         formDataToSend.append('designFile', formData.designFile)
       }
 
-      const response = await fetch(API_URL, {
+      const response = await fetch('http://localhost:3000/api/contact', {
         method: 'POST',
         body: formDataToSend,
       })
 
-      const data = await response.json()
+      const result = await response.json()
 
-      if (response.ok && data.success) {
+      if (result.success) {
         showNotification(
-          data.message || 'Thank you for your inquiry! We will get back to you within 24-48 hours.',
+          'Thank you for your inquiry! We will get back to you within 24-48 hours.',
           'success'
         )
         setFormData({
@@ -89,16 +84,11 @@ const ContactForm = () => {
         })
         setPreview(null)
       } else {
-        if (data.errors && data.errors.length > 0) {
-          const errorMessages = data.errors.map((err) => err.msg).join(', ')
-          showNotification(errorMessages, 'error')
-        } else {
-          showNotification(data.message || 'An error occurred. Please try again.', 'error')
-        }
+        showNotification(result.message || 'Failed to send inquiry. Please try again.', 'error')
       }
     } catch (error) {
-      console.error('Form submission error:', error)
-      showNotification('Network error. Please check your connection and try again.', 'error')
+      console.error('Email send error:', error)
+      showNotification('Failed to send. Please try again or contact us directly.', 'error')
     } finally {
       setIsSubmitting(false)
     }
