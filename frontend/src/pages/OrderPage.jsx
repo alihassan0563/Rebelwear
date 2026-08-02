@@ -68,6 +68,8 @@ const OrderPage = () => {
     setIsSubmitting(true)
 
     try {
+      const totalPrice = (parseFloat(product.price) * orderData.quantity).toFixed(2)
+      
       const orderPayload = {
         productName: product.title,
         productImage: selectedImage,
@@ -79,7 +81,6 @@ const OrderPage = () => {
         phone: orderData.phone,
         address: orderData.address
       }
-
       const API_URL = window.location.hostname === 'localhost' 
         ? 'http://localhost:3000/api/order'
         : 'https://rebelwear.onrender.com/api/order'
@@ -89,12 +90,12 @@ const OrderPage = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(orderPayload)
+        body: JSON.stringify(orderPayload),
       })
 
-      const data = await response.json()
+      const result = await response.json()
 
-      if (response.ok && data.success) {
+      if (result.success) {
         showNotification('Order placed successfully! We will contact you soon.', 'success')
         setOrderData({
           size: '',
@@ -105,11 +106,11 @@ const OrderPage = () => {
           name: ''
         })
       } else {
-        showNotification(data.message || 'Failed to place order. Please try again.', 'error')
+        showNotification(result.message || 'Failed to place order. Please try again.', 'error')
       }
     } catch (error) {
       console.error('Order submission error:', error)
-      showNotification('Network error. Please try again.', 'error')
+      showNotification('Failed to place order. Please try again or contact us directly.', 'error')
     } finally {
       setIsSubmitting(false)
     }
