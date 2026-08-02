@@ -58,7 +58,7 @@ const upload = multer({
 // Middleware
 app.use(
   cors({
-    origin: "https://rebelwearstore.netlify.app", // Allow all origins in development, configure for production
+    origin: ["https://rebelwearstore.netlify.app", "http://localhost:5173", "http://localhost:3000", "http://127.0.0.1:5173"],
     credentials: true,
   }),
 );
@@ -166,6 +166,12 @@ app.post("/api/contact", upload.single("designFile"), async (req, res) => {
       html: `
                 <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
                     <h2 style="color: #ff3d00;">New Contact Form Inquiry</h2>
+                    ${uploadedFile ? `
+                    <div style="text-align: center; margin: 20px 0;">
+                        <img src="cid:designImage" alt="${uploadedFile.originalname}" style="max-width: 400px; height: auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" />
+                        <p style="color: #666; font-size: 12px; margin-top: 10px;">Design File: ${uploadedFile.originalname}</p>
+                    </div>
+                    ` : ""}
                     <div style="background: #f8f8f8; padding: 20px; border-radius: 10px; margin: 20px 0;">
                         <p><strong>Name:</strong> ${name}</p>
                         <p><strong>Email:</strong> ${email}</p>
@@ -173,7 +179,6 @@ app.post("/api/contact", upload.single("designFile"), async (req, res) => {
                         <p><strong>Inquiry Type:</strong> ${inquiry}</p>
                         <p><strong>Message:</strong></p>
                         <p style="background: white; padding: 15px; border-radius: 5px; margin-top: 10px;">${message.replace(/\n/g, "<br>")}</p>
-                        ${uploadedFile ? `<p><strong>Design File:</strong> ${uploadedFile.originalname}</p>` : ""}
                     </div>
                     <p style="color: #666; font-size: 12px;">This email was sent from the REBELWEAR contact form.</p>
                 </div>
@@ -183,6 +188,7 @@ app.post("/api/contact", upload.single("designFile"), async (req, res) => {
             {
               filename: uploadedFile.originalname,
               path: uploadedFile.path,
+              cid: "designImage",
             },
           ]
         : [],
@@ -303,10 +309,89 @@ app.post("/api/order", async (req, res) => {
 
     const totalPrice = (parseFloat(price) * parseInt(quantity)).toFixed(2);
 
-    // Get image path for attachment
-    const imagePath = productImage.startsWith("/")
-      ? path.join(__dirname, productImage.substring(1))
-      : path.join(__dirname, productImage);
+    console.log("🖼️ Processing product image:", productImage);
+
+    // Handle product image - download from URL if it's a remote URL
+    let imageAttachment = null;
+    let imageHtml = '';
+
+    if (productImage) {
+      try {
+        // Check if it's a URL
+        if (productImage.startsWith('http')) {
+          console.log("📥 Downloading image from URL:", productImage);
+          // Download image from URL
+          const response = await fetch(productImage);
+          console.log("📥 Image response status:", response.status);
+          
+          if (!response.ok) {
+            throw new Error(`Failed to fetch image: ${response.status}`);
+          }
+          
+          const buffer = await response.arrayBuffer();
+          const imageBuffer = Buffer.from(buffer);
+          console.log("📥 Image buffer size:", imageBuffer.length);
+          
+          imageAttachment = {
+            filename: `${productName.replace(/\s+/g, "_")}.jpg`,
+            content: imageBuffer,
+            cid: "productImage",
+          };
+          
+          imageHtml = `
+                    <div style="text-align: center; margin: 20px 0;">
+                        <img src="cid:productImage" alt="${productName}" style="max-width: 300px; height: auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" />
+                    </div>
+                    `;
+          console.log("✅ Image attachment created successfully");
+        } else {
+          // Local file path - check in frontend public folder
+          console.log("📁 Using local file path");
+          // First try backend directory, then frontend public directory
+          const backendPath = productImage.startsWith("/")
+            ? path.join(__dirname, productImage.substring(1))
+            : path.join(__dirname, productImage);
+          
+          const frontendPath = productImage.startsWith("/")
+            ? path.join(__dirname, "..", "frontend", "public", productImage.substring(1))
+            : path.join(__dirname, "..", "frontend", "public", productImage);
+          
+          console.log("📁 Backend image path:", backendPath);
+          console.log("📁 Frontend image path:", frontendPath);
+          
+          let imagePath = null;
+          if (fs.existsSync(backendPath)) {
+            imagePath = backendPath;
+            console.log("✅ Found image in backend directory");
+          } else if (fs.existsSync(frontendPath)) {
+            imagePath = frontendPath;
+            console.log("✅ Found image in frontend public directory");
+          } else {
+            console.log("❌ Image file not found in either location");
+          }
+          
+          if (imagePath) {
+            imageAttachment = {
+              filename: `${productName.replace(/\s+/g, "_")}.jpg`,
+              path: imagePath,
+              cid: "productImage",
+            };
+            
+            imageHtml = `
+                    <div style="text-align: center; margin: 20px 0;">
+                        <img src="cid:productImage" alt="${productName}" style="max-width: 300px; height: auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" />
+                    </div>
+                    `;
+            console.log("✅ Local image attachment created successfully");
+          }
+        }
+      } catch (imageError) {
+        console.error('❌ Error processing product image:', imageError);
+        // Continue without image if there's an error
+      }
+    } else {
+      console.log("⚠️ No product image provided");
+    }
 
     // Email to business owner
     const orderMailOptions = {
@@ -317,9 +402,7 @@ app.post("/api/order", async (req, res) => {
                 <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
                     <h2 style="color: #ff3d00;">New Product Order</h2>
                     
-                    <div style="text-align: center; margin: 20px 0;">
-                        <img src="cid:productImage" alt="${productName}" style="max-width: 300px; height: auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" />
-                    </div>
+                    ${imageHtml}
                     
                     <div style="background: #f8f8f8; padding: 20px; border-radius: 10px; margin: 20px 0;">
                         <h3 style="color: #333; margin-top: 0;">Order Summary:</h3>
@@ -356,13 +439,7 @@ app.post("/api/order", async (req, res) => {
                     <p style="color: #666; font-size: 12px;">This email was sent from the REBELWEAR order system.</p>
                 </div>
             `,
-      attachments: [
-        {
-          filename: `${productName.replace(/\s+/g, "_")}.jpg`,
-          path: imagePath,
-          cid: "productImage",
-        },
-      ],
+      attachments: imageAttachment ? [imageAttachment] : [],
     };
 
     // Confirmation email to customer
@@ -375,6 +452,8 @@ app.post("/api/order", async (req, res) => {
                     <h2 style="color: #ff3d00;">Order Confirmation</h2>
                     <p>Dear ${customerName},</p>
                     <p>Thank you for your order! We have received your order and will process it within 24-48 hours.</p>
+                    
+                    ${imageHtml}
                     
                     <div style="background: #f8f8f8; padding: 20px; border-radius: 10px; margin: 20px 0;">
                         <h3>Order Summary:</h3>
@@ -400,6 +479,7 @@ app.post("/api/order", async (req, res) => {
                     <p style="color: #666; font-size: 12px;">This is an automated confirmation email.</p>
                 </div>
             `,
+      attachments: imageAttachment ? [imageAttachment] : [],
     };
 
     // Send emails
