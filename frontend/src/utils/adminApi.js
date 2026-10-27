@@ -1,16 +1,6 @@
 // Admin API Helper for REBELWEAR
 
-const getApiBaseUrl = () => {
-  if (import.meta.env.VITE_API_URL) {
-    return import.meta.env.VITE_API_URL.replace(/\/$/, "");
-  }
-  if (typeof window !== "undefined") {
-    if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
-      return "http://localhost:3001/api";
-    }
-  }
-  return "https://rebelwear.onrender.com/api";
-};
+import { getApiBaseUrl } from "./apiConfig.js";
 
 const getAuthToken = () => {
   return localStorage.getItem("rw_admin_token") || "";

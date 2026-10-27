@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { getApiBaseUrl } from '../utils/apiConfig'
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
@@ -62,12 +63,7 @@ const ContactForm = () => {
         formDataToSend.append('designFile', formData.designFile)
       }
 
-      const apiBase = (
-        import.meta.env.VITE_API_URL ||
-        (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-          ? 'http://localhost:3001/api'
-          : 'https://rebelwear.onrender.com/api')
-      ).replace(/\/$/, "");
+      const apiBase = getApiBaseUrl();
 
       const response = await fetch(`${apiBase}/contact`, {
         method: 'POST',

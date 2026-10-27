@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { cld } from '../utils/cloudinary'
+import { getApiBaseUrl } from '../utils/apiConfig'
 
 const OrderPage = () => {
   const { productSlug, imageIndex } = useParams()
@@ -82,12 +83,7 @@ const OrderPage = () => {
         phone: orderData.phone,
         address: orderData.address
       }
-      const apiBase = (
-        import.meta.env.VITE_API_URL ||
-        (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-          ? 'http://localhost:3001/api'
-          : 'https://rebelwear.onrender.com/api')
-      ).replace(/\/$/, "");
+      const apiBase = getApiBaseUrl();
       const API_URL = `${apiBase}/order`;
 
       const response = await fetch(API_URL, {
