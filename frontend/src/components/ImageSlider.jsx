@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
+import { cld } from '../utils/cloudinary'
 
-const ImageSlider = ({ images, autoPlay = false, interval = 4000, onImageChange }) => {
+const ImageSlider = ({ images, autoPlay = false, interval = 4000, onImageChange, width = 600 }) => {
   const [currentIndex, setCurrentIndex] = useState(0)
 
   useEffect(() => {
@@ -42,7 +43,7 @@ const ImageSlider = ({ images, autoPlay = false, interval = 4000, onImageChange 
     return (
       <div className="relative w-full h-full overflow-hidden rounded-t-3xl">
         <img
-          src={images[0]}
+          src={cld(images[0], width)}
           alt="Product"
           className="w-full h-full object-cover "
         />
@@ -56,7 +57,7 @@ const ImageSlider = ({ images, autoPlay = false, interval = 4000, onImageChange 
         {images.map((img, index) => (
           <img
             key={index}
-            src={img}
+            src={cld(img, width)}
             alt={`Slide ${index + 1}`}
             className={`absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-500 ${
               index === currentIndex ? 'opacity-100' : 'opacity-0'

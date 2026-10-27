@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { cld } from '../utils/cloudinary'
 
 const Uniforms = () => {
   useEffect(() => {
@@ -13,7 +14,7 @@ const Uniforms = () => {
       link: '/basketball-uniforms',
       badge: 'Popular',
       
-      image:         '/streetwear images/sportswear images/basketball uniform 3.jpeg',
+      image:         'https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105308/rebelwear/streetwear-images/sportswear-images/basketball-uniform-3.jpg',
     },
     {
       title: 'Baseball Uniforms',
@@ -21,7 +22,7 @@ const Uniforms = () => {
       features: ['Breathable Material', 'Flexible Design', 'Team Branding'],
       link: '/baseball-uniforms',
       badge: 'Best Seller',
-      image:         '/streetwear images/sportswear images/baseball uniform 2.jpeg',
+      image:         'https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105294/rebelwear/streetwear-images/sportswear-images/baseball-uniform-2.jpg',
     },
     {
       title: 'American Football Uniforms',
@@ -29,14 +30,14 @@ const Uniforms = () => {
       features: ['Quick-Dry Fabric', 'Custom Colors', 'Perfect Fit'],
       link: '/football-uniforms',
       badge: 'New',
-      image:         '/streetwear images/sportswear images/american football uniform 7.jpeg',
+      image:         'https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105274/rebelwear/streetwear-images/sportswear-images/american-football-uniform-7.jpg',
     },
     {
       title: 'Soccer Uniforms',
       description: 'Lightweight soccer jerseys and shorts built for speed and agility on the pitch.',
       features: ['Weather Resistant', 'Team Logo', 'Premium Quality'],
       link: '/soccer-uniforms',
-      image:         '/streetwear images/sportswear images/soccer jersey 8.jpeg',
+      image:         'https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105321/rebelwear/streetwear-images/sportswear-images/soccer-jersey-8.jpg',
 
     },
     {
@@ -44,7 +45,7 @@ const Uniforms = () => {
       description: 'Complete your team\'s look with professional sports accessories.',
       features: ['Team Essentials', 'Custom Branding', 'Premium Quality'],
       link: '/uniform-accessories',
-      image:         '/streetwear images/sportswear images/sport-accessory.webp',
+      image:         'https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105330/rebelwear/streetwear-images/sportswear-images/sport-accessory.webp',
     },
   ]
 
@@ -76,8 +77,8 @@ const Uniforms = () => {
               >
                 <div className="h-96 bg-gradient-to-br from-gray-900 to-gray-800 relative overflow-hidden">
                   {uniform.image ? (
-                    <img 
-                      src={uniform.image} 
+                    <img
+                      src={cld(uniform.image, 800)}
                       alt={uniform.title}
                       className="w-full h-full object-center"
                     />

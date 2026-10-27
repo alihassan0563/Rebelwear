@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { cld } from "../utils/cloudinary";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -25,6 +26,12 @@ const Navbar = () => {
   const handleNavClick = (e, hash, path) => {
     if (hash && location.pathname === "/") {
       e.preventDefault();
+      if (hash === "#collections") {
+        window.dispatchEvent(
+          new CustomEvent("rebelwear-scroll-panel", { detail: { panelIndex: 1 } })
+        );
+        return;
+      }
       const element = document.querySelector(hash);
       if (element) {
         const headerOffset = 80;
@@ -33,6 +40,9 @@ const Navbar = () => {
           elementPosition + window.pageYOffset - headerOffset;
         window.scrollTo({ top: offsetPosition, behavior: "smooth" });
       }
+    } else if (path === "/" && !hash && location.pathname === "/") {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: "smooth" });
     } else if (path !== location.pathname) {
       // Scroll to top when navigating to different page
       setTimeout(() => window.scrollTo(0, 0), 100);
@@ -51,7 +61,7 @@ const Navbar = () => {
         <div className="flex justify-between items-center">
           <Link to="/" className="flex items-center gap-4">
             <img
-              src="/rebelwear.jpg"
+              src={cld("https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105167/rebelwear/rebelwear.jpg", 100)}
               alt="REBELWEAR Logo"
               className="h-12 w-12 rounded-full object-cover"
             />

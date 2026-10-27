@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
@@ -20,47 +20,60 @@ import BoxingUniforms from "./pages/BoxingUniforms";
 import About from "./pages/About";
 import ProductDetail from "./pages/ProductDetail";
 import OrderPage from "./pages/OrderPage";
+import AdminDashboard from "./pages/admin/AdminDashboard";
+
+function AppContent() {
+  const location = useLocation();
+  const isAdmin = location.pathname.startsWith("/admin");
+
+  return (
+    <div className="min-h-screen flex flex-col">
+      {!isAdmin && <Navbar />}
+      <main className="flex-grow">
+        <Routes>
+          {/* Admin Command Suite */}
+          <Route path="/admin" element={<AdminDashboard />} />
+
+          {/* Storefront Routes */}
+          <Route path="/" element={<Home />} />
+          <Route path="/product/:slug" element={<ProductDetail />} />
+          <Route
+            path="/order/:productSlug/:imageIndex"
+            element={<OrderPage />}
+          />
+          <Route path="/streetwear" element={<Streetwear />} />
+          <Route path="/uniforms" element={<Uniforms />} />
+          <Route path="/hoodies" element={<Hoodies />} />
+          <Route path="/tshirts" element={<Tshirts />} />
+          <Route path="/tracksuits" element={<Tracksuits />} />
+          <Route path="/jackets" element={<Jackets />} />
+          <Route path="/sweatshirts" element={<Sweatshirts />} />
+          <Route path="/accessories" element={<Accessories />} />
+          <Route
+            path="/uniform-accessories"
+            element={<UniformAccessories />}
+          />
+          <Route
+            path="/basketball-uniforms"
+            element={<BasketballUniforms />}
+          />
+          <Route path="/football-uniforms" element={<FootballUniforms />} />
+          <Route path="/soccer-uniforms" element={<SoccerUniforms />} />
+          <Route path="/baseball-uniforms" element={<BaseballUniforms />} />
+          <Route path="/hockey-uniforms" element={<HockeyUniforms />} />
+          <Route path="/boxing-uniforms" element={<BoxingUniforms />} />
+          <Route path="/about" element={<About />} />
+        </Routes>
+      </main>
+      {!isAdmin && <Footer />}
+    </div>
+  );
+}
 
 function App() {
   return (
     <Router>
-      <div className="min-h-screen flex flex-col">
-        <Navbar />
-        <main className="flex-grow">
-          <Routes>
-            {/* <Route path="/checkout" element={<StripeProvider />} /> */}
-            <Route path="/" element={<Home />} />
-            <Route path="/product/:slug" element={<ProductDetail />} />
-            <Route
-              path="/order/:productSlug/:imageIndex"
-              element={<OrderPage />}
-            />
-            <Route path="/streetwear" element={<Streetwear />} />
-            <Route path="/uniforms" element={<Uniforms />} />
-            <Route path="/hoodies" element={<Hoodies />} />
-            <Route path="/tshirts" element={<Tshirts />} />
-            <Route path="/tracksuits" element={<Tracksuits />} />
-            <Route path="/jackets" element={<Jackets />} />
-            <Route path="/sweatshirts" element={<Sweatshirts />} />
-            <Route path="/accessories" element={<Accessories />} />
-            <Route
-              path="/uniform-accessories"
-              element={<UniformAccessories />}
-            />
-            <Route
-              path="/basketball-uniforms"
-              element={<BasketballUniforms />}
-            />
-            <Route path="/football-uniforms" element={<FootballUniforms />} />
-            <Route path="/soccer-uniforms" element={<SoccerUniforms />} />
-            <Route path="/baseball-uniforms" element={<BaseballUniforms />} />
-            <Route path="/hockey-uniforms" element={<HockeyUniforms />} />
-            <Route path="/boxing-uniforms" element={<BoxingUniforms />} />
-            <Route path="/about" element={<About />} />
-          </Routes>
-        </main>
-        <Footer />
-      </div>
+      <AppContent />
     </Router>
   );
 }

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
+import { cld } from '../utils/cloudinary'
 
 const OrderPage = () => {
   const { productSlug, imageIndex } = useParams()
@@ -148,7 +149,7 @@ const OrderPage = () => {
           {/* Product Image */}
           <div className="bg-white rounded-2xl p-6 shadow-lg">
             <img
-              src={selectedImage}
+              src={cld(selectedImage, 1000)}
               alt={product.title}
               className="w-full h-auto object-cover rounded-xl"
             />

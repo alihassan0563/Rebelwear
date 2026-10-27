@@ -21,11 +21,11 @@ const ProductDetail = () => {
         category: 'Streetwear',
         description: 'Premium cotton blend hoodie with custom graphics. Perfect for streetwear enthusiasts.',
         images: [
-          '/streetwear images/H12.jpeg',
-          '/streetwear images/H11.jpeg',
-          '/streetwear images/hoodi2.avif',
-          '/streetwear images/hoo1.jpeg',
-          '/streetwear images/hoo2.jpeg',
+          'https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105223/rebelwear/streetwear-images/h12.jpg',
+          'https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105222/rebelwear/streetwear-images/h11.jpg',
+          'https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105226/rebelwear/streetwear-images/hoodi2.avif',
+          'https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105223/rebelwear/streetwear-images/hoo1.jpg',
+          'https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105224/rebelwear/streetwear-images/hoo2.jpg',
         ],
         sizes: ['S', 'M', 'L', 'XL', 'XXL'],
         features: ['100% Cotton', 'Custom Graphics', 'Comfortable Fit', 'Machine Washable']
@@ -50,9 +50,9 @@ const ProductDetail = () => {
         category: 'Streetwear',
         description: 'Bold graphic tees with premium fabric quality.',
         images: [
-          '/streetwear images/sh1.jpeg',
-          '/streetwear images/sh2.jpeg',
-          '/streetwear images/sh3.jpeg',
+          'https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105265/rebelwear/streetwear-images/sh1.jpg',
+          'https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105265/rebelwear/streetwear-images/sh2.jpg',
+          'https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105266/rebelwear/streetwear-images/sh3.jpg',
         ],
         sizes: ['S', 'M', 'L', 'XL', 'XXL'],
         features: ['Premium Cotton', 'Bold Graphics', 'Comfortable Fit', 'Durable Print']
@@ -85,7 +85,7 @@ const ProductDetail = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Product Images */}
           <div className="h-96 lg:h-[600px]">
-            <ImageSlider images={product.images} autoPlay={false} />
+            <ImageSlider images={product.images} autoPlay={false} width={1000} />
           </div>
 
           {/* Product Info */}

@@ -19,7 +19,13 @@ const UniformAccessories = () => {
       price: '35.00',
       category: 'Uniform Accessories',
       description: 'Protective sports eyewear designed for performance and safety.',
-      images: [],
+      images: [
+        'https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105211/rebelwear/streetwear-images/glasses1.jpg',
+        'https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105212/rebelwear/streetwear-images/glasses2.jpg',
+        'https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105213/rebelwear/streetwear-images/glasses3.jpg',
+        'https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105214/rebelwear/streetwear-images/glasses4.jpg',
+        'https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105215/rebelwear/streetwear-images/glasses5.jpg',
+      ],
     },
     {
       title: 'Sports Bag',
@@ -40,7 +46,13 @@ const UniformAccessories = () => {
       price: '20.00',
       category: 'Uniform Accessories',
       description: 'Team caps with custom branding and embroidery options.',
-      images: [],
+      images: [
+        'https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105188/rebelwear/streetwear-images/cap1.jpg',
+        'https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105189/rebelwear/streetwear-images/cap2.jpg',
+        'https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105190/rebelwear/streetwear-images/cap3.jpg',
+        'https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105190/rebelwear/streetwear-images/cap4.jpg',
+        'https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105191/rebelwear/streetwear-images/cap5.jpg',
+      ],
     },
     {
       title: 'Other Items',

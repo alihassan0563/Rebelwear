@@ -1,0 +1,125 @@
+[
+  {
+    "_id": "prod_1",
+    "title": "Classic Hoodie",
+    "slug": "classic-hoodie",
+    "price": "34.99",
+    "category": "Hoodies",
+    "parentCollection": "Streetwear",
+    "description": "Timeless style with premium comfort. Clean design, everyday comfort.",
+    "images": [
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105192/rebelwear/streetwear-images/classichoodie1.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105193/rebelwear/streetwear-images/classichoodie2.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105194/rebelwear/streetwear-images/classichoodie3.jpg"
+    ],
+    "badge": "Popular",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "status": "published",
+    "isFeatured": true,
+    "createdAt": "2026-10-08T19:54:40.474Z",
+    "updatedAt": "2026-10-08T19:54:40.474Z"
+  },
+  {
+    "_id": "prod_2",
+    "title": "Oversize Hoodie",
+    "slug": "oversize-hoodie",
+    "price": "29.99",
+    "category": "Hoodies",
+    "parentCollection": "Streetwear",
+    "description": "Relaxed fit for ultimate comfort. Street-ready silhouette.",
+    "images": [
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105231/rebelwear/streetwear-images/oversizehoodie1.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105233/rebelwear/streetwear-images/oversizehoodie2.jpg"
+    ],
+    "badge": "Hot",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "status": "published",
+    "isFeatured": true,
+    "createdAt": "2026-10-08T19:54:40.474Z",
+    "updatedAt": "2026-10-08T19:54:40.474Z"
+  },
+  {
+    "_id": "prod_3",
+    "title": "Rebel Hoodie",
+    "slug": "rebel-hoodie",
+    "price": "29.99",
+    "category": "Hoodies",
+    "parentCollection": "Streetwear",
+    "description": "Warm, bold, and made to stand out. Premium cotton blend with custom graphics.",
+    "images": [
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105222/rebelwear/streetwear-images/h11.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105223/rebelwear/streetwear-images/h12.jpg"
+    ],
+    "badge": "New",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "status": "published",
+    "isFeatured": true,
+    "createdAt": "2026-10-08T19:54:40.474Z",
+    "updatedAt": "2026-10-08T19:54:40.474Z"
+  },
+  {
+    "_id": "prod_4",
+    "title": "Custom Team Uniforms",
+    "slug": "custom-team-uniforms",
+    "price": "65.00",
+    "category": "Basketball Uniforms",
+    "parentCollection": "Sportswear",
+    "description": "Professional team uniforms with custom designs. Built for performance and durability.",
+    "images": [
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105308/rebelwear/streetwear-images/sportswear-images/basketball-uniform-3.jpg"
+    ],
+    "badge": "Popular",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "status": "published",
+    "isFeatured": true,
+    "createdAt": "2026-10-08T19:54:40.474Z",
+    "updatedAt": "2026-10-08T19:54:40.474Z"
+  },
+  {
+    "_id": "prod_5",
+    "title": "Street Graphic Tee",
+    "slug": "street-graphic-tee",
+    "price": "24.99",
+    "category": "T-Shirts",
+    "parentCollection": "Streetwear",
+    "description": "Bold graphic tees with premium fabric quality.",
+    "images": [
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105265/rebelwear/streetwear-images/sh1.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105266/rebelwear/streetwear-images/sh3.jpg"
+    ],
+    "badge": "New",
+    "sizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "status": "published",
+    "isFeatured": true,
+    "createdAt": "2026-10-08T19:54:40.474Z",
+    "updatedAt": "2026-10-08T19:54:40.474Z"
+  }
+]

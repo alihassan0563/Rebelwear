@@ -9,6 +9,11 @@ import path from "path";
 import { fileURLToPath } from "url";
 import fs from "fs";
 import { Resend } from "resend";
+import cloudinary from "./config/cloudinary.js";
+import { connectDB } from "./config/db.js";
+import adminRoutes from "./routes/adminRoutes.js";
+import publicRoutes from "./routes/publicRoutes.js";
+import { saveOrder } from "./services/storageService.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -320,95 +325,49 @@ app.post("/api/order", async (req, res) => {
 
     console.log("🖼️ Processing product image:", productImage);
 
-    // Handle product image - download from URL if it's a remote URL
-    let imageAttachment = null;
-    let imageHtml = '';
+    // Embed the product image as a real hosted URL so it renders reliably in
+    // email (both Nodemailer and Resend). Product catalog images are now
+    // Cloudinary URLs already (see backend/scripts/upload-frontend-images-to-cloudinary.mjs),
+    // so most orders just reuse that URL directly. Anything else (a relative
+    // frontend path from an older cached page, or a foreign URL) still gets
+    // uploaded to Cloudinary to normalize it into a real hosted URL.
+    let imageUrl = null;
+    let imageHtml = "";
 
     if (productImage) {
       try {
-        // Check if it's a URL
-        if (productImage.startsWith('http')) {
-          console.log("📥 Downloading image from URL:", productImage);
-          // Download image from URL
-          const response = await fetch(productImage);
-          console.log("📥 Image response status:", response.status);
-          
-          if (!response.ok) {
-            throw new Error(`Failed to fetch image: ${response.status}`);
-          }
-          
-          const buffer = await response.arrayBuffer();
-          const imageBuffer = Buffer.from(buffer);
-          console.log("📥 Image buffer size:", imageBuffer.length);
-          
-          imageAttachment = {
-            filename: `${productName.replace(/\s+/g, "_")}.jpg`,
-            content: imageBuffer,
-            cid: "productImage",
-          };
-          
-          imageHtml = `
-                    <div style="text-align: center; margin: 20px 0;">
-                        <img src="cid:productImage" alt="${productName}" style="max-width: 300px; height: auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" />
-                    </div>
-                    `;
-          console.log("✅ Image attachment created successfully");
+        if (productImage.includes("res.cloudinary.com")) {
+          imageUrl = productImage;
         } else {
-          // Local file path - check in frontend public folder
-          console.log("📁 Using local file path");
-          // First try backend directory, then frontend public directory
-          const backendPath = productImage.startsWith("/")
-            ? path.join(__dirname, productImage.substring(1))
-            : path.join(__dirname, productImage);
-          
-          const frontendPath = productImage.startsWith("/")
-            ? path.join(__dirname, "..", "frontend", "public", productImage.substring(1))
-            : path.join(__dirname, "..", "frontend", "public", productImage);
-          
-          console.log("📁 Backend image path:", backendPath);
-          console.log("📁 Frontend image path:", frontendPath);
-          
-          let imagePath = null;
-          if (fs.existsSync(backendPath)) {
-            imagePath = backendPath;
-            console.log("✅ Found image in backend directory");
-          } else if (fs.existsSync(frontendPath)) {
-            imagePath = frontendPath;
-            console.log("✅ Found image in frontend public directory");
-          } else {
-            console.log("❌ Image file not found in either location");
-          }
-          
-          if (imagePath) {
-            imageAttachment = {
-              filename: `${productName.replace(/\s+/g, "_")}.jpg`,
-              path: imagePath,
-              cid: "productImage",
-            };
-            
-            imageHtml = `
+          const frontendUrl = (
+            process.env.FRONTEND_URL || "https://rebelwearstore.netlify.app"
+          ).replace(/\/$/, "");
+          const absoluteImageUrl = productImage.startsWith("http")
+            ? productImage
+            : encodeURI(`${frontendUrl}/${productImage.replace(/^\//, "")}`);
+
+          console.log("📥 Uploading product image to Cloudinary:", absoluteImageUrl);
+
+          const uploadResult = await cloudinary.uploader.upload(absoluteImageUrl, {
+            folder: "rebelwear/orders",
+          });
+
+          imageUrl = uploadResult.secure_url;
+        }
+
+        imageHtml = `
                     <div style="text-align: center; margin: 20px 0;">
-                        <img src="cid:productImage" alt="${productName}" style="max-width: 300px; height: auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" />
+                        <img src="${imageUrl}" alt="${productName}" style="max-width: 300px; height: auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" />
                     </div>
                     `;
-            console.log("✅ Local image attachment created successfully");
-          }
-        }
+        console.log("✅ Product image ready:", imageUrl);
       } catch (imageError) {
-        console.error('❌ Error processing product image:', imageError);
+        console.error("❌ Error resolving product image:", imageError.message);
         // Continue without image if there's an error
       }
     } else {
       console.log("⚠️ No product image provided");
     }
-    // Get image path for attachment (only if it's a local file that exists)
-    // let imagePath = null;
-    // if (productImage && !productImage.startsWith("http")) {
-    //   const candidate = productImage.startsWith("/")
-    //     ? path.join(__dirname, productImage.substring(1))
-    //     : path.join(__dirname, productImage);
-    //   if (fs.existsSync(candidate)) imagePath = candidate;
-    // }
 
     // Email to business owner
     const orderMailOptions = {
@@ -456,16 +415,6 @@ app.post("/api/order", async (req, res) => {
                     <p style="color: #666; font-size: 12px;">This email was sent from the REBELWEAR order system.</p>
                 </div>
             `,
-      attachments: imageAttachment ? [imageAttachment] : [],
-      // attachments: imagePath
-      //   ? [
-      //       {
-      //         filename: `${productName.replace(/\s+/g, "_")}.jpg`,
-      //         path: imagePath,
-      //         cid: "productImage",
-      //       },
-      //     ]
-      //   : [],
     };
 
     // Confirmation email to customer
@@ -505,14 +454,35 @@ app.post("/api/order", async (req, res) => {
                     <p style="color: #666; font-size: 12px;">This is an automated confirmation email.</p>
                 </div>
             `,
-      attachments: imageAttachment ? [imageAttachment] : [],
     };
+
+    // Persist order in database
+    let savedOrder = null;
+    try {
+      savedOrder = await saveOrder({
+        productName,
+        productImage: imageUrl || productImage || "",
+        size,
+        quantity: parseInt(quantity, 10) || 1,
+        price,
+        totalPrice,
+        customerName,
+        email,
+        phone,
+        address,
+        status: "pending",
+      });
+      console.log("💾 Order saved to storage:", savedOrder._id || savedOrder.id);
+    } catch (saveError) {
+      console.error("⚠️ Failed to persist order record:", saveError.message);
+    }
 
     // Respond immediately
     res.json({
       success: true,
       message:
         "Order placed successfully! We will contact you within 24-48 hours with payment and shipping details.",
+      order: savedOrder,
     });
 
     // Send business notification via nodemailer (fire and forget)
@@ -548,6 +518,10 @@ app.post("/api/order", async (req, res) => {
   }
 });
 
+// Admin and Public API routes
+app.use("/api/admin", adminRoutes);
+app.use("/api", publicRoutes);
+
 // Root endpoint
 app.get("/", (req, res) => {
   res.json({
@@ -556,6 +530,13 @@ app.get("/", (req, res) => {
     endpoints: [
       "POST /api/contact",
       "POST /api/order",
+      "GET /api/products",
+      "GET /api/categories",
+      "POST /api/admin/login",
+      "GET /api/admin/orders",
+      "GET /api/admin/products",
+      "GET /api/admin/categories",
+      "GET /api/admin/stats",
       "GET /api/health",
       "GET /api/test",
     ],
@@ -616,8 +597,9 @@ app.use((req, res) => {
 
 // Start server
 app
-  .listen(PORT, () => {
+  .listen(PORT, async () => {
     console.log(`🚀 REBELWEAR Backend Server running on port ${PORT}`);
+    await connectDB();
     console.log(
       `📧 Email service configured: ${process.env.EMAIL_USER ? "Ready" : "Not configured"}`,
     );

@@ -1,4 +1,6 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
+import { cld } from '../utils/cloudinary'
 
 const Footer = () => {
   // Handles in-page smooth scroll navigation
@@ -18,7 +20,7 @@ const Footer = () => {
           <div>
             <div className="flex items-center gap-4 mb-6">
               <img
-                src="/rebelwear.jpg"
+                src={cld("https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105167/rebelwear/rebelwear.jpg", 130)}
                 alt="REBELWEAR Logo"
                 className="h-16 w-16 rounded-full object-cover"
               />
@@ -120,8 +122,14 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="text-center pt-8 border-t border-white/10 text-gray-400">
-          <p>&copy; 2024 <b>REBELWEAR</b>. All rights reserved.</p>
+        <div className="flex flex-col sm:flex-row items-center justify-between pt-8 border-t border-white/10 text-gray-400 text-xs gap-3">
+          <p>&copy; {new Date().getFullYear()} <b>REBELWEAR</b>. All rights reserved.</p>
+          <Link
+            to="/admin"
+            className="text-gray-500 hover:text-[#ff3d00] transition-colors flex items-center gap-1.5 font-semibold uppercase tracking-wider"
+          >
+            <span>🔒 Admin Portal</span>
+          </Link>
         </div>
       </div>
     </footer>

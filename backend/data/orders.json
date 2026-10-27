@@ -1,0 +1,20 @@
+[
+  {
+    "_id": "ord_1791489866171_793",
+    "orderNumber": "RW-MUZYT7LN-7732",
+    "productName": "Classic Hoodie",
+    "productImage": "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105192/rebelwear/streetwear-images/classichoodie1.jpg",
+    "size": "L",
+    "quantity": 2,
+    "price": "34.99",
+    "totalPrice": "69.98",
+    "customerName": "Alex Mercer",
+    "email": "alex.mercer@example.com",
+    "phone": "+1 555-0199",
+    "address": "742 Evergreen Terrace, Springfield, OR",
+    "status": "processing",
+    "adminNotes": "",
+    "createdAt": "2026-10-08T20:04:26.171Z",
+    "updatedAt": "2026-10-08T20:10:59.356Z"
+  }
+]

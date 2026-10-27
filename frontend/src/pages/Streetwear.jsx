@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { cld } from '../utils/cloudinary'
 
 const Streetwear = () => {
   useEffect(() => {
@@ -9,37 +10,37 @@ const Streetwear = () => {
     {
       title: 'Hoodies',
       description: 'Warm, bold, and made to stand out.',
-      image: '/streetwear images/H12.jpeg',
+      image: 'https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105223/rebelwear/streetwear-images/h12.jpg',
       link: '/hoodies',
     },
     {
       title: 'T-Shirts',
       description: 'Premium cotton tees with bold graphics.',
-      image: '/streetwear images/sh3.jpeg',
+      image: 'https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105266/rebelwear/streetwear-images/sh3.jpg',
       link: '/tshirts',
     },
     {
       title: 'Sweatshirts',
       description: 'Cozy layers with street-ready style.',
-      image: '/streetwear images/sweatshirt3.jpg',
+      image: 'https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105334/rebelwear/streetwear-images/sweatshirt3.jpg',
       link: '/sweatshirts',
     },
     {
       title: 'Tracksuits',
       description: 'Built for motion. Born for rebels.',
-      image: '/streetwear images/hoodiecol.jpg',
+      image: 'https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105228/rebelwear/streetwear-images/hoodiecol.jpg',
       link: '/tracksuits',
     },
     {
       title: 'Jackets',
       description: 'Street-ready outerwear with attitude.',
-      image: '/streetwear images/jacket2.avif',
+      image: 'https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105229/rebelwear/streetwear-images/jacket2.avif',
       link: '/jackets',
     },
     {
       title: 'Accessories',
       description: 'Complete your look with our accessories.',
-      image: '/streetwear images/accessories.jpg',
+      image: 'https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105170/rebelwear/streetwear-images/accessories.jpg',
       link: '/accessories',
     },
   ]
@@ -73,7 +74,7 @@ const Streetwear = () => {
               >
                 <div className="h-72 bg-gradient-to-br from-gray-900 to-gray-800 relative overflow-hidden">
                   <img
-                    src={category.image}
+                    src={cld(category.image, 600)}
                     alt={category.title}
                     className="w-full h-full object-cover"
                   />

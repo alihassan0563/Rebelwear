@@ -1,11 +1,12 @@
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import ProductCard from "../components/ProductCard";
 import ContactForm from "../components/ContactForm";
+import PinnedHeroSection from "../components/PinnedHeroSection";
+import TestimonialsSection from "../components/TestimonialsSection";
+import { cld } from "../utils/cloudinary";
 
 const Home = () => {
-  const reviewsRef = useRef(null);
-
   useEffect(() => {
     // Scroll to top on page load
     window.scrollTo(0, 0);
@@ -13,6 +14,12 @@ const Home = () => {
     // Smooth scroll for anchor links
     const handleHashChange = () => {
       const hash = window.location.hash;
+      if (hash === "#collections") {
+        window.dispatchEvent(
+          new CustomEvent("rebelwear-scroll-panel", { detail: { panelIndex: 1 } })
+        );
+        return;
+      }
       if (hash) {
         const element = document.querySelector(hash);
         if (element) {
@@ -30,65 +37,13 @@ const Home = () => {
     return () => window.removeEventListener("hashchange", handleHashChange);
   }, []);
 
-  // Reviews data
-  const reviews = [
-    {
-      stars: "★★★★★",
-      text: '"Exceptional quality and service! REBELWEAR brought our team\'s vision to life with custom uniforms that exceeded expectations."',
-      author: "Sarah Chen",
-      location: "Basketball Team, USA",
-    },
-    {
-      stars: "★★★★★",
-      text: '"The premium fabrics and attention to detail are unmatched. Our streetwear collection is absolutely stunning!"',
-      author: "Marcus Williams",
-      location: "Clothing Brand, UK",
-    },
-    {
-      stars: "★★★★★",
-      text: '"Fast worldwide shipping and incredible customer support. REBELWEAR is our go-to supplier for quality apparel."',
-      author: "Liam Rodriguez",
-      location: "Sports Club, Canada",
-    },
-    {
-      stars: "★★★★★",
-      text: '"Outstanding custom designs! They perfectly captured our brand aesthetic and delivered on time. Highly recommended!"',
-      author: "Emma Thompson",
-      location: "Fashion Brand, Australia",
-    },
-    {
-      stars: "★★★★★",
-      text: '"The quality of materials is top-notch. Our team uniforms look professional and have lasted through multiple seasons."',
-      author: "James Wilson",
-      location: "Soccer Team, Germany",
-    },
-    {
-      stars: "★★★★★",
-      text: '"From consultation to delivery, the experience was smooth. The custom designs exceeded our expectations."',
-      author: "Sophie Martinez",
-      location: "Streetwear Brand, Spain",
-    },
-    {
-      stars: "★★★★★",
-      text: '"Best apparel supplier we\'ve worked with! Great prices, excellent quality, and responsive communication."',
-      author: "David Kim",
-      location: "Sports Organization, Japan",
-    },
-    {
-      stars: "★★★★★",
-      text: '"REBELWEAR brings creativity and professionalism together. Our streetwear line has never looked better!"',
-      author: "Amanda Lopez",
-      location: "Fashion Boutique, Mexico",
-    },
-  ];
-
   // Featured products data
   const featuredProducts = [
     {
       title: "Hoodie",
       category: "Streetwear",
       description: "Premium cotton blend with custom graphics",
-      images: ["/streetwear images/H12.jpeg"],
+      images: ["https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105223/rebelwear/streetwear-images/h12.jpg"],
       badge: "New",
       link: "/hoodies",
     },
@@ -96,7 +51,7 @@ const Home = () => {
       title: "Custom Uniforms",
       category: "Team Uniforms",
       description: "Born for Motion. Built for Rebels",
-      images: ["/streetwear images/sportswear images/basketball kit3.jpeg"],
+      images: ["https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105304/rebelwear/streetwear-images/sportswear-images/basketball-kit3.jpg"],
       badge: "Popular",
       link: "/uniforms",
     },
@@ -104,7 +59,7 @@ const Home = () => {
       title: "Street Tees",
       category: "Streetwear",
       description: "Bold graphics, premium fabric",
-      images: ["/streetwear images/sh1.jpeg"],
+      images: ["https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105265/rebelwear/streetwear-images/sh1.jpg"],
       badge: "Hot",
       link: "/tshirts",
     },
@@ -112,7 +67,7 @@ const Home = () => {
       title: "Tracksuits",
       category: "Streetwear",
       description: "Built for the streets. Born to stand out.",
-      images: ["/streetwear images/hoodie1.avif"],
+      images: ["https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105227/rebelwear/streetwear-images/hoodie1.avif"],
       link: "/tracksuits",
     },
   ];
@@ -120,13 +75,13 @@ const Home = () => {
   const maincards = [
     {
       link: "/streetwear",
-      image: "streetwear.avif",
+      image: "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105377/rebelwear/streetwear.avif",
       title: "Streetwear Collection",
       desc: "Bold designs that break the mold. Premium fabrics meet urban aesthetics.",
     },
     {
       link: "/uniforms",
-      image: "sports 1.avif",
+      image: "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105169/rebelwear/sports-1.avif",
       title: "Team Uniforms",
       desc: "Custom sportswear for teams. Durability meets style for champions.",
     },
@@ -134,72 +89,8 @@ const Home = () => {
 
   return (
     <div>
-      {/* Hero Section */}
-      <section
-        id="home"
-        className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 to-black text-white overflow-hidden"
-      >
-        <div className="absolute inset-0 bg-gradient-to-br from-black/80 to-gray-900/90"></div>
-        <div className="container relative z-10 text-center max-w-4xl px-5 py-20">
-          <h1 className="text-7xl md:text-8xl font-black mb-4 tracking-wider uppercase bg-gradient-to-r from-white to-secondary bg-clip-text text-transparent">
-            Rebelwear
-          </h1>
-          <h1 className="text-5xl md:text-6xl font-black mb-6 tracking-wider uppercase">
-            DARE TO BE DIFFERENT
-          </h1>
-          <p className="text-2xl font-light mb-6 text-gray-300">
-            Premium Streetwear & Sportswear for the Bold
-          </p>
-          <p className="text-lg mb-8 text-gray-400 max-w-2xl mx-auto">
-            We craft authentic streetwear and team uniforms that embody your
-            rebellious spirit. From custom designs to worldwide shipping, we
-            deliver quality that defines your identity.
-          </p>
-          <div className="flex gap-4 justify-center flex-wrap">
-            <a href="#products" className="btn-primary">
-              Shop Now
-            </a>
-            <a href="#collections" className="btn-secondary">
-              Explore Collections
-            </a>
-          </div>
-        </div>
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-          <span className="text-4xl text-white/70">↓</span>
-        </div>
-      </section>
-
-      {/* Collections Section */}
-      <section id="collections" className="py-24 bg-white">
-        <div className="container">
-          <h2 className="section-title">Our Collections</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {maincards.map((card) => {
-              return (
-                <Link
-                  to={card.link}
-                  className="bg-bg-light rounded-3xl overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-xl group"
-                >
-                  <div className="h-96 bg-gradient-to-br from-gray-900 to-gray-800 relative overflow-hidden">
-                    <img
-                      src={card.image}
-                      alt={card.title}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <div className="p-8">
-                    <h3 className="text-2xl font-bold mb-4">{card.title}</h3>
-                    <p className="text-text-light mb-6">{card.desc}</p>
-                    <span className="text-secondary font-semibold group-hover:translate-x-2 inline-block transition-transform">
-                      Explore →
-                    </span>
-                  </div>
-                </Link>
-              );
-            })}
-          </div>
-        </div>
-      </section>
+      {/* Pinned Hero & Collections Multi-Panel ScrollTrigger Section */}
+      <PinnedHeroSection />
 
       {/* About Section */}
       <section id="about" className="py-24 bg-bg-light">
@@ -226,7 +117,7 @@ const Home = () => {
             </div>
             <div className="h-[500px] rounded-3xl overflow-hidden">
               <img
-                src="/rebelwear.jpg"
+                src={cld("https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105167/rebelwear/rebelwear.jpg", 800)}
                 alt="REBELWEAR"
                 className="w-full h-full object-cover"
               />
@@ -300,42 +191,8 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Reviews Section */}
-      <section id="reviews" className="py-24 bg-bg-light">
-        <div className="container">
-          <h2 className="section-title">What Our Customers Say</h2>
-          <div
-            ref={reviewsRef}
-            className="overflow-x-auto overflow-y-hidden py-5 -mx-5 cursor-grab active:cursor-grabbing scroll-smooth"
-            style={{
-              scrollSnapType: "x mandatory",
-              WebkitOverflowScrolling: "touch",
-            }}
-          >
-            <div className="flex gap-8 px-5" style={{ width: "max-content" }}>
-              {reviews.map((review, index) => (
-                <div
-                  key={index}
-                  className="bg-white p-10 rounded-3xl shadow-lg flex-shrink-0 w-[350px] max-w-[350px] scroll-snap-align-start transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
-                >
-                  <div className="text-secondary text-2xl mb-6">★★★★★</div>
-                  <p className="italic text-text-light mb-6 leading-relaxed">
-                    {review.text}
-                  </p>
-                  <div>
-                    <strong className="block text-text-dark mb-1">
-                      {review.author}
-                    </strong>
-                    <span className="text-text-light text-sm">
-                      {review.location}
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Reviews Section with GSAP Animations */}
+      <TestimonialsSection />
 
       {/* Stats Section */}
       <section id="stats" className="py-24 bg-white">

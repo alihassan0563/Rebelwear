@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { cld } from '../utils/cloudinary'
 
 const About = () => {
   useEffect(() => {
@@ -63,25 +64,25 @@ const About = () => {
     {
       name: 'Alex Johnson',
       role: 'Founder & CEO',
-      image: '/rebelwear.jpg',
+      image: 'https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105167/rebelwear/rebelwear.jpg',
       description: 'Visionary leader with 10+ years in fashion industry',
     },
     {
       name: 'Sarah Chen',
       role: 'Creative Director',
-      image: '/rebelwear.jpg',
+      image: 'https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105167/rebelwear/rebelwear.jpg',
       description: 'Award-winning designer specializing in streetwear',
     },
     {
       name: 'Marcus Williams',
       role: 'Production Manager',
-      image: '/rebelwear.jpg',
+      image: 'https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105167/rebelwear/rebelwear.jpg',
       description: 'Ensuring quality and timely delivery worldwide',
     },
     {
       name: 'Emma Thompson',
       role: 'Customer Relations',
-      image: '/rebelwear.jpg',
+      image: 'https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105167/rebelwear/rebelwear.jpg',
       description: 'Dedicated to providing exceptional customer service',
     },
   ]
@@ -130,7 +131,7 @@ const About = () => {
             </div>
             <div className="h-[500px] rounded-3xl overflow-hidden">
               <img
-                src="/rebelwear.jpg"
+                src={cld("https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105167/rebelwear/rebelwear.jpg", 800)}
                 alt="REBELWEAR"
                 className="w-full h-full object-cover"
               />

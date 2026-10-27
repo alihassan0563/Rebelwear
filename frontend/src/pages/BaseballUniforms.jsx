@@ -14,10 +14,10 @@ const BaseballUniforms = () => {
       description:
         "Complete baseball uniform set with jersey and pants. Custom team colors and logos available.",
       images: [
-        "/streetwear images/sportswear images/baseball uniform 1.jpeg",
-        "/streetwear images/sportswear images/baseball uniform 2.jpeg",
-        "/streetwear images/sportswear images/baseball uniform 3.jpeg",
-        "/streetwear images/sportswear images/baseball uniform 4.jpeg",
+        "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105294/rebelwear/streetwear-images/sportswear-images/baseball-uniform-1.jpg",
+        "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105294/rebelwear/streetwear-images/sportswear-images/baseball-uniform-2.jpg",
+        "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105295/rebelwear/streetwear-images/sportswear-images/baseball-uniform-3.jpg",
+        "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105296/rebelwear/streetwear-images/sportswear-images/baseball-uniform-4.jpg",
       ],
       badge: "Popular",
     },
@@ -28,12 +28,12 @@ const BaseballUniforms = () => {
       description:
         "Premium baseball uniform with breathable fabric and professional design.",
       images: [
-        "/streetwear images/sportswear images/baseball jersey 1.jpeg",
-        "/streetwear images/sportswear images/baseball jersey 2.jpeg",
-        "/streetwear images/sportswear images/baseball jersey 3.jpeg",
-        "/streetwear images/sportswear images/baseball jersey 4.jpeg",
-        "/streetwear images/sportswear images/baseball jersey 5.jpeg",
-        "/streetwear images/sportswear images/baseball jersey 6.jpeg",
+        "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105288/rebelwear/streetwear-images/sportswear-images/baseball-jersey-1.jpg",
+        "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105289/rebelwear/streetwear-images/sportswear-images/baseball-jersey-2.jpg",
+        "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105290/rebelwear/streetwear-images/sportswear-images/baseball-jersey-3.jpg",
+        "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105291/rebelwear/streetwear-images/sportswear-images/baseball-jersey-4.jpg",
+        "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105292/rebelwear/streetwear-images/sportswear-images/baseball-jersey-5.jpg",
+        "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105293/rebelwear/streetwear-images/sportswear-images/baseball-jersey-6.jpg",
       ],
       badge: "Premium",
     },

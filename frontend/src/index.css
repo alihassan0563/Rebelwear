@@ -10,10 +10,6 @@
   body {
     @apply font-sans text-text-dark leading-relaxed overflow-x-hidden;
   }
-  
-  html {
-    @apply scroll-smooth;
-  }
 }
 
 @layer components {

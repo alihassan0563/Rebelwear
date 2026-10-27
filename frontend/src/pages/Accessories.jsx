@@ -12,11 +12,11 @@ const Accessories = () => {
       category: 'Accessories',
       description: 'Stylish eyewear to complete your look. Premium quality frames.',
       images: [
-        '/streetwear images/glasses1.jpg',
-        '/streetwear images/glasses2.jpg',
-        '/streetwear images/glasses3.jpg',
-        '/streetwear images/glasses4.jpg',
-        '/streetwear images/glasses5.jpg',
+        'https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105211/rebelwear/streetwear-images/glasses1.jpg',
+        'https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105212/rebelwear/streetwear-images/glasses2.jpg',
+        'https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105213/rebelwear/streetwear-images/glasses3.jpg',
+        'https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105214/rebelwear/streetwear-images/glasses4.jpg',
+        'https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105215/rebelwear/streetwear-images/glasses5.jpg',
       ],
     },
     {
@@ -25,11 +25,11 @@ const Accessories = () => {
       category: 'Accessories',
       description: 'Headwear that defines your style. Custom embroidery available.',
       images: [
-        '/streetwear images/cap1.jpg',
-        '/streetwear images/cap2.jpg',
-        '/streetwear images/cap3.jpg',
-        '/streetwear images/cap4.jpg',
-        '/streetwear images/cap5.jpg',
+        'https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105188/rebelwear/streetwear-images/cap1.jpg',
+        'https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105189/rebelwear/streetwear-images/cap2.jpg',
+        'https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105190/rebelwear/streetwear-images/cap3.jpg',
+        'https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105190/rebelwear/streetwear-images/cap4.jpg',
+        'https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105191/rebelwear/streetwear-images/cap5.jpg',
       ],
     },
     {
@@ -38,12 +38,12 @@ const Accessories = () => {
       category: 'Accessories',
       description: 'Warm and stylish headwear for every season. Adjustable fit.',
       images: [
-        '/streetwear images/benies6.jpg',
-        '/streetwear images/benies2.jpg',
-        '/streetwear images/benies3.jpg',
-        '/streetwear images/benies4.jpg',
-        '/streetwear images/benies5.jpg',
-        '/streetwear images/benies1.jpg',
+        'https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105179/rebelwear/streetwear-images/benies6.jpg',
+        'https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105175/rebelwear/streetwear-images/benies2.jpg',
+        'https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105176/rebelwear/streetwear-images/benies3.jpg',
+        'https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105177/rebelwear/streetwear-images/benies4.jpg',
+        'https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105178/rebelwear/streetwear-images/benies5.jpg',
+        'https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105174/rebelwear/streetwear-images/benies1.jpg',
       ],
     },
     {
@@ -53,9 +53,9 @@ const Accessories = () => {
       description: 'Everything else: socks, bags, belts, and more. Complete your look with premium accessories.',
       images: [
        
-        '/streetwear images/belt1.jpg',
-        '/streetwear images/belt2.jpg',
-        '/streetwear images/belt3.jpg',
+        'https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105171/rebelwear/streetwear-images/belt1.jpg',
+        'https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105172/rebelwear/streetwear-images/belt2.jpg',
+        'https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105173/rebelwear/streetwear-images/belt3.jpg',
         // Add more socks, bags, belts images here if you get them later.
       ],
     },
