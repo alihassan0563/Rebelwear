@@ -82,9 +82,13 @@ const OrderPage = () => {
         phone: orderData.phone,
         address: orderData.address
       }
-      const API_URL = window.location.hostname === 'localhost' 
-        ? 'http://localhost:3000/api/order'
-        : 'https://rebelwear.onrender.com/api/order'
+      const apiBase = (
+        import.meta.env.VITE_API_URL ||
+        (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+          ? 'http://localhost:3001/api'
+          : 'https://rebelwear.onrender.com/api')
+      ).replace(/\/$/, "");
+      const API_URL = `${apiBase}/order`;
 
       const response = await fetch(API_URL, {
         method: 'POST',

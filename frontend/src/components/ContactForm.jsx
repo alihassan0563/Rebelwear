@@ -62,7 +62,14 @@ const ContactForm = () => {
         formDataToSend.append('designFile', formData.designFile)
       }
 
-      const response = await fetch('http://localhost:3000/api/contact', {
+      const apiBase = (
+        import.meta.env.VITE_API_URL ||
+        (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+          ? 'http://localhost:3001/api'
+          : 'https://rebelwear.onrender.com/api')
+      ).replace(/\/$/, "");
+
+      const response = await fetch(`${apiBase}/contact`, {
         method: 'POST',
         body: formDataToSend,
       })
