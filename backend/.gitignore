@@ -23,4 +23,5 @@ Thumbs.db
 # Build files
 dist/
 build/
+.vercel/
 

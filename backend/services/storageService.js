@@ -11,8 +11,13 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const dataDir = path.join(__dirname, "..", "data");
-if (!fs.existsSync(dataDir)) {
-  fs.mkdirSync(dataDir, { recursive: true });
+try {
+  if (!fs.existsSync(dataDir)) {
+    fs.mkdirSync(dataDir, { recursive: true });
+  }
+} catch (err) {
+  // Read-only filesystem warning in serverless environments (MongoDB Atlas is used in production)
+  console.warn("⚠️ Data directory check notice:", err.message);
 }
 
 const ordersFile = path.join(dataDir, "orders.json");

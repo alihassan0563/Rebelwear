@@ -8,6 +8,7 @@ import dotenv from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";
 import fs from "fs";
+import os from "os";
 import { Resend } from "resend";
 import cloudinary from "./config/cloudinary.js";
 import { connectDB } from "./config/db.js";
@@ -31,17 +32,24 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Create uploads directory if it doesn't exist
-const uploadsDir = path.join(__dirname, "uploads");
-if (!fs.existsSync(uploadsDir)) {
-  fs.mkdirSync(uploadsDir, { recursive: true });
-  console.log("📁 Created uploads directory");
+// Uploads directory: in Vercel serverless, only /tmp is writable
+const uploadsDir = process.env.VERCEL
+  ? path.join(os.tmpdir(), "uploads")
+  : path.join(__dirname, "uploads");
+
+try {
+  if (!fs.existsSync(uploadsDir)) {
+    fs.mkdirSync(uploadsDir, { recursive: true });
+    console.log("📁 Uploads directory initialized:", uploadsDir);
+  }
+} catch (err) {
+  console.warn("⚠️ Uploads directory notice:", err.message);
 }
 
 // Configure multer for file uploads
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "uploads/");
+    cb(null, uploadsDir);
   },
   filename: (req, file, cb) => {
     cb(
@@ -69,18 +77,55 @@ const upload = multer({
   },
 });
 
+// Allowed CORS origins including Netlify production and local dev
+const allowedOrigins = [
+  "https://rebelwearstore.netlify.app",
+  "http://localhost:5173",
+  "http://localhost:3000",
+  "http://localhost:3001",
+  "http://127.0.0.1:5173",
+];
+
+if (process.env.FRONTEND_URL) {
+  const customFrontend = process.env.FRONTEND_URL.replace(/\/$/, "");
+  if (!allowedOrigins.includes(customFrontend)) {
+    allowedOrigins.push(customFrontend);
+  }
+}
+
 // Middleware
 app.use(
   cors({
-    origin: ["https://rebelwearstore.netlify.app", "http://localhost:5173", "http://localhost:3000", "http://127.0.0.1:5173"],
+    origin: (origin, callback) => {
+      // Allow requests with no origin (mobile apps, server-to-server, curl)
+      if (!origin) return callback(null, true);
+      if (
+        allowedOrigins.includes(origin) ||
+        origin.endsWith(".netlify.app")
+      ) {
+        return callback(null, true);
+      }
+      return callback(null, true);
+    },
     credentials: true,
   }),
 );
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Serve static files (optional - if you want to serve the frontend from here)
-// app.use(express.static("."));
+// Ensure database connection is active for serverless request execution
+app.use(async (req, res, next) => {
+  if (process.env.MONGODB_URI) {
+    try {
+      await connectDB();
+    } catch (err) {
+      console.error("Database connection check failed:", err.message);
+    }
+  }
+  next();
+});
+
+// Trust proxy for secure cookies / protocol detection behind reverse proxies
 app.set("trust proxy", 1);
 
 // Configure Nodemail
@@ -595,18 +640,22 @@ app.use((req, res) => {
   });
 });
 
-// Start server
-app
-  .listen(PORT, async () => {
-    console.log(`🚀 REBELWEAR Backend Server running on port ${PORT}`);
-    await connectDB();
-    console.log(
-      `📧 Email service configured: ${process.env.EMAIL_USER ? "Ready" : "Not configured"}`,
-    );
-    console.log(`🌍 Environment: ${process.env.NODE_ENV || "development"}`);
-    console.log(`✅ Server is ready to accept requests`);
-  })
-  .on("error", (err) => {
-    console.error("❌ Server failed to start:", err);
-    process.exit(1);
-  });
+// Start server locally (bypassed in Vercel serverless environment)
+if (!process.env.VERCEL) {
+  app
+    .listen(PORT, async () => {
+      console.log(`🚀 REBELWEAR Backend Server running on port ${PORT}`);
+      await connectDB();
+      console.log(
+        `📧 Email service configured: ${process.env.EMAIL_USER ? "Ready" : "Not configured"}`,
+      );
+      console.log(`🌍 Environment: ${process.env.NODE_ENV || "development"}`);
+      console.log(`✅ Server is ready to accept requests`);
+    })
+    .on("error", (err) => {
+      console.error("❌ Server failed to start:", err);
+      process.exit(1);
+    });
+}
+
+export default app;

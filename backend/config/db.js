@@ -6,6 +6,12 @@ dotenv.config();
 let isConnected = false;
 
 export const connectDB = async () => {
+  // Reuse existing connection if already established (critical for serverless)
+  if (mongoose.connection.readyState >= 1) {
+    isConnected = true;
+    return true;
+  }
+
   const uri = process.env.MONGODB_URI;
 
   if (!uri) {
