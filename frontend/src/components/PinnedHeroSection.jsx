@@ -9,7 +9,9 @@ gsap.registerPlugin(ScrollTrigger);
 const PinnedHeroSection = () => {
   const containerRef = useRef(null);
   const pinRef = useRef(null);
+  const progressBarRef = useRef(null);
   const scrollTriggerInstanceRef = useRef(null);
+  const activePanelRef = useRef(0);
 
   const panel1Ref = useRef(null);
   const panel2Ref = useRef(null);
@@ -21,8 +23,16 @@ const PinnedHeroSection = () => {
   const panel3ContentRef = useRef(null);
   const panel4ContentRef = useRef(null);
 
+  // Intro entrance element refs
+  const heroBadgeRef = useRef(null);
+  const heroTitleRef = useRef(null);
+  const heroSubtitleRef = useRef(null);
+  const heroDescRef = useRef(null);
+  const heroSpecsRef = useRef(null);
+  const heroCtasRef = useRef(null);
+  const heroScrollPromptRef = useRef(null);
+
   const [activePanel, setActivePanel] = useState(0);
-  const [scrollProgress, setScrollProgress] = useState(0);
   const [isReducedMotion, setIsReducedMotion] = useState(false);
 
   const panels = [
@@ -32,17 +42,35 @@ const PinnedHeroSection = () => {
     { id: "atelier", label: "Custom Atelier", num: "04" },
   ];
 
-  // Helper to jump to a specific panel on click
+  // Preload hero collection showcase images to prevent decoding stutter mid-scroll
+  useEffect(() => {
+    const preloadUrls = [
+      cld(
+        "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105377/rebelwear/streetwear.avif",
+        800
+      ),
+      cld(
+        "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105304/rebelwear/streetwear-images/sportswear-images/basketball-kit3.jpg",
+        800
+      ),
+    ];
+    preloadUrls.forEach((url) => {
+      const img = new Image();
+      img.src = url;
+    });
+  }, []);
+
+  // Helper to jump directly to a specific panel on click
   const scrollToPanel = useCallback((index) => {
     const st = scrollTriggerInstanceRef.current;
     if (!st) return;
 
     // Center progress for each panel's hold plateau:
     // Panel 0 (Hero): 0
-    // Panel 1 (Streetwear): 0.35
-    // Panel 2 (Uniforms): 0.68
-    // Panel 3 (Atelier): 0.98
-    const targets = [0, 0.35, 0.68, 0.98];
+    // Panel 1 (Streetwear): 0.34
+    // Panel 2 (Uniforms): 0.66
+    // Panel 3 (Atelier): 0.96
+    const targets = [0, 0.34, 0.66, 0.96];
     const targetProgress = targets[index] !== undefined ? targets[index] : 0;
     const targetScroll = st.start + (st.end - st.start) * targetProgress;
     window.scrollTo({ top: targetScroll, behavior: "smooth" });
@@ -79,20 +107,55 @@ const PinnedHeroSection = () => {
         if (reduceMotion) {
           // In reduced motion mode, we don't pin or scrub.
           // Reset all panels to relative, visible stacked flow.
-          gsap.set([panel1Ref.current, panel2Ref.current, panel3Ref.current, panel4Ref.current], {
-            clearProps: "all",
-          });
+          gsap.set(
+            [panel1Ref.current, panel2Ref.current, panel3Ref.current, panel4Ref.current],
+            { clearProps: "all" }
+          );
           return;
         }
 
-        // Initially position panels 2, 3, 4 below viewport
-        gsap.set(panel1Ref.current, { yPercent: 0, scale: 1, opacity: 1, zIndex: 10 });
-        gsap.set(panel2Ref.current, { yPercent: 100, scale: 1, opacity: 1, zIndex: 20 });
-        gsap.set(panel3Ref.current, { yPercent: 100, scale: 1, opacity: 1, zIndex: 30 });
-        gsap.set(panel4Ref.current, { yPercent: 100, scale: 1, opacity: 1, zIndex: 40 });
+        // Smooth initial entrance animation for Hero (Panel 1)
+        const entranceTl = gsap.timeline({ delay: 0.1 });
+        entranceTl
+          .fromTo(
+            heroBadgeRef.current,
+            { opacity: 0, y: -20 },
+            { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }
+          )
+          .fromTo(
+            heroTitleRef.current,
+            { opacity: 0, y: 30, scale: 0.96 },
+            { opacity: 1, y: 0, scale: 1, duration: 1.0, ease: "power3.out" },
+            "-=0.6"
+          )
+          .fromTo(
+            heroSubtitleRef.current,
+            { opacity: 0, y: 20 },
+            { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" },
+            "-=0.6"
+          )
+          .fromTo(
+            [heroDescRef.current, heroSpecsRef.current, heroCtasRef.current],
+            { opacity: 0, y: 20 },
+            { opacity: 1, y: 0, duration: 0.8, stagger: 0.1, ease: "power3.out" },
+            "-=0.5"
+          )
+          .fromTo(
+            heroScrollPromptRef.current,
+            { opacity: 0, y: 15 },
+            { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" },
+            "-=0.4"
+          );
 
-        // Build the scroll-driven master timeline with distinct hold periods
-        const scrollDistance = desktop ? "350%" : "300%";
+        // Initially position panels 2, 3, 4 below viewport with GPU promotion
+        gsap.set(panel1Ref.current, { yPercent: 0, scale: 1, opacity: 1, zIndex: 10, force3D: true });
+        gsap.set(panel2Ref.current, { yPercent: 100, scale: 1, opacity: 1, zIndex: 20, force3D: true });
+        gsap.set(panel3Ref.current, { yPercent: 100, scale: 1, opacity: 1, zIndex: 30, force3D: true });
+        gsap.set(panel4Ref.current, { yPercent: 100, scale: 1, opacity: 1, zIndex: 40, force3D: true });
+
+        // Build the scroll-driven master timeline
+        // 320% on desktop gives comfortable reading distance per panel without feeling dragged out
+        const scrollDistance = desktop ? "320%" : "260%";
 
         const tl = gsap.timeline({
           scrollTrigger: {
@@ -101,26 +164,31 @@ const PinnedHeroSection = () => {
             end: `+=${scrollDistance}`,
             pin: true,
             pinSpacing: true,
-            scrub: 0.8, // Snappy, responsive scrub
+            scrub: 1.0, // Silky smooth damping without jerky snap conflicts
             anticipatePin: 1,
             invalidateOnRefresh: true,
-            snap: {
-              snapTo: [0, 0.35, 0.68, 1],
-              duration: { min: 0.2, max: 0.45 },
-              delay: 0.08,
-              ease: "power1.inOut",
-            },
             onUpdate: (self) => {
-              setScrollProgress(self.progress);
+              // Direct GPU compositor transform update for progress bar — ZERO React re-renders!
+              if (progressBarRef.current) {
+                progressBarRef.current.style.transform = `scaleX(${self.progress})`;
+              }
+
+              // Only trigger React state update when activePanel index actually changes
               const p = self.progress;
-              if (p < 0.20) {
-                setActivePanel(0); // 01 Hero
-              } else if (p < 0.52) {
-                setActivePanel(1); // 02 Streetwear
-              } else if (p < 0.84) {
-                setActivePanel(2); // 03 Team Uniforms
+              let newPanel = 0;
+              if (p >= 0.80) {
+                newPanel = 3;
+              } else if (p >= 0.48) {
+                newPanel = 2;
+              } else if (p >= 0.18) {
+                newPanel = 1;
               } else {
-                setActivePanel(3); // 04 Custom Atelier
+                newPanel = 0;
+              }
+
+              if (activePanelRef.current !== newPanel) {
+                activePanelRef.current = newPanel;
+                setActivePanel(newPanel);
               }
             },
           },
@@ -129,112 +197,112 @@ const PinnedHeroSection = () => {
         scrollTriggerInstanceRef.current = tl.scrollTrigger;
 
         // Total timeline duration: 6.0 units
-        // Time 0.0 - 0.6: Step 1 (Hero) hold
-        // Time 0.6 - 1.6: Transition 1 -> 2
-        // Time 1.6 - 2.6: Step 2 (Streetwear) hold (peak at ~2.1 / 6.0 = 0.35)
-        // Time 2.6 - 3.6: Transition 2 -> 3
-        // Time 3.6 - 4.6: Step 3 (Team Uniforms) hold (peak at ~4.1 / 6.0 = 0.68)
-        // Time 4.6 - 5.6: Transition 3 -> 4
-        // Time 5.6 - 6.0: Step 4 (Atelier) hold (peak at ~5.9 / 6.0 = 0.98)
+        // Time 0.0 - 0.5: Step 1 (Hero) hold
+        // Time 0.5 - 1.7: Transition 1 -> 2 (Hero to Streetwear)
+        // Time 1.7 - 2.4: Step 2 (Streetwear) hold
+        // Time 2.4 - 3.6: Transition 2 -> 3 (Streetwear to Uniforms)
+        // Time 3.6 - 4.3: Step 3 (Uniforms) hold
+        // Time 4.3 - 5.5: Transition 3 -> 4 (Uniforms to Atelier)
+        // Time 5.5 - 6.0: Step 4 (Atelier) hold
 
         // ==========================================
         // Transition 1 -> 2 (Hero to Streetwear)
-        // Starts at 0.6, finishes at 1.6
         // ==========================================
         tl.to(
           panel2Ref.current,
           {
             yPercent: 0,
-            ease: "power2.inOut",
-            duration: 1.0,
+            ease: "power1.inOut",
+            duration: 1.2,
+            force3D: true,
           },
-          0.6
+          0.5
         )
           .to(
             panel1ContentRef.current,
             {
-              yPercent: -15,
-              opacity: 0.15,
+              yPercent: -12,
+              opacity: 0,
               scale: 0.94,
-              filter: "blur(4px)",
-              ease: "power2.inOut",
+              ease: "power1.inOut",
               duration: 1.0,
+              force3D: true,
             },
-            0.6
+            0.5
           )
           .fromTo(
             panel2ContentRef.current,
-            { y: 50, opacity: 0 },
-            { y: 0, opacity: 1, ease: "power2.out", duration: 0.7 },
-            0.9
+            { y: 35, opacity: 0.2 },
+            { y: 0, opacity: 1, ease: "power1.out", duration: 0.8, force3D: true },
+            0.8
           );
 
         // ==========================================
         // Transition 2 -> 3 (Streetwear to Uniforms)
-        // Starts at 2.6 (after 1.0s pure hold for Step 2!), finishes at 3.6
         // ==========================================
         tl.to(
           panel3Ref.current,
           {
             yPercent: 0,
-            ease: "power2.inOut",
-            duration: 1.0,
+            ease: "power1.inOut",
+            duration: 1.2,
+            force3D: true,
           },
-          2.6
+          2.4
         )
           .to(
             panel2ContentRef.current,
             {
-              yPercent: -15,
-              opacity: 0.15,
+              yPercent: -12,
+              opacity: 0,
               scale: 0.94,
-              filter: "blur(4px)",
-              ease: "power2.inOut",
+              ease: "power1.inOut",
               duration: 1.0,
+              force3D: true,
             },
-            2.6
+            2.4
           )
           .fromTo(
             panel3ContentRef.current,
-            { y: 50, opacity: 0 },
-            { y: 0, opacity: 1, ease: "power2.out", duration: 0.7 },
-            2.9
+            { y: 35, opacity: 0.2 },
+            { y: 0, opacity: 1, ease: "power1.out", duration: 0.8, force3D: true },
+            2.7
           );
 
         // ==========================================
         // Transition 3 -> 4 (Uniforms to Atelier / Hub)
-        // Starts at 4.6 (after 1.0s pure hold for Step 3!), finishes at 5.6
         // ==========================================
         tl.to(
           panel4Ref.current,
           {
             yPercent: 0,
-            ease: "power2.inOut",
-            duration: 1.0,
+            ease: "power1.inOut",
+            duration: 1.2,
+            force3D: true,
           },
-          4.6
+          4.3
         )
           .to(
             panel3ContentRef.current,
             {
-              yPercent: -15,
-              opacity: 0.15,
+              yPercent: -12,
+              opacity: 0,
               scale: 0.94,
-              filter: "blur(4px)",
-              ease: "power2.inOut",
+              ease: "power1.inOut",
               duration: 1.0,
+              force3D: true,
             },
-            4.6
+            4.3
           )
           .fromTo(
             panel4ContentRef.current,
-            { y: 50, opacity: 0 },
-            { y: 0, opacity: 1, ease: "power2.out", duration: 0.7 },
-            4.9
+            { y: 35, opacity: 0.2 },
+            { y: 0, opacity: 1, ease: "power1.out", duration: 0.8, force3D: true },
+            4.6
           );
 
-        // Anchor end of timeline at 6.0 with brief hold for Panel 4
-        tl.to({}, { duration: 0.4 }, 5.6);
+        // Anchor end of timeline at 6.0 with comfortable hold for Panel 4 before smooth unpinning
+        tl.to({}, { duration: 0.5 }, 5.5);
       }
     );
 
@@ -245,7 +313,7 @@ const PinnedHeroSection = () => {
 
     return () => {
       clearTimeout(refreshTimer);
-      mm.revert(); // Completely tears down animations, listeners and ScrollTriggers safely
+      mm.revert();
     };
   }, []);
 
@@ -257,15 +325,17 @@ const PinnedHeroSection = () => {
       {/* Main Pinned Viewport Container */}
       <div
         ref={pinRef}
-        className={`relative w-full ${isReducedMotion ? "min-h-screen" : "h-screen h-[100svh]"
-          } overflow-hidden bg-black select-none`}
+        className={`relative w-full ${
+          isReducedMotion ? "min-h-screen" : "h-screen h-[100svh]"
+        } overflow-hidden bg-black select-none`}
       >
-        {/* Top Scroll Progress Indicator */}
+        {/* Top Scroll Progress Indicator (GPU Transform Scaled) */}
         {!isReducedMotion && (
-          <div className="absolute top-0 left-0 right-0 h-1 bg-white/10 z-50">
+          <div className="absolute top-0 left-0 right-0 h-1 bg-white/10 z-50 pointer-events-none">
             <div
-              className="h-full bg-gradient-to-r from-secondary via-orange-500 to-amber-400 transition-all duration-75"
-              style={{ width: `${Math.round(scrollProgress * 100)}%` }}
+              ref={progressBarRef}
+              className="h-full w-full bg-gradient-to-r from-secondary via-orange-500 to-amber-400 origin-left will-change-transform"
+              style={{ transform: "scaleX(0)" }}
             />
           </div>
         )}
@@ -286,18 +356,20 @@ const PinnedHeroSection = () => {
                   aria-label={`Jump to ${panel.label}`}
                 >
                   <span
-                    className={`text-xs font-mono font-bold transition-all duration-300 ${isActive
-                      ? "text-secondary opacity-100 translate-x-0"
-                      : "text-gray-400 opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0"
-                      }`}
+                    className={`text-xs font-mono font-bold transition-all duration-300 ${
+                      isActive
+                        ? "text-secondary opacity-100 translate-x-0"
+                        : "text-gray-400 opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0"
+                    }`}
                   >
                     {panel.num} {panel.label}
                   </span>
                   <div
-                    className={`rounded-full transition-all duration-300 ${isActive
-                      ? "w-3 h-8 bg-secondary shadow-lg shadow-secondary/50"
-                      : "w-2.5 h-2.5 bg-white/30 group-hover:bg-white group-hover:scale-125"
-                      }`}
+                    className={`rounded-full transition-all duration-300 ${
+                      isActive
+                        ? "w-3 h-8 bg-secondary shadow-lg shadow-secondary/50"
+                        : "w-2.5 h-2.5 bg-white/30 group-hover:bg-white group-hover:scale-125"
+                    }`}
                   />
                 </button>
               );
@@ -321,8 +393,10 @@ const PinnedHeroSection = () => {
         <section
           ref={panel1Ref}
           aria-label="Brand Overview"
-          className={`panel absolute inset-0 w-full h-full flex items-center justify-center bg-gradient-to-br from-neutral-950 via-zinc-900 to-black overflow-hidden ${isReducedMotion ? "!relative min-h-screen" : ""
-            }`}
+          className={`panel absolute inset-0 w-full h-full flex items-center justify-center bg-gradient-to-br from-neutral-950 via-zinc-900 to-black overflow-hidden will-change-transform transform-gpu ${
+            isReducedMotion ? "!relative min-h-screen" : ""
+          }`}
+          style={{ backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden" }}
         >
           {/* Subtle Ambient Glowing Background Orb */}
           <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-secondary/15 rounded-full blur-[140px] pointer-events-none" />
@@ -330,24 +404,36 @@ const PinnedHeroSection = () => {
 
           <div
             ref={panel1ContentRef}
-            className="container relative z-10 text-center max-w-5xl px-6 pt-16 pb-12 flex flex-col items-center justify-center"
+            className="container relative z-10 text-center max-w-5xl px-6 pt-16 pb-12 flex flex-col items-center justify-center will-change-transform"
           >
             {/* Top pill badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-secondary text-xs sm:text-sm font-semibold tracking-wider uppercase mb-6 shadow-inner">
+            <div
+              ref={heroBadgeRef}
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-secondary text-xs sm:text-sm font-semibold tracking-wider uppercase mb-6 shadow-inner"
+            >
               <span className="w-2 h-2 rounded-full bg-secondary animate-ping" />
               <span>DROP 2026 // STREETWEAR & ATHLETIC ATELIER</span>
             </div>
 
             {/* Giant Title */}
-            <h1 className="text-4xl sm:text-5xl  lg:text-8xl mt-10 font-black tracking-tight uppercase leading-none mb-3 bg-gradient-to-b from-white via-neutral-100 to-neutral-400 bg-clip-text text-transparent">
+            <h1
+              ref={heroTitleRef}
+              className="text-4xl sm:text-5xl lg:text-8xl mt-10 font-black tracking-tight uppercase leading-none mb-3 bg-gradient-to-b from-white via-neutral-100 to-neutral-400 bg-clip-text text-transparent"
+            >
               REBEL<span className="text-secondary">WEAR</span>
             </h1>
 
-            <h2 className="text-2xl sm:text-4xl md:text-5xl font-black tracking-widest uppercase mb-6 text-white drop-shadow-md">
+            <h2
+              ref={heroSubtitleRef}
+              className="text-2xl sm:text-4xl md:text-5xl font-black tracking-widest uppercase mb-6 text-white drop-shadow-md"
+            >
               DARE TO BE DIFFERENT
             </h2>
 
-            <p className="text-base sm:text-xl md:text-2xl font-light mb-6 text-neutral-300 max-w-3xl leading-relaxed">
+            <p
+              ref={heroDescRef}
+              className="text-base sm:text-xl md:text-2xl font-light mb-6 text-neutral-300 max-w-3xl leading-relaxed"
+            >
               Premium Heavyweight Streetwear & Championship Team Uniforms.
             </p>
 
@@ -357,7 +443,10 @@ const PinnedHeroSection = () => {
             </p>
 
             {/* Spec Highlights */}
-            <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 mb-10 text-xs sm:text-sm text-neutral-300 font-mono">
+            <div
+              ref={heroSpecsRef}
+              className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 mb-10 text-xs sm:text-sm text-neutral-300 font-mono"
+            >
               <span className="px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10">
                 ✦ 420+ GSM Heavyweight Cotton
               </span>
@@ -370,7 +459,7 @@ const PinnedHeroSection = () => {
             </div>
 
             {/* Action Buttons */}
-            <div className="flex gap-4 justify-center flex-wrap">
+            <div ref={heroCtasRef} className="flex gap-4 justify-center flex-wrap">
               <button
                 onClick={() => scrollToPanel(1)}
                 className="btn-primary flex items-center gap-2 cursor-pointer"
@@ -386,6 +475,7 @@ const PinnedHeroSection = () => {
             {/* Scroll Down Prompt Indicator */}
             {!isReducedMotion && (
               <div
+                ref={heroScrollPromptRef}
                 onClick={() => scrollToPanel(1)}
                 className="mt-10 sm:mt-12 flex flex-col items-center gap-2 cursor-pointer text-neutral-400 hover:text-white transition-colors group"
               >
@@ -406,15 +496,17 @@ const PinnedHeroSection = () => {
         <section
           ref={panel2Ref}
           aria-label="Streetwear Collection"
-          className={`panel absolute inset-0 w-full h-full flex items-center justify-center bg-gradient-to-br from-neutral-950 via-zinc-950 to-neutral-900 border-t border-white/10 shadow-[0_-25px_50px_rgba(0,0,0,0.8)] overflow-hidden ${isReducedMotion ? "!relative min-h-screen border-none" : ""
-            }`}
+          className={`panel absolute inset-0 w-full h-full flex items-center justify-center bg-gradient-to-br from-neutral-950 via-zinc-950 to-neutral-900 border-t border-white/15 overflow-hidden will-change-transform transform-gpu ${
+            isReducedMotion ? "!relative min-h-screen border-none" : ""
+          }`}
+          style={{ backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden" }}
         >
           {/* Subtle Ambient Glow */}
           <div className="absolute top-1/3 right-10 w-[500px] h-[500px] bg-orange-600/10 rounded-full blur-[140px] pointer-events-none" />
 
           <div
             ref={panel2ContentRef}
-            className="container relative z-10 max-w-6xl px-6 py-12 pt-16 flex flex-col justify-center h-full"
+            className="container relative z-10 max-w-6xl px-6 py-12 pt-16 flex flex-col justify-center h-full will-change-transform"
           >
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
               {/* Left Column: Copy & Details */}
@@ -505,7 +597,8 @@ const PinnedHeroSection = () => {
                       )}
                       alt="REBELWEAR Streetwear Collection"
                       className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
-                      loading="lazy"
+                      loading="eager"
+                      decoding="async"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent" />
 
@@ -540,15 +633,17 @@ const PinnedHeroSection = () => {
         <section
           ref={panel3Ref}
           aria-label="Sports Uniforms Collection"
-          className={`panel absolute inset-0 w-full h-full flex items-center justify-center bg-gradient-to-br from-zinc-950 via-neutral-900 to-black border-t border-white/10 shadow-[0_-25px_50px_rgba(0,0,0,0.85)] overflow-hidden ${isReducedMotion ? "!relative min-h-screen border-none" : ""
-            }`}
+          className={`panel absolute inset-0 w-full h-full flex items-center justify-center bg-gradient-to-br from-zinc-950 via-neutral-900 to-black border-t border-white/15 overflow-hidden will-change-transform transform-gpu ${
+            isReducedMotion ? "!relative min-h-screen border-none" : ""
+          }`}
+          style={{ backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden" }}
         >
           {/* Subtle Ambient Glow */}
           <div className="absolute top-1/3 left-10 w-[500px] h-[500px] bg-red-600/10 rounded-full blur-[140px] pointer-events-none" />
 
           <div
             ref={panel3ContentRef}
-            className="container relative z-10 max-w-6xl px-6 py-12 pt-16 flex flex-col justify-center h-full"
+            className="container relative z-10 max-w-6xl px-6 py-12 pt-16 flex flex-col justify-center h-full will-change-transform"
           >
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
               {/* Left Column: Visual Showcase Card */}
@@ -562,7 +657,8 @@ const PinnedHeroSection = () => {
                       )}
                       alt="REBELWEAR Sports Uniforms"
                       className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
-                      loading="lazy"
+                      loading="eager"
+                      decoding="async"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent" />
 
@@ -674,15 +770,17 @@ const PinnedHeroSection = () => {
         <section
           ref={panel4Ref}
           aria-label="Custom Atelier & Catalog"
-          className={`panel absolute inset-0 w-full h-full flex items-center justify-center bg-gradient-to-br from-black via-zinc-950 to-neutral-900 border-t border-white/10 shadow-[0_-25px_50px_rgba(0,0,0,0.9)] overflow-hidden ${isReducedMotion ? "!relative min-h-screen border-none" : ""
-            }`}
+          className={`panel absolute inset-0 w-full h-full flex items-center justify-center bg-gradient-to-br from-black via-zinc-950 to-neutral-900 border-t border-white/15 overflow-hidden will-change-transform transform-gpu ${
+            isReducedMotion ? "!relative min-h-screen border-none" : ""
+          }`}
+          style={{ backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden" }}
         >
           {/* Subtle Ambient Radial Glow */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-secondary/10 rounded-full blur-[160px] pointer-events-none" />
 
           <div
             ref={panel4ContentRef}
-            className="container relative z-10 max-w-6xl px-6 py-10 pt-16 flex flex-col justify-center h-full text-center"
+            className="container relative z-10 max-w-6xl px-6 py-10 pt-16 flex flex-col justify-center h-full text-center will-change-transform"
           >
             {/* Header pill */}
             <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-secondary/10 border border-secondary/30 text-secondary text-xs sm:text-sm font-mono tracking-wider uppercase mb-3 mx-auto">
@@ -716,6 +814,8 @@ const PinnedHeroSection = () => {
                       )}
                       alt="Streetwear Preview"
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      loading="eager"
+                      decoding="async"
                     />
                   </div>
                   <div>
@@ -757,6 +857,8 @@ const PinnedHeroSection = () => {
                       )}
                       alt="Sports Preview"
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      loading="eager"
+                      decoding="async"
                     />
                   </div>
                   <div>
