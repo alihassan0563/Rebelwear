@@ -149,6 +149,15 @@ transporter.verify(function (error, success) {
   }
 });
 
+// Helper to ensure a valid business recipient email address is always resolved
+const getBusinessEmail = () => {
+  const contact = (process.env.CONTACT_EMAIL || "").trim();
+  if (contact && contact.includes("@")) {
+    return contact;
+  }
+  return process.env.EMAIL_USER || "rebelwear40@gmail.com";
+};
+
 // Validation rules for contact form
 const contactValidation = [
   body("name")
@@ -220,7 +229,7 @@ app.post("/api/contact", upload.single("designFile"), async (req, res) => {
     // Email content for the business owner
     const mailOptions = {
       from: process.env.EMAIL_USER,
-      to: process.env.CONTACT_EMAIL || process.env.EMAIL_USER,
+      to: getBusinessEmail(),
       subject: `New Inquiry: ${inquiry} - REBELWEAR`,
       html: `
                 <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -417,7 +426,7 @@ app.post("/api/order", async (req, res) => {
     // Email to business owner
     const orderMailOptions = {
       from: process.env.EMAIL_USER,
-      to: process.env.CONTACT_EMAIL || process.env.EMAIL_USER,
+      to: getBusinessEmail(),
       subject: `New Order: ${productName} - REBELWEAR`,
       html: `
                 <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -522,37 +531,61 @@ app.post("/api/order", async (req, res) => {
       console.error("⚠️ Failed to persist order record:", saveError.message);
     }
 
-    // Respond immediately
+    // Send both business notification and customer confirmation via Nodemailer
+    // In serverless environments (like Vercel), we MUST await promises BEFORE res.json(),
+    // otherwise the serverless runtime freezes/terminates immediately and emails are never sent.
+    let emailStatus = {
+      businessNotification: false,
+      customerConfirmation: false,
+    };
+
+    try {
+      const [businessResult, customerResult] = await Promise.allSettled([
+        transporter.sendMail(orderMailOptions),
+        transporter.sendMail(customerOrderConfirmation),
+      ]);
+
+      if (businessResult.status === "fulfilled") {
+        console.log(
+          "✅ Order notification email sent to store owner:",
+          businessResult.value.messageId,
+        );
+        emailStatus.businessNotification = true;
+      } else {
+        console.error(
+          "❌ Failed to send order email to store owner:",
+          businessResult.reason?.message || businessResult.reason,
+        );
+      }
+
+      if (customerResult.status === "fulfilled") {
+        console.log(
+          "✅ Customer order confirmation sent to:",
+          email,
+          customerResult.value.messageId,
+        );
+        emailStatus.customerConfirmation = true;
+      } else {
+        console.error(
+          "❌ Failed to send customer confirmation email:",
+          customerResult.reason?.message || customerResult.reason,
+        );
+      }
+    } catch (emailError) {
+      console.error(
+        "⚠️ Error while dispatching order emails:",
+        emailError.message,
+      );
+    }
+
+    // Respond to client after emails are dispatched
     res.json({
       success: true,
       message:
         "Order placed successfully! We will contact you within 24-48 hours with payment and shipping details.",
       order: savedOrder,
+      emailsSent: emailStatus,
     });
-
-    // Send business notification via nodemailer (fire and forget)
-    transporter
-      .sendMail(orderMailOptions)
-      .then(() => console.log("✅ Order notification email sent"))
-      .catch((err) =>
-        console.error("❌ Failed to send order email:", err.message),
-      );
-
-    // Send customer confirmation via Resend (fire and forget)
-    resend.emails
-      .send({
-        from: "REBELWEAR <onboarding@resend.dev>",
-        to: process.env.TEST_EMAIL || "alihassan940210@gmail.com",
-        subject: "Order Confirmation - REBELWEAR",
-        html: customerOrderConfirmation.html,
-      })
-      .then(() => console.log("✅ Customer order confirmation sent via Resend"))
-      .catch((err) =>
-        console.error(
-          "❌ Failed to send customer confirmation via Resend:",
-          err.message,
-        ),
-      );
   } catch (error) {
     console.error("Error processing order:", error);
     res.status(500).json({
