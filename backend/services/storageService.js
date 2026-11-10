@@ -487,14 +487,44 @@ export const deleteProduct = async (id) => {
 
 export const getAllCategories = async ({ includeUnpublished = true } = {}) => {
   if (isMongoActive()) {
-    const query = includeUnpublished ? {} : { status: "published" };
-    return await Category.find(query).sort({ displayOrder: 1, createdAt: 1 });
+    const query = includeUnpublished
+      ? {}
+      : {
+        $or: [
+          { status: "published" },
+          { isPublished: true },
+          { status: { $exists: false } },
+        ],
+      };
+    const categories = await Category.find(query)
+      .sort({ displayOrder: 1, createdAt: 1 })
+      .lean();
+    return categories.map((c) => ({
+      ...c,
+      title: c.title || c.name || "Unnamed Category",
+      name: c.name || c.title || "Unnamed Category",
+      image: c.image || c.coverImage || "",
+      coverImage: c.coverImage || c.image || "",
+      parentType: c.parentType || c.parentCategory || "Streetwear",
+      status: c.status || (c.isPublished !== false ? "published" : "draft"),
+    }));
   } else {
     let categories = readJson(categoriesFile);
     if (!includeUnpublished) {
-      categories = categories.filter((c) => c.status === "published");
+      categories = categories.filter(
+        (c) => c.status === "published" || c.isPublished !== false,
+      );
     }
-    return categories.sort((a, b) => (a.displayOrder || 0) - (b.displayOrder || 0));
+    return categories
+      .map((c) => ({
+        ...c,
+        title: c.title || c.name || "Unnamed Category",
+        name: c.name || c.title || "Unnamed Category",
+        image: c.image || c.coverImage || "",
+        parentType: c.parentType || c.parentCategory || "Streetwear",
+        status: c.status || "published",
+      }))
+      .sort((a, b) => (a.displayOrder || 0) - (b.displayOrder || 0));
   }
 };
 

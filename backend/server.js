@@ -599,6 +599,7 @@ app.post("/api/order", async (req, res) => {
 // Admin and Public API routes
 app.use("/api/admin", adminRoutes);
 app.use("/api", publicRoutes);
+app.get("/sitemap.xml", (req, res) => res.redirect(301, "/api/sitemap.xml"));
 
 // Root endpoint
 app.get("/", (req, res) => {
