@@ -20,6 +20,7 @@ import AdminProducts from "./AdminProducts";
 import AdminCategories from "./AdminCategories";
 import AdminPostingControl from "./AdminPostingControl";
 import { adminApi } from "../../utils/adminApi";
+import SEO from "../../components/SEO";
 
 const AdminDashboard = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -83,11 +84,17 @@ const AdminDashboard = () => {
   }
 
   if (!isAuthenticated) {
-    return <AdminLogin onLoginSuccess={() => setIsAuthenticated(true)} />;
+    return (
+      <>
+        <SEO title="Admin Login - REBELWEAR" noIndex={true} />
+        <AdminLogin onLoginSuccess={() => setIsAuthenticated(true)} />
+      </>
+    );
   }
 
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white flex flex-col font-sans">
+      <SEO title="Admin Command Suite - REBELWEAR" noIndex={true} />
       {/* Top Admin Bar */}
       <header className="sticky top-0 z-40 bg-[#121212]/95 backdrop-blur-md border-b border-white/10 px-4 md:px-8 py-3.5">
         <div className="max-w-7xl mx-auto flex items-center justify-between">

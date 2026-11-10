@@ -19,7 +19,11 @@ const ProductCard = ({
     >
       <div className="h-72 relative">
         {images.length > 0 ? (
-          <ImageSlider images={images} />
+          <ImageSlider
+            images={images}
+            altText={`${title} - ${category || 'Apparel'} | REBELWEAR`}
+            width={600}
+          />
         ) : (
           <div className="w-full h-full bg-gradient-to-br from-gray-900 to-gray-800 flex items-center justify-center">
             <span className="text-6xl opacity-30">🏆</span>

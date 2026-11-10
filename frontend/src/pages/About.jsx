@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { cld } from '../utils/cloudinary'
+import SEO from '../components/SEO'
 
 const About = () => {
   useEffect(() => {
@@ -87,21 +88,44 @@ const About = () => {
     },
   ]
 
+  const aboutSchema = {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "@id": "https://rebelwearstore.netlify.app/about#webpage",
+    "url": "https://rebelwearstore.netlify.app/about",
+    "name": "About REBELWEAR | Premium Streetwear & Sportswear Manufacturer",
+    "description": "Learn about REBELWEAR's story, manufacturing standards, and custom streetwear and athletic uniform production capabilities.",
+    "mainEntity": {
+      "@type": "Organization",
+      "name": "REBELWEAR",
+      "url": "https://rebelwearstore.netlify.app",
+      "logo": "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105167/rebelwear/rebelwear.jpg"
+    }
+  };
+
   return (
     <div>
+      <SEO
+        title="About REBELWEAR | Premium Streetwear & Sportswear Manufacturer"
+        description="Discover REBELWEAR's story, craftsmanship, and manufacturing capabilities. We craft custom streetwear and championship sports team uniforms shipped worldwide."
+        keywords="about REBELWEAR, apparel manufacturer, streetwear factory, custom uniform supplier, sportswear production"
+        canonical="https://rebelwearstore.netlify.app/about"
+        schema={aboutSchema}
+      />
+
       {/* Hero Section */}
       <section className="relative min-h-[70vh] flex items-center justify-center bg-gradient-to-br from-gray-900 to-black text-white pt-24">
         <div className="absolute inset-0 bg-gradient-to-br from-black/80 to-gray-900/90"></div>
         <div className="container relative z-10 text-center max-w-4xl px-5">
-          <h1 className="text-2xl md:text-7xl font-bold mb-4 tracking-wider uppercase bg-gradient-to-r from-white to-secondary bg-clip-text text-transparent">
-            About Rebelwear
+          <h1 className="text-3xl md:text-7xl font-bold mb-4 tracking-wider uppercase bg-gradient-to-r from-white to-secondary bg-clip-text text-transparent">
+            About REBELWEAR
           </h1>
           <p className="text-xl font-light mb-4 text-gray-300">
             Born from Rebellion, Built with Passion
           </p>
           <p className="text-lg text-gray-400 max-w-2xl mx-auto">
             We craft authentic streetwear and team uniforms that embody your rebellious spirit. From
-            custom designs to worldwide shipping, we deliver quality that defines your identity.
+            bespoke prototypes to global bulk apparel manufacturing, we deliver uncompromising quality.
           </p>
         </div>
       </section>
@@ -111,28 +135,29 @@ const About = () => {
         <div className="container">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
             <div>
-              <h2 className="section-title text-left mb-6">Our Journey</h2>
-              <h3 className="text-3xl mb-6 text-secondary">Born from Rebellion, Built with Passion</h3>
+              <h2 className="section-title text-left mb-6">Our Manufacturing Journey</h2>
+              <h3 className="text-3xl mb-6 text-secondary font-bold">Born from Rebellion, Built with Passion</h3>
               <p className="text-lg text-text-light mb-6 leading-relaxed">
-                REBELWEAR was founded on a simple belief: every individual deserves apparel that
-                expresses their authentic self. We started as a small custom manufacturer with a vision
-                to create streetwear and sportswear that doesn't just fit—it defines.
+                REBELWEAR was founded on a simple belief: every individual and athletic club deserves apparel that
+                expresses their authentic identity. We started as an agile custom manufacturer with a vision
+                to create streetwear and sportswear that doesn't just fit—it defines champions.
               </p>
               <p className="text-lg text-text-light mb-6 leading-relaxed">
-                Today, we're a trusted supplier for international customers, delivering premium quality
-                garments that blend cutting-edge design with unmatched craftsmanship. From custom
-                streetwear to team uniforms, we bring your vision to life with precision and care.
+                Today, we're a trusted partner for international brands, delivering premium quality
+                garments that blend cutting-edge design with unmatched craftsmanship. From heavyweight
+                fleece hoodies to sublimated pro jerseys, we bring your vision to life with precision and care.
               </p>
               <p className="text-lg text-text-light leading-relaxed">
-                Our commitment to quality, innovation, and customer satisfaction has made us a leading
-                name in the streetwear industry. We continue to push boundaries and set new standards
-                in apparel manufacturing.
+                Our commitment to premium fabrics, ethical production, and fast turnaround has made us a leading
+                destination in custom apparel manufacturing.
               </p>
             </div>
-            <div className="h-[500px] rounded-3xl overflow-hidden">
+            <div className="h-[500px] rounded-3xl overflow-hidden shadow-xl">
               <img
                 src={cld("https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105167/rebelwear/rebelwear.jpg", 800)}
-                alt="REBELWEAR"
+                alt="REBELWEAR Apparel Production Studio & Craft Workshop"
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover"
               />
             </div>

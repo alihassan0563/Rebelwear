@@ -95,7 +95,7 @@ const AdminProducts = () => {
     setFormData({
       title: "",
       price: "",
-      category: categories[0]?.title || "Hoodies",
+      category: categories[0]?.title || categories[0]?.name || "Hoodies",
       parentCollection: "Streetwear",
       description: "",
       images: [],
@@ -271,11 +271,10 @@ const AdminProducts = () => {
       {/* Toast Notification */}
       {notification && (
         <div
-          className={`fixed bottom-6 right-6 z-50 px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3 text-sm font-semibold border ${
-            notification.type === "error"
+          className={`fixed bottom-6 right-6 z-50 px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3 text-sm font-semibold border ${notification.type === "error"
               ? "bg-red-950/90 border-red-500/40 text-red-200"
               : "bg-neutral-900/95 border-emerald-500/40 text-emerald-300"
-          }`}
+            }`}
         >
           {notification.type === "error" ? (
             <AlertTriangle className="w-5 h-5 text-red-400" />
@@ -313,12 +312,15 @@ const AdminProducts = () => {
             onChange={(e) => setCategoryFilter(e.target.value)}
             className="bg-black/60 border border-white/10 rounded-xl text-xs py-2 px-3 text-white focus:outline-none focus:border-[#ff3d00] cursor-pointer"
           >
-            <option value="all">All Categories</option>
-            {categories.map((c) => (
-              <option key={c.slug} value={c.title}>
-                {c.title}
-              </option>
-            ))}
+            <option value="all" className="bg-[#1a1a1a] text-white">All Categories</option>
+            {categories.map((c) => {
+              const catName = c.title || c.name || "Category";
+              return (
+                <option key={c.slug || c._id || catName} value={catName} className="bg-[#1a1a1a] text-white">
+                  {catName}
+                </option>
+              );
+            })}
           </select>
 
           {/* Status Filter */}
@@ -391,11 +393,10 @@ const AdminProducts = () => {
                     <button
                       onClick={() => handleToggleStatus(id, product.status)}
                       title="Click to toggle posting status"
-                      className={`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 transition-all shadow-md cursor-pointer ${
-                        isLive
+                      className={`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 transition-all shadow-md cursor-pointer ${isLive
                           ? "bg-emerald-500/90 text-white hover:bg-emerald-600"
                           : "bg-neutral-800/90 text-gray-300 hover:bg-neutral-700 border border-white/20"
-                      }`}
+                        }`}
                     >
                       {isLive ? <Eye className="w-3.5 h-3.5" /> : <EyeOff className="w-3.5 h-3.5" />}
                       <span>{isLive ? "Live" : "Draft"}</span>
@@ -541,12 +542,15 @@ const AdminProducts = () => {
                       onChange={(e) => setFormData({ ...formData, category: e.target.value })}
                       className="w-full p-3 bg-black/50 border border-white/10 rounded-xl text-xs text-white focus:outline-none focus:border-[#ff3d00]"
                     >
-                      {categories.map((c) => (
-                        <option key={c.slug} value={c.title}>
-                          {c.title}
-                        </option>
-                      ))}
-                      <option value="Custom">Custom / Other</option>
+                      {categories.map((c) => {
+                        const catName = c.title || c.name || "Category";
+                        return (
+                          <option key={c.slug || c._id || catName} value={catName} className="bg-[#1a1a1a] text-white py-1">
+                            {catName}
+                          </option>
+                        );
+                      })}
+                      <option value="Custom" className="bg-[#1a1a1a] text-white py-1">Custom / Other</option>
                     </select>
                   </div>
                 </div>
@@ -653,11 +657,10 @@ const AdminProducts = () => {
                         type="button"
                         key={sz}
                         onClick={() => handleSizeToggle(sz)}
-                        className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
-                          isSelected
+                        className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${isSelected
                             ? "bg-[#ff3d00] text-white shadow-md shadow-[#ff3d00]/30"
                             : "bg-black/50 border border-white/10 text-gray-400 hover:text-white"
-                        }`}
+                          }`}
                       >
                         {sz}
                       </button>

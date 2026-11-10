@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import ProductGallery from '../components/ProductGallery'
+import SEO from '../components/SEO'
 
 const UniformAccessories = () => {
   useEffect(() => {
@@ -8,77 +9,123 @@ const UniformAccessories = () => {
   
   const products = [
     {
-      title: 'Socks',
+      title: 'Pro Team Athletic Socks',
       price: '12.00',
       category: 'Uniform Accessories',
-      description: 'High-performance athletic socks for maximum comfort and support.',
-      images: [],
+      slug: 'team-athletic-socks',
+      description: 'High-performance cushioned athletic socks with arch compression, heel reinforcement, and moisture-wicking yarns.',
+      images: [
+        'https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105330/rebelwear/streetwear-images/sportswear-images/sport-accessory.webp',
+      ],
     },
     {
-      title: 'Eyewear',
+      title: 'Sports Performance Eyewear',
       price: '35.00',
       category: 'Uniform Accessories',
-      description: 'Protective sports eyewear designed for performance and safety.',
+      slug: 'sports-performance-eyewear',
+      description: 'Protective impact-resistant sports glasses designed for athlete safety, anti-slip temple grips, and visual clarity.',
       images: [
         'https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105211/rebelwear/streetwear-images/glasses1.jpg',
         'https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105212/rebelwear/streetwear-images/glasses2.jpg',
-        'https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105213/rebelwear/streetwear-images/glasses3.jpg',
-        'https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105214/rebelwear/streetwear-images/glasses4.jpg',
-        'https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105215/rebelwear/streetwear-images/glasses5.jpg',
       ],
     },
     {
-      title: 'Sports Bag',
+      title: 'Heavy-Duty Team Gear Bag',
       price: '45.00',
       category: 'Uniform Accessories',
-      description: 'Durable sports bags to carry all your team gear with ease.',
-      images: [],
+      slug: 'team-gear-bag',
+      description: 'Weather-resistant ripstop nylon duffel bag engineered to hold complete athlete equipment, cleats, and jerseys.',
+      images: [
+        'https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105330/rebelwear/streetwear-images/sportswear-images/sport-accessory.webp',
+      ],
     },
     {
-      title: 'Sports Watch',
-      price: '55.00',
-      category: 'Uniform Accessories',
-      description: 'Track your performance with precision sports watches.',
-      images: [],
-    },
-    {
-      title: 'Caps',
+      title: 'Custom Embroidered Team Caps',
       price: '20.00',
       category: 'Uniform Accessories',
-      description: 'Team caps with custom branding and embroidery options.',
+      slug: 'team-caps',
+      description: 'Pro-style moisture-wicking team caps with 3D raised embroidery, moisture sweatband, and structured crown.',
       images: [
         'https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105188/rebelwear/streetwear-images/cap1.jpg',
         'https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105189/rebelwear/streetwear-images/cap2.jpg',
-        'https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105190/rebelwear/streetwear-images/cap3.jpg',
-        'https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105190/rebelwear/streetwear-images/cap4.jpg',
-        'https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105191/rebelwear/streetwear-images/cap5.jpg',
       ],
-    },
-    {
-      title: 'Other Items',
-      price: '25.00',
-      category: 'Uniform Accessories',
-      description: 'Additional team accessories and essentials for complete sports gear.',
-      images: [],
     },
   ]
 
+  const accessoriesSchema = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'BreadcrumbList',
+        '@id': 'https://rebelwearstore.netlify.app/uniform-accessories#breadcrumb',
+        'itemListElement': [
+          {
+            '@type': 'ListItem',
+            'position': 1,
+            'name': 'Home',
+            'item': 'https://rebelwearstore.netlify.app'
+          },
+          {
+            '@type': 'ListItem',
+            'position': 2,
+            'name': 'Team Uniforms',
+            'item': 'https://rebelwearstore.netlify.app/uniforms'
+          },
+          {
+            '@type': 'ListItem',
+            'position': 3,
+            'name': 'Uniform Accessories',
+            'item': 'https://rebelwearstore.netlify.app/uniform-accessories'
+          }
+        ]
+      },
+      {
+        '@type': 'CollectionPage',
+        '@id': 'https://rebelwearstore.netlify.app/uniform-accessories#collection',
+        'name': 'Custom Team Uniform Accessories, Bags & Headwear | REBELWEAR',
+        'description': 'Manufacturer of team athletic accessories including compression socks, team gear duffels, embroidered caps, and protective eyewear.',
+        'url': 'https://rebelwearstore.netlify.app/uniform-accessories'
+      }
+    ]
+  };
+
   return (
     <div>
-      <section className="relative min-h-[70vh] flex items-center justify-center bg-gradient-to-br from-gray-900 to-black text-white pt-24">
-        <div className="absolute inset-0 bg-gradient-to-br from-black/80 to-gray-900/90"></div>
+      <SEO
+        title="Custom Team Uniform Accessories, Bags & Headwear | REBELWEAR"
+        description="Shop custom athletic team accessories by REBELWEAR. High-performance compression socks, team duffel gear bags, protective sports eyewear, and embroidered team caps."
+        keywords="team uniform accessories, athletic team socks, custom sports bags, team caps embroidered, sports gear wholesale"
+        canonical="https://rebelwearstore.netlify.app/uniform-accessories"
+        schema={accessoriesSchema}
+      />
+
+      <section className="relative min-h-[50vh] flex items-center justify-center bg-gradient-to-br from-gray-900 to-black text-white pt-24">
+        <div className="absolute inset-0 bg-gradient-to-br from-black/85 to-gray-900/90"></div>
         <div className="container relative z-10 text-center max-w-4xl px-5">
-          <h1 className="text-2xl md:text-7xl font-bold mb-4 tracking-wider uppercase bg-gradient-to-r from-white to-secondary bg-clip-text text-transparent">
-            Team Uniform Accessories
+          <span className="inline-block px-4 py-1.5 rounded-full bg-secondary/20 border border-secondary/40 text-secondary text-xs sm:text-sm font-bold uppercase tracking-widest mb-4">
+            Team Sideline Essentials
+          </span>
+          <h1 className="text-4xl sm:text-6xl md:text-7xl font-black mb-4 tracking-wider uppercase bg-gradient-to-r from-white via-neutral-100 to-neutral-400 bg-clip-text text-transparent">
+            Uniform Accessories
           </h1>
-          <p className="text-xl font-light mb-4 text-gray-300">
-            Complete your team's look with professional sports accessories.
+          <p className="text-xl sm:text-2xl font-light mb-4 text-gray-300">
+            Professional Sports Gear & Team Sideline Essentials
+          </p>
+          <p className="text-base sm:text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed">
+            Equip your entire roster with matching team duffel bags, custom moisture-wicking athletic socks, embroidered sideline caps, and protective athletic eyewear.
           </p>
         </div>
       </section>
+
       <section className="py-24 bg-white">
         <div className="container">
-          <h2 className="section-title mb-12">Uniform Accessories Collection</h2>
+          <div className="flex justify-between items-end mb-12 flex-wrap gap-4">
+            <div>
+              <h2 className="section-title text-left !mb-2">Accessories Lineup</h2>
+              <p className="text-neutral-500 text-sm">Select items for direct customization and full team batch orders.</p>
+            </div>
+            <span className="text-xs font-mono text-neutral-400">Showing {products.length} Products</span>
+          </div>
           <ProductGallery products={products} />
         </div>
       </section>

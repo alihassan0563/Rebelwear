@@ -1,0 +1,14 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+
+# Disallow admin dashboard and authenticated suites
+Disallow: /admin
+Disallow: /admin/
+
+# Disallow dynamic checkout and order generation endpoints
+Disallow: /order/
+
+# Host and Sitemap
+Host: https://rebelwearstore.netlify.app
+Sitemap: https://rebelwearstore.netlify.app/sitemap.xml

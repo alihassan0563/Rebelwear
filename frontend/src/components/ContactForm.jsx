@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { getApiBaseUrl } from '../utils/apiConfig'
+import { trackContactInquiry } from '../utils/analytics'
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
@@ -73,6 +74,7 @@ const ContactForm = () => {
       const result = await response.json()
 
       if (result.success) {
+        trackContactInquiry(formData.inquiry);
         showNotification(
           'Thank you for your inquiry! We will get back to you within 24-48 hours.',
           'success'

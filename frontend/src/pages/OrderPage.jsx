@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { cld } from '../utils/cloudinary'
 import { getApiBaseUrl } from '../utils/apiConfig'
+import SEO from '../components/SEO'
+import { trackOrderCompleted } from '../utils/analytics'
 
 const OrderPage = () => {
   const { productSlug, imageIndex } = useParams()
@@ -97,6 +99,12 @@ const OrderPage = () => {
       const result = await response.json()
 
       if (result.success) {
+        trackOrderCompleted({
+          productName: product?.title || 'Custom Apparel',
+          size: orderData.size,
+          quantity: orderData.quantity,
+          price: (parseFloat(product?.price || 0) * orderData.quantity).toFixed(2)
+        });
         showNotification('Order placed successfully! We will contact you soon.', 'success')
         setOrderData({
           size: '',
@@ -123,6 +131,7 @@ const OrderPage = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 pt-24">
+      <SEO title="Order Checkout - REBELWEAR" noIndex={true} />
       {notification && (
         <div
           className={`fixed top-24 right-5 z-50 px-6 py-4 rounded-lg shadow-lg max-w-md ${

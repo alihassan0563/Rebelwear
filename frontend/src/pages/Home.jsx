@@ -5,6 +5,7 @@ import ContactForm from "../components/ContactForm";
 import PinnedHeroSection from "../components/PinnedHeroSection";
 import TestimonialsSection from "../components/TestimonialsSection";
 import { cld } from "../utils/cloudinary";
+import SEO from "../components/SEO";
 
 const Home = () => {
   useEffect(() => {
@@ -87,8 +88,47 @@ const Home = () => {
     },
   ];
 
+  const homeSchema = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://rebelwearstore.netlify.app/#website",
+        "url": "https://rebelwearstore.netlify.app/",
+        "name": "REBELWEAR",
+        "description": "Premium Streetwear & Custom Team Uniforms Manufacturer",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://rebelwearstore.netlify.app/streetwear?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://rebelwearstore.netlify.app/#organization",
+        "name": "REBELWEAR",
+        "url": "https://rebelwearstore.netlify.app",
+        "logo": "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105167/rebelwear/rebelwear.jpg",
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "+92 331 3337574",
+          "contactType": "customer service",
+          "email": "rebelwear40@gmail.com"
+        }
+      }
+    ]
+  };
+
   return (
     <div>
+      <SEO
+        title="REBELWEAR | Premium Streetwear & Custom Team Uniforms Manufacturer"
+        description="International manufacturer of premium heavyweight streetwear, oversized hoodies, graphic tees, and custom athletic sports team uniforms. Worldwide delivery with bespoke customization."
+        keywords="streetwear manufacturer, custom streetwear, team uniforms manufacturer, custom sports uniforms, custom hoodies, graphic tees wholesale"
+        canonical="https://rebelwearstore.netlify.app/"
+        schema={homeSchema}
+      />
+
       {/* Pinned Hero & Collections Multi-Panel ScrollTrigger Section */}
       <PinnedHeroSection />
 
@@ -97,28 +137,28 @@ const Home = () => {
         <div className="container">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
             <div>
-              <h2 className="section-title text-left mb-6">Our Journey</h2>
-              <h3 className="text-3xl mb-6 text-secondary">
+              <h2 className="section-title text-left mb-6">Our Manufacturing Journey</h2>
+              <h3 className="text-3xl mb-6 text-secondary font-bold">
                 Born from Rebellion, Built with Passion
               </h3>
               <p className="text-lg text-text-light mb-6 leading-relaxed">
-                REBELWEAR was founded on a simple belief: every individual
-                deserves apparel that expresses their authentic self. We started
-                as a small custom manufacturer with a vision to create
-                streetwear and sportswear that doesn't just fit—it defines.
+                REBELWEAR was founded on a simple belief: every individual and team
+                deserves apparel that expresses their authentic identity. We operate
+                as a custom apparel manufacturer with a vision to create
+                streetwear and sportswear that doesn't just fit—it defines champions.
               </p>
               <p className="text-lg text-text-light leading-relaxed">
-                Today, we're a trusted supplier for international customers,
-                delivering premium quality garments that blend cutting-edge
-                design with unmatched craftsmanship. From custom streetwear to
-                team uniforms, we bring your vision to life with precision and
-                care.
+                Today, we are a trusted manufacturing partner for international brands,
+                gyms, colleges, and sports clubs, delivering premium quality garments that blend cutting-edge
+                urban fashion with heavy-duty athletic performance.
               </p>
             </div>
-            <div className="h-[500px] rounded-3xl overflow-hidden">
+            <div className="h-[500px] rounded-3xl overflow-hidden shadow-xl">
               <img
                 src={cld("https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105167/rebelwear/rebelwear.jpg", 800)}
-                alt="REBELWEAR"
+                alt="REBELWEAR Custom Apparel Factory and Production Studio"
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover"
               />
             </div>

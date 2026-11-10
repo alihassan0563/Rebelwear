@@ -83,11 +83,11 @@ const AdminCategories = () => {
     setIsEditing(true);
     setCurrentCategoryId(category._id || category.id);
     setFormData({
-      title: category.title || "",
+      title: category.title || category.name || "",
       slug: category.slug || "",
-      parentType: category.parentType || "Streetwear",
+      parentType: category.parentType || category.parentCategory || "Streetwear",
       description: category.description || "",
-      image: category.image || "",
+      image: category.image || category.coverImage || "",
       link: category.link || "",
       badge: category.badge || "",
       status: category.status || "published",
@@ -225,11 +225,10 @@ const AdminCategories = () => {
       {/* Toast Notification */}
       {notification && (
         <div
-          className={`fixed bottom-6 right-6 z-50 px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3 text-sm font-semibold border ${
-            notification.type === "error"
+          className={`fixed bottom-6 right-6 z-50 px-5 py-3 rounded-2xl shadow-2xl flex items-center gap-3 text-sm font-semibold border ${notification.type === "error"
               ? "bg-red-950/90 border-red-500/40 text-red-200"
               : "bg-neutral-900/95 border-emerald-500/40 text-emerald-300"
-          }`}
+            }`}
         >
           {notification.type === "error" ? (
             <AlertTriangle className="w-5 h-5 text-red-400" />
@@ -285,10 +284,10 @@ const AdminCategories = () => {
               >
                 {/* Cover Image */}
                 <div className="h-48 bg-black relative overflow-hidden">
-                  {category.image ? (
+                  {category.image || category.coverImage ? (
                     <img
-                      src={category.image}
-                      alt={category.title}
+                      src={category.image || category.coverImage}
+                      alt={category.title || category.name}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                   ) : (
@@ -302,11 +301,10 @@ const AdminCategories = () => {
                     <button
                       onClick={() => handleToggleStatus(id, category.status)}
                       title="Toggle posting status"
-                      className={`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 transition-all shadow-md cursor-pointer ${
-                        isLive
+                      className={`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 transition-all shadow-md cursor-pointer ${isLive
                           ? "bg-emerald-500/90 text-white hover:bg-emerald-600"
                           : "bg-neutral-800/90 text-gray-300 hover:bg-neutral-700 border border-white/20"
-                      }`}
+                        }`}
                     >
                       {isLive ? <Eye className="w-3.5 h-3.5" /> : <EyeOff className="w-3.5 h-3.5" />}
                       <span>{isLive ? "Live" : "Draft"}</span>
@@ -324,14 +322,14 @@ const AdminCategories = () => {
                 <div className="p-5 flex flex-col flex-grow">
                   <div className="flex justify-between items-center mb-1">
                     <span className="text-xs uppercase tracking-wider font-semibold text-[#ff3d00]">
-                      {category.parentType}
+                      {category.parentType || category.parentCategory || "Streetwear"}
                     </span>
                     <span className="text-xs font-mono text-gray-500">
                       /{category.slug}
                     </span>
                   </div>
 
-                  <h3 className="text-lg font-bold text-white mb-2">{category.title}</h3>
+                  <h3 className="text-lg font-bold text-white mb-2">{category.title || category.name}</h3>
 
                   <p className="text-xs text-gray-400 line-clamp-2 mb-4 flex-grow">
                     {category.description || "No description provided."}
@@ -549,7 +547,7 @@ const AdminCategories = () => {
             </div>
             <h3 className="text-lg font-bold text-white mb-2">Delete Category?</h3>
             <p className="text-xs text-gray-400 mb-6">
-              Are you sure you want to delete <strong className="text-white">{categoryToDelete.title}</strong>? Products assigned to this category will not be deleted, but the category listing will be removed.
+              Are you sure you want to delete <strong className="text-white">{categoryToDelete.title || categoryToDelete.name}</strong>? Products assigned to this category will not be deleted, but the category listing will be removed.
             </p>
             <div className="flex gap-3 justify-center">
               <button
