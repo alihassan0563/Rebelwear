@@ -32,50 +32,62 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Uploads directory: in Vercel serverless, only /tmp is writable
-const uploadsDir = process.env.VERCEL
-  ? path.join(os.tmpdir(), "uploads")
-  : path.join(__dirname, "uploads");
-
-try {
-  if (!fs.existsSync(uploadsDir)) {
-    fs.mkdirSync(uploadsDir, { recursive: true });
-    console.log("📁 Uploads directory initialized:", uploadsDir);
-  }
-} catch (err) {
-  console.warn("⚠️ Uploads directory notice:", err.message);
-}
-
-// Configure multer for file uploads
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, uploadsDir);
-  },
-  filename: (req, file, cb) => {
-    cb(
-      null,
-      `${file.fieldname}-${Date.now()}-${Math.round(Math.random() * 1e9)}${path.extname(file.originalname)}`,
-    );
-  },
-});
-
-const upload = multer({
-  storage: storage,
+// Configure multer for file uploads using memoryStorage for seamless serverless execution
+const uploadContact = multer({
+  storage: multer.memoryStorage(),
   limits: { fileSize: 5 * 1024 * 1024 }, // 5MB limit
   fileFilter: (req, file, cb) => {
-    const allowedTypes = /jpeg|jpg|png|pdf/;
-    const extname = allowedTypes.test(
-      path.extname(file.originalname).toLowerCase(),
-    );
-    const mimetype = allowedTypes.test(file.mimetype);
+    const allowedExts = /\.(jpe?g|png|webp|avif|svg|pdf|heic|jfif|gif|bmp|tiff|ai|eps|psd|zip)$/i;
+    const ext = path.extname(file.originalname || "").toLowerCase();
+    const hasValidExt = allowedExts.test(ext);
 
-    if (mimetype && extname) {
+    const isImageMime = file.mimetype && file.mimetype.startsWith("image/");
+    const isDocMime =
+      file.mimetype === "application/pdf" ||
+      file.mimetype === "application/x-pdf" ||
+      file.mimetype === "application/postscript" ||
+      file.mimetype === "image/vnd.adobe.photoshop" ||
+      file.mimetype === "application/zip" ||
+      file.mimetype === "application/x-zip-compressed" ||
+      file.mimetype === "application/octet-stream";
+
+    if (hasValidExt || isImageMime || isDocMime) {
       return cb(null, true);
     } else {
-      cb(new Error("Only images (JPEG, JPG, PNG) and PDF files are allowed"));
+      cb(
+        new Error(
+          `File type "${ext || file.mimetype}" is not supported. Please upload an image (JPG, PNG, WEBP, SVG), PDF, or design file (AI, EPS, PSD, ZIP).`
+        )
+      );
     }
   },
 });
+
+// Middleware to catch Multer errors gracefully and return 400 instead of cascading to 500
+const handleContactUpload = (req, res, next) => {
+  uploadContact.single("designFile")(req, res, (err) => {
+    if (err) {
+      console.warn("⚠️ Contact file upload error:", err.message);
+      if (err instanceof multer.MulterError) {
+        if (err.code === "LIMIT_FILE_SIZE") {
+          return res.status(400).json({
+            success: false,
+            message: "File is too large. Maximum allowed size is 5MB.",
+          });
+        }
+        return res.status(400).json({
+          success: false,
+          message: `Upload error: ${err.message}`,
+        });
+      }
+      return res.status(400).json({
+        success: false,
+        message: err.message || "Invalid file uploaded.",
+      });
+    }
+    next();
+  });
+};
 
 // Allowed CORS origins including Netlify production and local dev
 const allowedOrigins = [
@@ -181,11 +193,13 @@ const contactValidation = [
 ];
 
 // Contact Form API Endpoint
-app.post("/api/contact", upload.single("designFile"), async (req, res) => {
+app.post("/api/contact", handleContactUpload, async (req, res) => {
   console.log("📧 Contact form submission received:", {
     timestamp: new Date().toISOString(),
     body: req.body,
-    file: req.file ? req.file.originalname : "No file",
+    file: req.file
+      ? `${req.file.originalname} (${req.file.mimetype}, ${req.file.size} bytes)`
+      : "No file",
     envCheck: {
       emailUser: process.env.EMAIL_USER ? "Set" : "Missing",
       emailPass: process.env.EMAIL_PASS ? "Set" : "Missing",
@@ -224,7 +238,13 @@ app.post("/api/contact", upload.single("designFile"), async (req, res) => {
         message: "Message is required and must be at least 10 characters",
       });
     }
+
     const uploadedFile = req.file;
+    const isImage =
+      uploadedFile &&
+      uploadedFile.mimetype &&
+      uploadedFile.mimetype.startsWith("image/") &&
+      !uploadedFile.mimetype.includes("svg");
 
     // Email content for the business owner
     const mailOptions = {
@@ -232,31 +252,43 @@ app.post("/api/contact", upload.single("designFile"), async (req, res) => {
       to: getBusinessEmail(),
       subject: `New Inquiry: ${inquiry} - REBELWEAR`,
       html: `
-                <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-                    <h2 style="color: #ff3d00;">New Contact Form Inquiry</h2>
-                    ${uploadedFile ? `
-                    <div style="text-align: center; margin: 20px 0;">
-                        <img src="cid:designImage" alt="${uploadedFile.originalname}" style="max-width: 400px; height: auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" />
-                        <p style="color: #666; font-size: 12px; margin-top: 10px;">Design File: ${uploadedFile.originalname}</p>
-                    </div>
-                    ` : ""}
-                    <div style="background: #f8f8f8; padding: 20px; border-radius: 10px; margin: 20px 0;">
-                        <p><strong>Name:</strong> ${name}</p>
-                        <p><strong>Email:</strong> ${email}</p>
-                        <p><strong>Phone:</strong> ${phone || "Not provided"}</p>
-                        <p><strong>Inquiry Type:</strong> ${inquiry}</p>
-                        <p><strong>Message:</strong></p>
-                        <p style="background: white; padding: 15px; border-radius: 5px; margin-top: 10px;">${message.replace(/\n/g, "<br>")}</p>
-                    </div>
-                    <p style="color: #666; font-size: 12px;">This email was sent from the REBELWEAR contact form.</p>
-                </div>
-            `,
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; color: #111;">
+            <h2 style="color: #ff3d00;">New Contact Form Inquiry</h2>
+            ${
+              uploadedFile
+                ? isImage
+                  ? `
+            <div style="text-align: center; margin: 20px 0;">
+                <img src="cid:designImage" alt="${uploadedFile.originalname}" style="max-width: 400px; height: auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" />
+                <p style="color: #666; font-size: 12px; margin-top: 10px;">Design File: ${uploadedFile.originalname} (${(uploadedFile.size / 1024).toFixed(1)} KB)</p>
+            </div>
+            `
+                  : `
+            <div style="background: #f1f5f9; border: 1px dashed #94a3b8; padding: 15px; border-radius: 8px; margin: 20px 0; text-align: center;">
+                <p style="margin: 0; font-size: 14px; font-weight: bold; color: #1e293b;">📎 Attached Design File</p>
+                <p style="margin: 5px 0 0; color: #64748b; font-size: 12px;">${uploadedFile.originalname} (${(uploadedFile.size / 1024).toFixed(1)} KB) - Please see email attachment.</p>
+            </div>
+            `
+                : ""
+            }
+            <div style="background: #f8f8f8; padding: 20px; border-radius: 10px; margin: 20px 0;">
+                <p><strong>Name:</strong> ${name}</p>
+                <p><strong>Email:</strong> ${email}</p>
+                <p><strong>Phone:</strong> ${phone || "Not provided"}</p>
+                <p><strong>Inquiry Type:</strong> ${inquiry}</p>
+                <p><strong>Message:</strong></p>
+                <p style="background: white; padding: 15px; border-radius: 5px; margin-top: 10px;">${message.replace(/\n/g, "<br>")}</p>
+            </div>
+            <p style="color: #666; font-size: 12px;">This email was sent from the REBELWEAR contact form.</p>
+        </div>
+      `,
       attachments: uploadedFile
         ? [
             {
               filename: uploadedFile.originalname,
-              path: uploadedFile.path,
-              cid: "designImage",
+              content: uploadedFile.buffer,
+              contentType: uploadedFile.mimetype,
+              ...(isImage ? { cid: "designImage" } : {}),
             },
           ]
         : [],
@@ -268,63 +300,87 @@ app.post("/api/contact", upload.single("designFile"), async (req, res) => {
       to: email,
       subject: "Thank you for contacting REBELWEAR",
       html: `
-                <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-                    <h2 style="color: #ff3d00;">Thank you for contacting REBELWEAR!</h2>
-                    <p>Dear ${name},</p>
-                    <p>We have received your inquiry regarding <strong>${inquiry}</strong> and will get back to you within 24-48 working hours.</p>
-                    <div style="background: #f8f8f8; padding: 20px; border-radius: 10px; margin: 20px 0;">
-                        <p><strong>Your Message:</strong></p>
-                        <p style="background: white; padding: 15px; border-radius: 5px; margin-top: 10px;">${message.replace(/\n/g, "<br>")}</p>
-                    </div>
-                    <p>If you have any urgent questions, feel free to contact us directly at:</p>
-                    <ul>
-                        <li>Email: <a href="mailto:rebelwear40@gmail.com">rebelwear40@gmail.com</a></li>
-                        <li>Phone: <a href="tel:+923313337574">+92 3313337574</a></li>
-                    </ul>
-                    <p style="margin-top: 30px;">Best regards,<br><strong>The REBELWEAR Team</strong></p>
-                    <hr style="border: none; border-top: 1px solid #eee; margin: 30px 0;">
-                    <p style="color: #666; font-size: 12px;">This is an automated confirmation email. Please do not reply to this message.</p>
-                </div>
-            `,
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; color: #111;">
+            <h2 style="color: #ff3d00;">Thank you for contacting REBELWEAR!</h2>
+            <p>Dear ${name},</p>
+            <p>We have received your inquiry regarding <strong>${inquiry}</strong> and will get back to you within 24-48 working hours.</p>
+            <div style="background: #f8f8f8; padding: 20px; border-radius: 10px; margin: 20px 0;">
+                <p><strong>Your Message:</strong></p>
+                <p style="background: white; padding: 15px; border-radius: 5px; margin-top: 10px;">${message.replace(/\n/g, "<br>")}</p>
+            </div>
+            <p>If you have any urgent questions, feel free to contact us directly at:</p>
+            <ul>
+                <li>Email: <a href="mailto:rebelwear40@gmail.com">rebelwear40@gmail.com</a></li>
+                <li>Phone: <a href="tel:+923313337574">+92 3313337574</a></li>
+            </ul>
+            <p style="margin-top: 30px;">Best regards,<br><strong>The REBELWEAR Team</strong></p>
+            <hr style="border: none; border-top: 1px solid #eee; margin: 30px 0;">
+            <p style="color: #666; font-size: 12px;">This is an automated confirmation email. Please do not reply to this message.</p>
+        </div>
+      `,
     };
 
-    // Send emails with error handling
-    let emailErrors = [];
-
+    // Send business notification email first
+    let businessSent = false;
     try {
       await transporter.sendMail(mailOptions);
-      console.log("✅ Business notification email sent");
+      businessSent = true;
+      console.log("✅ Business notification email sent via SMTP");
     } catch (emailError) {
-      console.error("❌ Failed to send business email:", emailError.message);
-      emailErrors.push("business email");
+      console.error(
+        "❌ Failed to send business email via SMTP:",
+        emailError.message
+      );
+      // Attempt Resend fallback if available
+      if (process.env.RESEND_API_KEY) {
+        try {
+          const resendPayload = {
+            from: "REBELWEAR <onboarding@resend.dev>",
+            to: [getBusinessEmail()],
+            subject: `New Inquiry: ${inquiry} - REBELWEAR`,
+            html: mailOptions.html,
+          };
+          if (uploadedFile) {
+            resendPayload.attachments = [
+              {
+                filename: uploadedFile.originalname,
+                content: uploadedFile.buffer.toString("base64"),
+              },
+            ];
+          }
+          await resend.emails.send(resendPayload);
+          businessSent = true;
+          console.log("✅ Business email sent via Resend fallback");
+        } catch (resendError) {
+          console.error("❌ Resend fallback also failed:", resendError.message);
+        }
+      }
     }
 
+    if (!businessSent) {
+      return res.status(500).json({
+        success: false,
+        message:
+          "Failed to send your inquiry. Please try again or contact us directly at rebelwear40@gmail.com or +92 3313337574.",
+      });
+    }
+
+    // Customer confirmation email (non-blocking)
     try {
       await transporter.sendMail(confirmationMailOptions);
       console.log("✅ Customer confirmation email sent");
     } catch (emailError) {
-      console.error(
-        "❌ Failed to send confirmation email:",
-        emailError.message,
-      );
-      emailErrors.push("confirmation email");
+      console.warn("⚠️ Customer confirmation email notice:", emailError.message);
     }
 
-    if (emailErrors.length > 0) {
-      return res.status(500).json({
-        success: false,
-        message: `Failed to send ${emailErrors.join(" and ")}. Please contact us directly at rebelwear40@gmail.com or +92 3313337574.`,
-      });
-    }
-
-    res.json({
+    return res.json({
       success: true,
       message:
         "Your inquiry has been sent successfully! We will get back to you within 24-48 hours.",
     });
   } catch (error) {
     console.error("Error sending email:", error);
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       message:
         "An error occurred while sending your inquiry. Please try again later or contact us directly.",
@@ -659,10 +715,15 @@ app.post("/api/contact-test", (req, res) => {
 
 // Error handling middleware
 app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).json({
+  console.error("❌ Unhandled server error:", err);
+  const statusCode =
+    err.status ||
+    err.statusCode ||
+    (err instanceof multer.MulterError ? 400 : 500);
+
+  res.status(statusCode).json({
     success: false,
-    message: "Something went wrong!",
+    message: err.message || "Something went wrong! Please try again.",
   });
 });
 

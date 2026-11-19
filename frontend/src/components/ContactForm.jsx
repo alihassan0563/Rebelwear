@@ -22,11 +22,26 @@ const ContactForm = () => {
 
   const handleChange = (e) => {
     const { name, value, files } = e.target
-    if (name === 'designFile' && files[0]) {
-      setFormData({ ...formData, designFile: files[0] })
-      const reader = new FileReader()
-      reader.onloadend = () => setPreview(reader.result)
-      reader.readAsDataURL(files[0])
+    if (name === 'designFile' && files && files[0]) {
+      const file = files[0]
+      // Validate file size (max 5MB)
+      if (file.size > 5 * 1024 * 1024) {
+        showNotification('File is too large. Maximum file size is 5MB.', 'error')
+        e.target.value = ''
+        setFormData({ ...formData, designFile: null })
+        setPreview(null)
+        return
+      }
+
+      setFormData({ ...formData, designFile: file })
+
+      if (file.type.startsWith('image/') && !file.type.includes('svg')) {
+        const reader = new FileReader()
+        reader.onloadend = () => setPreview(reader.result)
+        reader.readAsDataURL(file)
+      } else {
+        setPreview(null)
+      }
     } else {
       setFormData({ ...formData, [name]: value })
     }
@@ -35,6 +50,8 @@ const ContactForm = () => {
   const removeFile = () => {
     setFormData({ ...formData, designFile: null })
     setPreview(null)
+    const fileInput = document.getElementById('design-file')
+    if (fileInput) fileInput.value = ''
   }
 
   const handleSubmit = async (e) => {
@@ -183,26 +200,46 @@ const ContactForm = () => {
           <label className="block mb-2">
             Upload Your Design (Optional)
             <span className="text-text-light font-normal text-sm ml-2">
-              - JPG, PNG, PDF (Max 5MB)
+              - JPG, PNG, WEBP, PDF, AI, PSD (Max 5MB)
             </span>
           </label>
           <input
             type="file"
             id="design-file"
             name="designFile"
-            accept="image/*,.pdf"
+            accept="image/*,.pdf,.ai,.eps,.psd,.zip"
             onChange={handleChange}
             className="w-full px-4 py-2 border-2 border-gray-300 rounded-xl"
           />
-          {preview && (
-            <div className="mt-4 relative">
-              <img src={preview} alt="Preview" className="max-w-full h-auto rounded-lg" />
+          {formData.designFile && (
+            <div className="mt-4 p-4 bg-gray-50 border border-gray-200 rounded-xl flex items-center justify-between">
+              <div className="flex items-center space-x-3 overflow-hidden">
+                {preview ? (
+                  <img
+                    src={preview}
+                    alt="Design Preview"
+                    className="w-14 h-14 object-cover rounded-lg border border-gray-300 flex-shrink-0"
+                  />
+                ) : (
+                  <div className="w-14 h-14 bg-gray-200 text-gray-700 rounded-lg flex items-center justify-center font-bold text-xs uppercase flex-shrink-0 border border-gray-300">
+                    {formData.designFile.name.split('.').pop() || 'FILE'}
+                  </div>
+                )}
+                <div className="truncate">
+                  <p className="text-sm font-semibold text-text truncate">
+                    {formData.designFile.name}
+                  </p>
+                  <p className="text-xs text-text-light">
+                    {(formData.designFile.size / 1024).toFixed(1)} KB
+                  </p>
+                </div>
+              </div>
               <button
                 type="button"
                 onClick={removeFile}
-                className="mt-2 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors"
+                className="ml-3 px-3 py-1.5 bg-red-500 text-white text-xs font-semibold rounded-lg hover:bg-red-600 transition-colors flex-shrink-0"
               >
-                Remove File
+                Remove
               </button>
             </div>
           )}
