@@ -2,18 +2,23 @@
   {
     "_id": "prod_1",
     "title": "Classic Hoodie",
+    "name": "Classic Hoodie",
     "slug": "classic-hoodie",
     "price": "34.99",
     "category": "Hoodies",
     "parentCollection": "Streetwear",
-    "description": "Timeless style with premium comfort. Clean design, everyday comfort.",
+    "description": "Timeless style with premium comfort. Clean design, everyday comfort crafted from 450 GSM combed cotton.",
     "images": [
       "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105192/rebelwear/streetwear-images/classichoodie1.jpg",
       "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105193/rebelwear/streetwear-images/classichoodie2.jpg",
-      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105194/rebelwear/streetwear-images/classichoodie3.jpg"
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105194/rebelwear/streetwear-images/classichoodie3.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105195/rebelwear/streetwear-images/classichoodie4.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105196/rebelwear/streetwear-images/classichoodie6.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105208/rebelwear/streetwear-images/classsichoodie5.jpg"
     ],
     "badge": "Popular",
     "sizes": [
+      "XS",
       "S",
       "M",
       "L",
@@ -21,48 +26,132 @@
       "XXL"
     ],
     "status": "published",
+    "isPublished": true,
     "isFeatured": true,
-    "createdAt": "2026-10-08T19:54:40.474Z",
-    "updatedAt": "2026-10-08T19:54:40.474Z"
+    "stockStatus": "in_stock",
+    "createdAt": "2026-11-20T19:56:58.730Z",
+    "updatedAt": "2026-11-20T19:56:58.730Z"
   },
   {
     "_id": "prod_2",
     "title": "Oversize Hoodie",
+    "name": "Oversize Hoodie",
     "slug": "oversize-hoodie",
     "price": "29.99",
     "category": "Hoodies",
     "parentCollection": "Streetwear",
-    "description": "Relaxed fit for ultimate comfort. Street-ready silhouette.",
+    "description": "Relaxed drop-shoulder fit for ultimate comfort. Contemporary boxy street-ready silhouette.",
     "images": [
       "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105231/rebelwear/streetwear-images/oversizehoodie1.jpg",
-      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105233/rebelwear/streetwear-images/oversizehoodie2.jpg"
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105233/rebelwear/streetwear-images/oversizehoodie2.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105233/rebelwear/streetwear-images/oversizehoodie3.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105234/rebelwear/streetwear-images/oversizehoodie4.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105235/rebelwear/streetwear-images/oversizehoodie5.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105236/rebelwear/streetwear-images/oversizehoodie6.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105237/rebelwear/streetwear-images/oversizehoodie7.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105238/rebelwear/streetwear-images/oversizehoodie8.jpg"
     ],
     "badge": "Hot",
     "sizes": [
+      "XS",
       "S",
       "M",
       "L",
-      "XL"
+      "XL",
+      "XXL"
     ],
     "status": "published",
+    "isPublished": true,
     "isFeatured": true,
-    "createdAt": "2026-10-08T19:54:40.474Z",
-    "updatedAt": "2026-10-08T19:54:40.474Z"
+    "stockStatus": "in_stock",
+    "createdAt": "2026-11-20T19:56:58.730Z",
+    "updatedAt": "2026-11-20T19:56:58.730Z"
   },
   {
     "_id": "prod_3",
+    "title": "Pullover Hoodie",
+    "name": "Pullover Hoodie",
+    "slug": "pullover-hoodie",
+    "price": "29.99",
+    "category": "Hoodies",
+    "parentCollection": "Streetwear",
+    "description": "Classic pullover design with comfortable fit, kangaroo pocket, and premium brushed fleece lining.",
+    "images": [
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105259/rebelwear/streetwear-images/pulloverhoodie1.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105260/rebelwear/streetwear-images/pulloverhoodie2.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105261/rebelwear/streetwear-images/pulloverhoodie3.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105261/rebelwear/streetwear-images/pulloverhoodie4.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105263/rebelwear/streetwear-images/pulloverhoodie5.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105264/rebelwear/streetwear-images/pulloverhoodie6.jpg"
+    ],
+    "badge": "",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "status": "published",
+    "isPublished": true,
+    "isFeatured": false,
+    "stockStatus": "in_stock",
+    "createdAt": "2026-11-20T19:56:58.731Z",
+    "updatedAt": "2026-11-20T19:56:58.731Z"
+  },
+  {
+    "_id": "prod_4",
+    "title": "Zip Hoodie",
+    "name": "Zip Hoodie",
+    "slug": "zip-hoodie",
+    "price": "29.99",
+    "category": "Hoodies",
+    "parentCollection": "Streetwear",
+    "description": "Versatile zip-up design with metal zipper hardware and cozy brushed cotton interior for effortless layering.",
+    "images": [
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105368/rebelwear/streetwear-images/ziphoodie1.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105369/rebelwear/streetwear-images/ziphoodie2.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105370/rebelwear/streetwear-images/ziphoodie3.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105370/rebelwear/streetwear-images/ziphoodie4.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105371/rebelwear/streetwear-images/ziphoodie5.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105372/rebelwear/streetwear-images/ziphoodie6.jpg"
+    ],
+    "badge": "",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "status": "published",
+    "isPublished": true,
+    "isFeatured": false,
+    "stockStatus": "in_stock",
+    "createdAt": "2026-11-20T19:56:58.731Z",
+    "updatedAt": "2026-11-20T19:56:58.731Z"
+  },
+  {
+    "_id": "prod_5",
     "title": "Rebel Hoodie",
+    "name": "Rebel Hoodie",
     "slug": "rebel-hoodie",
     "price": "29.99",
     "category": "Hoodies",
     "parentCollection": "Streetwear",
-    "description": "Warm, bold, and made to stand out. Premium cotton blend with custom graphics.",
+    "description": "Warm, bold, and made to stand out. Premium cotton blend with high-density signature graphic print.",
     "images": [
       "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105222/rebelwear/streetwear-images/h11.jpg",
-      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105223/rebelwear/streetwear-images/h12.jpg"
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105223/rebelwear/streetwear-images/h12.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105223/rebelwear/streetwear-images/hoo1.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105224/rebelwear/streetwear-images/hoo2.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105226/rebelwear/streetwear-images/hoodi2.avif"
     ],
     "badge": "New",
     "sizes": [
+      "XS",
       "S",
       "M",
       "L",
@@ -70,23 +159,27 @@
       "XXL"
     ],
     "status": "published",
+    "isPublished": true,
     "isFeatured": true,
-    "createdAt": "2026-10-08T19:54:40.474Z",
-    "updatedAt": "2026-10-08T19:54:40.474Z"
+    "stockStatus": "in_stock",
+    "createdAt": "2026-11-20T19:56:58.731Z",
+    "updatedAt": "2026-11-20T19:56:58.731Z"
   },
   {
-    "_id": "prod_4",
-    "title": "Custom Team Uniforms",
-    "slug": "custom-team-uniforms",
-    "price": "65.00",
-    "category": "Basketball Uniforms",
-    "parentCollection": "Sportswear",
-    "description": "Professional team uniforms with custom designs. Built for performance and durability.",
+    "_id": "prod_6",
+    "title": "Custom Hoodie",
+    "name": "Custom Hoodie",
+    "slug": "custom-hoodie",
+    "price": "Custom Quote",
+    "category": "Hoodies",
+    "parentCollection": "Streetwear",
+    "description": "Your design, our manufacturing precision. Contact us for custom GSM weights, embroidery, puff print, and private labeling.",
     "images": [
-      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105308/rebelwear/streetwear-images/sportswear-images/basketball-uniform-3.jpg"
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105210/rebelwear/streetwear-images/customhoodie.webp"
     ],
-    "badge": "Popular",
+    "badge": "",
     "sizes": [
+      "XS",
       "S",
       "M",
       "L",
@@ -94,32 +187,1270 @@
       "XXL"
     ],
     "status": "published",
-    "isFeatured": true,
-    "createdAt": "2026-10-08T19:54:40.474Z",
-    "updatedAt": "2026-10-08T19:54:40.474Z"
+    "isPublished": true,
+    "isFeatured": false,
+    "stockStatus": "in_stock",
+    "createdAt": "2026-11-20T19:56:58.731Z",
+    "updatedAt": "2026-11-20T19:56:58.731Z"
   },
   {
-    "_id": "prod_5",
-    "title": "Street Graphic Tee",
-    "slug": "street-graphic-tee",
-    "price": "24.99",
+    "_id": "prod_7",
+    "title": "Graphic Tee",
+    "name": "Graphic Tee",
+    "slug": "graphic-tee",
+    "price": "23.00",
     "category": "T-Shirts",
     "parentCollection": "Streetwear",
-    "description": "Bold graphic tees with premium fabric quality.",
+    "description": "Sharp urban prints on 240 GSM combed cotton. High density screen-printed graphics built to endure daily wear.",
+    "images": [
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105216/rebelwear/streetwear-images/graphictee1.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105217/rebelwear/streetwear-images/graphictee2.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105218/rebelwear/streetwear-images/graphictee3.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105218/rebelwear/streetwear-images/graphictee4.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105220/rebelwear/streetwear-images/graphictee5.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105221/rebelwear/streetwear-images/graphictee6.jpg"
+    ],
+    "badge": "Hot",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "status": "published",
+    "isPublished": true,
+    "isFeatured": true,
+    "stockStatus": "in_stock",
+    "createdAt": "2026-11-20T19:56:58.732Z",
+    "updatedAt": "2026-11-20T19:56:58.732Z"
+  },
+  {
+    "_id": "prod_8",
+    "title": "Plain T-Shirt",
+    "name": "Plain T-Shirt",
+    "slug": "plain-tshirt",
+    "price": "19.00",
+    "category": "T-Shirts",
+    "parentCollection": "Streetwear",
+    "description": "Classic luxury blank tees crafted from organic ringspun cotton. Ideal foundation for minimalist everyday wear.",
+    "images": [
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105244/rebelwear/streetwear-images/plaintshirt1.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105245/rebelwear/streetwear-images/plaintshirt2.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105246/rebelwear/streetwear-images/plaintshirt3.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105247/rebelwear/streetwear-images/plaintshirt4.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105247/rebelwear/streetwear-images/plaintshirt5.jpg"
+    ],
+    "badge": "",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "status": "published",
+    "isPublished": true,
+    "isFeatured": false,
+    "stockStatus": "in_stock",
+    "createdAt": "2026-11-20T19:56:58.732Z",
+    "updatedAt": "2026-11-20T19:56:58.732Z"
+  },
+  {
+    "_id": "prod_9",
+    "title": "Polo Shirt",
+    "name": "Polo Shirt",
+    "slug": "polo-shirt",
+    "price": "23.00",
+    "category": "T-Shirts",
+    "parentCollection": "Streetwear",
+    "description": "Elevated casual collar tee with breathable pique knit cotton, custom button placket, and clean street branding.",
+    "images": [
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105248/rebelwear/streetwear-images/poloshirt1.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105249/rebelwear/streetwear-images/poloshirt2.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105250/rebelwear/streetwear-images/poloshirt3.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105251/rebelwear/streetwear-images/poloshirt4.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105252/rebelwear/streetwear-images/poloshirt5.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105252/rebelwear/streetwear-images/poloshirt6.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105253/rebelwear/streetwear-images/poloshirt7.jpg"
+    ],
+    "badge": "",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "status": "published",
+    "isPublished": true,
+    "isFeatured": false,
+    "stockStatus": "in_stock",
+    "createdAt": "2026-11-20T19:56:58.732Z",
+    "updatedAt": "2026-11-20T19:56:58.732Z"
+  },
+  {
+    "_id": "prod_10",
+    "title": "Vintage Tee",
+    "name": "Vintage Tee",
+    "slug": "vintage-tee",
+    "price": "25.00",
+    "category": "T-Shirts",
+    "parentCollection": "Streetwear",
+    "description": "Acid-washed retro aesthetic with buttery-soft handfeel and distress-washed vintage finish.",
+    "images": [
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105361/rebelwear/streetwear-images/vintagetee1.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105362/rebelwear/streetwear-images/vintagetee2.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105363/rebelwear/streetwear-images/vintagetee3.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105364/rebelwear/streetwear-images/vintagetee4.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105365/rebelwear/streetwear-images/vintagetee5.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105366/rebelwear/streetwear-images/vintagetee6.jpg"
+    ],
+    "badge": "",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "status": "published",
+    "isPublished": true,
+    "isFeatured": false,
+    "stockStatus": "in_stock",
+    "createdAt": "2026-11-20T19:56:58.732Z",
+    "updatedAt": "2026-11-20T19:56:58.732Z"
+  },
+  {
+    "_id": "prod_11",
+    "title": "Street Tee Collection",
+    "name": "Street Tee Collection",
+    "slug": "street-tees",
+    "price": "23.00",
+    "category": "T-Shirts",
+    "parentCollection": "Streetwear",
+    "description": "Bold oversized graphics, drop shoulders, and reinforced collar ribbing that resists sagging.",
     "images": [
       "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105265/rebelwear/streetwear-images/sh1.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105265/rebelwear/streetwear-images/sh2.jpg",
       "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105266/rebelwear/streetwear-images/sh3.jpg"
     ],
     "badge": "New",
     "sizes": [
+      "XS",
       "S",
       "M",
       "L",
-      "XL"
+      "XL",
+      "XXL"
     ],
     "status": "published",
+    "isPublished": true,
     "isFeatured": true,
-    "createdAt": "2026-10-08T19:54:40.474Z",
-    "updatedAt": "2026-10-08T19:54:40.474Z"
+    "stockStatus": "in_stock",
+    "createdAt": "2026-11-20T19:56:58.732Z",
+    "updatedAt": "2026-11-20T19:56:58.732Z"
+  },
+  {
+    "_id": "prod_12",
+    "title": "Crewneck Sweatshirt",
+    "name": "Crewneck Sweatshirt",
+    "slug": "crewneck-sweatshirt",
+    "price": "45.00",
+    "category": "Sweatshirts",
+    "parentCollection": "Streetwear",
+    "description": "Classic comfort in premium fabric. Soft 420 GSM brushed fleece interior, coverstitched seams, and clean street design.",
+    "images": [
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105333/rebelwear/streetwear-images/sweatshirt2.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105332/rebelwear/streetwear-images/sweatshirt1.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105334/rebelwear/streetwear-images/sweatshirt3.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105334/rebelwear/streetwear-images/sweatshirt4.jpg"
+    ],
+    "badge": "Bestseller",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "status": "published",
+    "isPublished": true,
+    "isFeatured": true,
+    "stockStatus": "in_stock",
+    "createdAt": "2026-11-20T19:56:58.734Z",
+    "updatedAt": "2026-11-20T19:56:58.734Z"
+  },
+  {
+    "_id": "prod_13",
+    "title": "Half Zip Sweatshirt",
+    "name": "Half Zip Sweatshirt",
+    "slug": "half-zip-sweatshirt",
+    "price": "49.00",
+    "category": "Sweatshirts",
+    "parentCollection": "Streetwear",
+    "description": "Versatile quarter-zip collar design with antique silver zipper hardware. Minimalist aesthetic, maximum layering warmth.",
+    "images": [
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105373/rebelwear/streetwear-images/zipsweat1.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105374/rebelwear/streetwear-images/zipsweat2.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105375/rebelwear/streetwear-images/zipsweat3.jpg"
+    ],
+    "badge": "",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "status": "published",
+    "isPublished": true,
+    "isFeatured": false,
+    "stockStatus": "in_stock",
+    "createdAt": "2026-11-20T19:56:58.734Z",
+    "updatedAt": "2026-11-20T19:56:58.734Z"
+  },
+  {
+    "_id": "prod_14",
+    "title": "Premium Sweatshirt",
+    "name": "Premium Sweatshirt",
+    "slug": "premium-sweatshirt",
+    "price": "45.00",
+    "category": "Sweatshirts",
+    "parentCollection": "Streetwear",
+    "description": "Cozy heavyweight layers engineered with drop-shoulder silhouette and rib-knit cuffs that do not lose elasticity.",
+    "images": [
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105331/rebelwear/streetwear-images/sweat1.jpg"
+    ],
+    "badge": "",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "status": "published",
+    "isPublished": true,
+    "isFeatured": false,
+    "stockStatus": "in_stock",
+    "createdAt": "2026-11-20T19:56:58.734Z",
+    "updatedAt": "2026-11-20T19:56:58.734Z"
+  },
+  {
+    "_id": "prod_15",
+    "title": "Classic Track",
+    "name": "Classic Track",
+    "slug": "classic-track",
+    "price": "89.00",
+    "category": "Tracksuits",
+    "parentCollection": "Streetwear",
+    "description": "Timeless tracksuit set with tailored track jacket and tapered joggers. Built for motion, born for rebels.",
+    "images": [
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105197/rebelwear/streetwear-images/classictrack1.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105201/rebelwear/streetwear-images/classictrack2.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105202/rebelwear/streetwear-images/classictrack3.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105203/rebelwear/streetwear-images/classictrack4.jpg"
+    ],
+    "badge": "Popular",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "status": "published",
+    "isPublished": true,
+    "isFeatured": true,
+    "stockStatus": "in_stock",
+    "createdAt": "2026-11-20T19:56:58.735Z",
+    "updatedAt": "2026-11-20T19:56:58.735Z"
+  },
+  {
+    "_id": "prod_16",
+    "title": "Performance Track",
+    "name": "Performance Track",
+    "slug": "performance-track",
+    "price": "95.00",
+    "category": "Tracksuits",
+    "parentCollection": "Streetwear",
+    "description": "Engineered moisture-wicking poly-spandex blend. Functional athletic styling meets raw urban streetwear aesthetic.",
+    "images": [
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105239/rebelwear/streetwear-images/performancetrack1.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105240/rebelwear/streetwear-images/performancetrack2.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105241/rebelwear/streetwear-images/performancetrack3.jpg"
+    ],
+    "badge": "",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "status": "published",
+    "isPublished": true,
+    "isFeatured": false,
+    "stockStatus": "in_stock",
+    "createdAt": "2026-11-20T19:56:58.735Z",
+    "updatedAt": "2026-11-20T19:56:58.735Z"
+  },
+  {
+    "_id": "prod_17",
+    "title": "Sweatsuit",
+    "name": "Sweatsuit",
+    "slug": "sweatsuit",
+    "price": "85.00",
+    "category": "Tracksuits",
+    "parentCollection": "Streetwear",
+    "description": "Plush brushed fleece hoodie and matching sweatpants set. Cozy heavyweight layers for winter street style.",
+    "images": [
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105337/rebelwear/streetwear-images/sweatsuit1.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105337/rebelwear/streetwear-images/sweatsuit2.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105338/rebelwear/streetwear-images/sweatsuit3.jpg"
+    ],
+    "badge": "",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "status": "published",
+    "isPublished": true,
+    "isFeatured": false,
+    "stockStatus": "in_stock",
+    "createdAt": "2026-11-20T19:56:58.735Z",
+    "updatedAt": "2026-11-20T19:56:58.735Z"
+  },
+  {
+    "_id": "prod_18",
+    "title": "Premium Track Collection",
+    "name": "Premium Track Collection",
+    "slug": "premium-track",
+    "price": "99.00",
+    "category": "Tracksuits",
+    "parentCollection": "Streetwear",
+    "description": "Custom cut-and-sew two-piece tracksuit with contrasting stripe paneling and zipped pockets.",
+    "images": [
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105346/rebelwear/streetwear-images/tra1.avif",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105347/rebelwear/streetwear-images/tra2.avif",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105348/rebelwear/streetwear-images/tra3.avif"
+    ],
+    "badge": "New",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "status": "published",
+    "isPublished": true,
+    "isFeatured": true,
+    "stockStatus": "in_stock",
+    "createdAt": "2026-11-20T19:56:58.735Z",
+    "updatedAt": "2026-11-20T19:56:58.735Z"
+  },
+  {
+    "_id": "prod_19",
+    "title": "Bike Jacket",
+    "name": "Bike Jacket",
+    "slug": "bike-jacket",
+    "price": "89.00",
+    "category": "Jackets",
+    "parentCollection": "Streetwear",
+    "description": "Street-ready motorcycle inspired jacket with rugged weatherproof shell, metal zippers, and bold industrial design.",
+    "images": [
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105180/rebelwear/streetwear-images/bikejacket.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105181/rebelwear/streetwear-images/bikejacket1.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105182/rebelwear/streetwear-images/bikejacket2.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105182/rebelwear/streetwear-images/bikejacket3.jpg"
+    ],
+    "badge": "Hot",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "status": "published",
+    "isPublished": true,
+    "isFeatured": true,
+    "stockStatus": "in_stock",
+    "createdAt": "2026-11-20T19:56:58.737Z",
+    "updatedAt": "2026-11-20T19:56:58.737Z"
+  },
+  {
+    "_id": "prod_20",
+    "title": "Premium Jacket Collection",
+    "name": "Premium Jacket Collection",
+    "slug": "premium-jacket",
+    "price": "79.00",
+    "category": "Jackets",
+    "parentCollection": "Streetwear",
+    "description": "Modern outerwear for every season. Weather-resistant shell with breathable lining and urban streetwear cut.",
+    "images": [
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105228/rebelwear/streetwear-images/jacket1.avif",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105229/rebelwear/streetwear-images/jacket2.avif",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105230/rebelwear/streetwear-images/jacket3.avif"
+    ],
+    "badge": "",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "status": "published",
+    "isPublished": true,
+    "isFeatured": false,
+    "stockStatus": "in_stock",
+    "createdAt": "2026-11-20T19:56:58.737Z",
+    "updatedAt": "2026-11-20T19:56:58.737Z"
+  },
+  {
+    "_id": "prod_21",
+    "title": "Puffer Jacket",
+    "name": "Puffer Jacket",
+    "slug": "puffer-jacket",
+    "price": "99.00",
+    "category": "Jackets",
+    "parentCollection": "Streetwear",
+    "description": "Thermal insulated winter puffer jacket. High loft insulation, matte weather-proof shell, and oversized boxy drape.",
+    "images": [
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105254/rebelwear/streetwear-images/puffer1.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105255/rebelwear/streetwear-images/puffer2.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105256/rebelwear/streetwear-images/puffer3.jpg"
+    ],
+    "badge": "",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "status": "published",
+    "isPublished": true,
+    "isFeatured": false,
+    "stockStatus": "in_stock",
+    "createdAt": "2026-11-20T19:56:58.737Z",
+    "updatedAt": "2026-11-20T19:56:58.737Z"
+  },
+  {
+    "_id": "prod_22",
+    "title": "Varsity Jacket",
+    "name": "Varsity Jacket",
+    "slug": "varsity-jacket",
+    "price": "95.00",
+    "category": "Jackets",
+    "parentCollection": "Streetwear",
+    "description": "Classic athletic varsity silhouette with wool-blend body, faux leather sleeves, and chenille patch embroidery.",
+    "images": [
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105351/rebelwear/streetwear-images/versity1.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105354/rebelwear/streetwear-images/versity2.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105355/rebelwear/streetwear-images/versity3.jpg"
+    ],
+    "badge": "Popular",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "status": "published",
+    "isPublished": true,
+    "isFeatured": true,
+    "stockStatus": "in_stock",
+    "createdAt": "2026-11-20T19:56:58.737Z",
+    "updatedAt": "2026-11-20T19:56:58.737Z"
+  },
+  {
+    "_id": "prod_23",
+    "title": "Windbreaker",
+    "name": "Windbreaker",
+    "slug": "windbreaker",
+    "price": "69.00",
+    "category": "Jackets",
+    "parentCollection": "Streetwear",
+    "description": "Ultra-lightweight ripstop nylon windbreaker jacket with hooded storm flap and reflective brand accents.",
+    "images": [
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105367/rebelwear/streetwear-images/wind1.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105367/rebelwear/streetwear-images/wind2.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105368/rebelwear/streetwear-images/wind3.jpg"
+    ],
+    "badge": "",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "status": "published",
+    "isPublished": true,
+    "isFeatured": false,
+    "stockStatus": "in_stock",
+    "createdAt": "2026-11-20T19:56:58.737Z",
+    "updatedAt": "2026-11-20T19:56:58.737Z"
+  },
+  {
+    "_id": "prod_24",
+    "title": "Streetwear Glasses",
+    "name": "Streetwear Glasses",
+    "slug": "streetwear-glasses",
+    "price": "29.00",
+    "category": "Accessories",
+    "parentCollection": "Streetwear",
+    "description": "Bold acetate and metal frame eyewear engineered to accent your urban look. UV400 protective lenses.",
+    "images": [
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105211/rebelwear/streetwear-images/glasses1.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105212/rebelwear/streetwear-images/glasses2.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105213/rebelwear/streetwear-images/glasses3.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105214/rebelwear/streetwear-images/glasses4.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105215/rebelwear/streetwear-images/glasses5.jpg"
+    ],
+    "badge": "",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "status": "published",
+    "isPublished": true,
+    "isFeatured": false,
+    "stockStatus": "in_stock",
+    "createdAt": "2026-11-20T19:56:58.739Z",
+    "updatedAt": "2026-11-20T19:56:58.739Z"
+  },
+  {
+    "_id": "prod_25",
+    "title": "Cap and Hats",
+    "name": "Cap and Hats",
+    "slug": "caps-and-hats",
+    "price": "22.00",
+    "category": "Accessories",
+    "parentCollection": "Streetwear",
+    "description": "Headwear that defines your rebellious style. Custom 3D puff embroidery, snapback and strapback closures available.",
+    "images": [
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105188/rebelwear/streetwear-images/cap1.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105189/rebelwear/streetwear-images/cap2.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105190/rebelwear/streetwear-images/cap3.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105190/rebelwear/streetwear-images/cap4.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105191/rebelwear/streetwear-images/cap5.jpg"
+    ],
+    "badge": "",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "status": "published",
+    "isPublished": true,
+    "isFeatured": false,
+    "stockStatus": "in_stock",
+    "createdAt": "2026-11-20T19:56:58.739Z",
+    "updatedAt": "2026-11-20T19:56:58.739Z"
+  },
+  {
+    "_id": "prod_26",
+    "title": "Beanies",
+    "name": "Beanies",
+    "slug": "beanies",
+    "price": "15.00",
+    "category": "Accessories",
+    "parentCollection": "Streetwear",
+    "description": "Warm, ribbed knit acrylic and wool-blend beanies. Snug adjustable cuff with woven brand label or embroidery.",
+    "images": [
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105179/rebelwear/streetwear-images/benies6.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105175/rebelwear/streetwear-images/benies2.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105176/rebelwear/streetwear-images/benies3.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105177/rebelwear/streetwear-images/benies4.jpg"
+    ],
+    "badge": "",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "status": "published",
+    "isPublished": true,
+    "isFeatured": false,
+    "stockStatus": "in_stock",
+    "createdAt": "2026-11-20T19:56:58.739Z",
+    "updatedAt": "2026-11-20T19:56:58.739Z"
+  },
+  {
+    "_id": "prod_27",
+    "title": "Other Accessories",
+    "name": "Other Accessories",
+    "slug": "other-accessories",
+    "price": "25.00",
+    "category": "Accessories",
+    "parentCollection": "Streetwear",
+    "description": "Tactical nylon belts, socks, duffel bags, and hardware accessories to complete your streetwear aesthetic.",
+    "images": [
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105171/rebelwear/streetwear-images/belt1.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105172/rebelwear/streetwear-images/belt2.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105173/rebelwear/streetwear-images/belt3.jpg"
+    ],
+    "badge": "",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "status": "published",
+    "isPublished": true,
+    "isFeatured": false,
+    "stockStatus": "in_stock",
+    "createdAt": "2026-11-20T19:56:58.739Z",
+    "updatedAt": "2026-11-20T19:56:58.739Z"
+  },
+  {
+    "_id": "prod_28",
+    "title": "Professional Basketball Uniform",
+    "name": "Professional Basketball Uniform",
+    "slug": "professional-basketball-uniform",
+    "price": "26.99",
+    "category": "Basketball Uniforms",
+    "parentCollection": "Sportswear",
+    "description": "Complete basketball uniform set with sublimated jersey and athletic shorts. Custom team colors, player names, and numbers.",
+    "images": [
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105306/rebelwear/streetwear-images/sportswear-images/basketball-uniform-1.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105307/rebelwear/streetwear-images/sportswear-images/basketball-uniform-2.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105308/rebelwear/streetwear-images/sportswear-images/basketball-uniform-3.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105309/rebelwear/streetwear-images/sportswear-images/basketball-uniform-4.jpg"
+    ],
+    "badge": "Popular",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "status": "published",
+    "isPublished": true,
+    "isFeatured": true,
+    "stockStatus": "in_stock",
+    "createdAt": "2026-11-20T19:56:58.740Z",
+    "updatedAt": "2026-11-20T19:56:58.740Z"
+  },
+  {
+    "_id": "prod_29",
+    "title": "Elite Basketball Jersey",
+    "name": "Elite Basketball Jersey",
+    "slug": "elite-basketball-jersey",
+    "price": "13.99",
+    "category": "Basketball Uniforms",
+    "parentCollection": "Sportswear",
+    "description": "Premium basketball game jersey with micro-mesh ventilation, anti-cling cut, and reinforced armholes.",
+    "images": [
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105299/rebelwear/streetwear-images/sportswear-images/basketball-jersey3.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105298/rebelwear/streetwear-images/sportswear-images/basketball-jersey2.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105297/rebelwear/streetwear-images/sportswear-images/basketball-jersey1.jpg"
+    ],
+    "badge": "Premium",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "status": "published",
+    "isPublished": true,
+    "isFeatured": true,
+    "stockStatus": "in_stock",
+    "createdAt": "2026-11-20T19:56:58.740Z",
+    "updatedAt": "2026-11-20T19:56:58.740Z"
+  },
+  {
+    "_id": "prod_30",
+    "title": "Custom Team Basketball Kit",
+    "name": "Custom Team Basketball Kit",
+    "slug": "custom-team-uniforms",
+    "price": "139.99",
+    "category": "Basketball Uniforms",
+    "parentCollection": "Sportswear",
+    "description": "Full tournament basketball kit including home and away reversible jerseys, warm-up shooter shirts, and game shorts.",
+    "images": [
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105305/rebelwear/streetwear-images/sportswear-images/basketball-kit4.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105303/rebelwear/streetwear-images/sportswear-images/basketball-kit2.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105304/rebelwear/streetwear-images/sportswear-images/basketball-kit3.jpg"
+    ],
+    "badge": "",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "status": "published",
+    "isPublished": true,
+    "isFeatured": false,
+    "stockStatus": "in_stock",
+    "createdAt": "2026-11-20T19:56:58.740Z",
+    "updatedAt": "2026-11-20T19:56:58.740Z"
+  },
+  {
+    "_id": "prod_31",
+    "title": "Professional Baseball Uniform",
+    "name": "Professional Baseball Uniform",
+    "slug": "professional-baseball-uniform",
+    "price": "39.99",
+    "category": "Baseball Uniforms",
+    "parentCollection": "Sportswear",
+    "description": "Complete baseball uniform set with button-front jersey and double-knee sliding pants. Custom team colors, script font lettering, and numbers.",
+    "images": [
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105294/rebelwear/streetwear-images/sportswear-images/baseball-uniform-1.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105294/rebelwear/streetwear-images/sportswear-images/baseball-uniform-2.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105295/rebelwear/streetwear-images/sportswear-images/baseball-uniform-3.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105296/rebelwear/streetwear-images/sportswear-images/baseball-uniform-4.jpg"
+    ],
+    "badge": "Popular",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "status": "published",
+    "isPublished": true,
+    "isFeatured": true,
+    "stockStatus": "in_stock",
+    "createdAt": "2026-11-20T19:56:58.741Z",
+    "updatedAt": "2026-11-20T19:56:58.741Z"
+  },
+  {
+    "_id": "prod_32",
+    "title": "Elite Baseball Jersey",
+    "name": "Elite Baseball Jersey",
+    "slug": "elite-baseball-jersey",
+    "price": "19.99",
+    "category": "Baseball Uniforms",
+    "parentCollection": "Sportswear",
+    "description": "Premium button-down baseball jersey with pro-weight moisture-wicking warp knit fabric and athletic sleeve piping.",
+    "images": [
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105288/rebelwear/streetwear-images/sportswear-images/baseball-jersey-1.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105289/rebelwear/streetwear-images/sportswear-images/baseball-jersey-2.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105290/rebelwear/streetwear-images/sportswear-images/baseball-jersey-3.jpg"
+    ],
+    "badge": "Premium",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "status": "published",
+    "isPublished": true,
+    "isFeatured": true,
+    "stockStatus": "in_stock",
+    "createdAt": "2026-11-20T19:56:58.741Z",
+    "updatedAt": "2026-11-20T19:56:58.741Z"
+  },
+  {
+    "_id": "prod_33",
+    "title": "Professional Football Uniform",
+    "name": "Professional Football Uniform",
+    "slug": "professional-football-uniform",
+    "price": "59.99",
+    "category": "American Football Uniforms",
+    "parentCollection": "Sportswear",
+    "description": "Complete football uniform set with heavy-duty 4-way stretch jersey and integrated pad pants. Custom team colors and tackle-twill numbering.",
+    "images": [
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105268/rebelwear/streetwear-images/sportswear-images/american-football-uniform-10.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105267/rebelwear/streetwear-images/sportswear-images/american-football-uniform-1.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105269/rebelwear/streetwear-images/sportswear-images/american-football-uniform-2.jpg"
+    ],
+    "badge": "Popular",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "status": "published",
+    "isPublished": true,
+    "isFeatured": true,
+    "stockStatus": "in_stock",
+    "createdAt": "2026-11-20T19:56:58.742Z",
+    "updatedAt": "2026-11-20T19:56:58.742Z"
+  },
+  {
+    "_id": "prod_34",
+    "title": "Elite Football Jersey",
+    "name": "Elite Football Jersey",
+    "slug": "elite-football-jersey",
+    "price": "39.99",
+    "category": "American Football Uniforms",
+    "parentCollection": "Sportswear",
+    "description": "Premium game jersey with reinforced double-ply dazzle shoulders, stretch mesh body panels, and elastic sleeve cuffs.",
+    "images": [
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105278/rebelwear/streetwear-images/sportswear-images/american-jersey-2.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105276/rebelwear/streetwear-images/sportswear-images/american-jersey-1.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105279/rebelwear/streetwear-images/sportswear-images/american-jersey-3.jpg"
+    ],
+    "badge": "Premium",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "status": "published",
+    "isPublished": true,
+    "isFeatured": true,
+    "stockStatus": "in_stock",
+    "createdAt": "2026-11-20T19:56:58.742Z",
+    "updatedAt": "2026-11-20T19:56:58.742Z"
+  },
+  {
+    "_id": "prod_35",
+    "title": "Custom Team Football Kit",
+    "name": "Custom Team Football Kit",
+    "slug": "custom-football-kit",
+    "price": "149.99",
+    "category": "American Football Uniforms",
+    "parentCollection": "Sportswear",
+    "description": "Full team football tournament kit including home and away game jerseys, practice mesh pinnies, and compression game pants.",
+    "images": [
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105287/rebelwear/streetwear-images/sportswear-images/american-kit-3.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105285/rebelwear/streetwear-images/sportswear-images/american-kit-1.jpg"
+    ],
+    "badge": "",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "status": "published",
+    "isPublished": true,
+    "isFeatured": false,
+    "stockStatus": "in_stock",
+    "createdAt": "2026-11-20T19:56:58.742Z",
+    "updatedAt": "2026-11-20T19:56:58.742Z"
+  },
+  {
+    "_id": "prod_36",
+    "title": "Professional Soccer Uniform",
+    "name": "Professional Soccer Uniform",
+    "slug": "professional-soccer-uniform",
+    "price": "29.99",
+    "category": "Soccer Uniforms",
+    "parentCollection": "Sportswear",
+    "description": "Complete soccer uniform set with match jersey and ergonomic shorts. Sublimated team colors, numbers, and sponsor badges.",
+    "images": [
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105326/rebelwear/streetwear-images/sportswear-images/soccer-uniform-3.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105325/rebelwear/streetwear-images/sportswear-images/soccer-uniform-2.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105324/rebelwear/streetwear-images/sportswear-images/soccer-uniform-1.jpg"
+    ],
+    "badge": "Popular",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "status": "published",
+    "isPublished": true,
+    "isFeatured": true,
+    "stockStatus": "in_stock",
+    "createdAt": "2026-11-20T19:56:58.743Z",
+    "updatedAt": "2026-11-20T19:56:58.743Z"
+  },
+  {
+    "_id": "prod_37",
+    "title": "Elite Soccer Jersey",
+    "name": "Elite Soccer Jersey",
+    "slug": "elite-soccer-jersey",
+    "price": "29.99",
+    "category": "Soccer Uniforms",
+    "parentCollection": "Sportswear",
+    "description": "Premium aerodynamic match jersey with laser-cut ventilation zones, flatlock seams, and sweat-expelling microfibers.",
+    "images": [
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105321/rebelwear/streetwear-images/sportswear-images/soccer-jersey-8.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105315/rebelwear/streetwear-images/sportswear-images/soccer-jersey-1.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105316/rebelwear/streetwear-images/sportswear-images/soccer-jersey-2.jpg"
+    ],
+    "badge": "Premium",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "status": "published",
+    "isPublished": true,
+    "isFeatured": true,
+    "stockStatus": "in_stock",
+    "createdAt": "2026-11-20T19:56:58.743Z",
+    "updatedAt": "2026-11-20T19:56:58.743Z"
+  },
+  {
+    "_id": "prod_38",
+    "title": "Custom Team Soccer Kit",
+    "name": "Custom Team Soccer Kit",
+    "slug": "custom-soccer-kit",
+    "price": "169.99",
+    "category": "Soccer Uniforms",
+    "parentCollection": "Sportswear",
+    "description": "Complete team package including home and away jerseys, matching shorts, and technical soccer socks for full rosters.",
+    "images": [
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105322/rebelwear/streetwear-images/sportswear-images/soccer-kit-1.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105323/rebelwear/streetwear-images/soccer-kit-2.jpg"
+    ],
+    "badge": "",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "status": "published",
+    "isPublished": true,
+    "isFeatured": false,
+    "stockStatus": "in_stock",
+    "createdAt": "2026-11-20T19:56:58.743Z",
+    "updatedAt": "2026-11-20T19:56:58.743Z"
+  },
+  {
+    "_id": "prod_39",
+    "title": "Pro Ice Hockey Jersey",
+    "name": "Pro Ice Hockey Jersey",
+    "slug": "pro-ice-hockey-jersey",
+    "price": "54.99",
+    "category": "Hockey Uniforms",
+    "parentCollection": "Sportswear",
+    "description": "Pro-weight air-knit polyester hockey sweater with double-reinforced elbows, ventilated underarm gussets, and lace-up neck option.",
+    "images": [
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105169/rebelwear/sports-1.avif"
+    ],
+    "badge": "Pro Grade",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "status": "published",
+    "isPublished": true,
+    "isFeatured": true,
+    "stockStatus": "in_stock",
+    "createdAt": "2026-11-20T19:56:58.744Z",
+    "updatedAt": "2026-11-20T19:56:58.744Z"
+  },
+  {
+    "_id": "prod_40",
+    "title": "Sublimated Team Hockey Jersey",
+    "name": "Sublimated Team Hockey Jersey",
+    "slug": "sublimated-team-hockey-jersey",
+    "price": "44.99",
+    "category": "Hockey Uniforms",
+    "parentCollection": "Sportswear",
+    "description": "Full dye-sublimated hockey jersey with anti-fade team graphics, player numbers, and tackle twill embroidery options.",
+    "images": [
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105304/rebelwear/streetwear-images/sportswear-images/basketball-kit3.jpg"
+    ],
+    "badge": "Popular",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "status": "published",
+    "isPublished": true,
+    "isFeatured": true,
+    "stockStatus": "in_stock",
+    "createdAt": "2026-11-20T19:56:58.744Z",
+    "updatedAt": "2026-11-20T19:56:58.744Z"
+  },
+  {
+    "_id": "prod_41",
+    "title": "Custom Hockey Shell & Socks Kit",
+    "name": "Custom Hockey Shell & Socks Kit",
+    "slug": "custom-hockey-shell-kit",
+    "price": "89.99",
+    "category": "Hockey Uniforms",
+    "parentCollection": "Sportswear",
+    "description": "Coordinated ice hockey game package including sublimated jersey, heavy-duty pant shell, and pro-ribbed socks.",
+    "images": [
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105169/rebelwear/sports-1.avif"
+    ],
+    "badge": "",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "status": "published",
+    "isPublished": true,
+    "isFeatured": false,
+    "stockStatus": "in_stock",
+    "createdAt": "2026-11-20T19:56:58.744Z",
+    "updatedAt": "2026-11-20T19:56:58.744Z"
+  },
+  {
+    "_id": "prod_42",
+    "title": "Pro Boxing Fight Trunks",
+    "name": "Pro Boxing Fight Trunks",
+    "slug": "pro-boxing-fight-trunks",
+    "price": "39.99",
+    "category": "Boxing Uniforms & Gear",
+    "parentCollection": "Sportswear",
+    "description": "High-sheen heavy satin fight shorts with 4-inch elastic waistband, side mobility slits, and custom name embroidery.",
+    "images": [
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105330/rebelwear/streetwear-images/sportswear-images/sport-accessory.webp"
+    ],
+    "badge": "Bestseller",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "status": "published",
+    "isPublished": true,
+    "isFeatured": true,
+    "stockStatus": "in_stock",
+    "createdAt": "2026-11-20T19:56:58.745Z",
+    "updatedAt": "2026-11-20T19:56:58.745Z"
+  },
+  {
+    "_id": "prod_43",
+    "title": "Championship Boxing Robe",
+    "name": "Championship Boxing Robe",
+    "slug": "championship-boxing-robe",
+    "price": "69.99",
+    "category": "Boxing Uniforms & Gear",
+    "parentCollection": "Sportswear",
+    "description": "Full-length hooded ring entrance robe crafted from premium satin with contrast piping, deep pockets, and custom back embroidery.",
+    "images": [
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105167/rebelwear/rebelwear.jpg"
+    ],
+    "badge": "Popular",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "status": "published",
+    "isPublished": true,
+    "isFeatured": true,
+    "stockStatus": "in_stock",
+    "createdAt": "2026-11-20T19:56:58.745Z",
+    "updatedAt": "2026-11-20T19:56:58.745Z"
+  },
+  {
+    "_id": "prod_44",
+    "title": "Corner Team Track Jacket & Shirt",
+    "name": "Corner Team Track Jacket & Shirt",
+    "slug": "corner-team-jacket",
+    "price": "59.99",
+    "category": "Boxing Uniforms & Gear",
+    "parentCollection": "Sportswear",
+    "description": "Full-zip cornerman warm-up jacket and matching dry-fit technical cornerman t-shirt for trainers and cutmen.",
+    "images": [
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105197/rebelwear/streetwear-images/classictrack1.jpg"
+    ],
+    "badge": "",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "status": "published",
+    "isPublished": true,
+    "isFeatured": false,
+    "stockStatus": "in_stock",
+    "createdAt": "2026-11-20T19:56:58.745Z",
+    "updatedAt": "2026-11-20T19:56:58.745Z"
+  },
+  {
+    "_id": "prod_45",
+    "title": "Pro Team Athletic Socks",
+    "name": "Pro Team Athletic Socks",
+    "slug": "team-athletic-socks",
+    "price": "12.00",
+    "category": "Uniform Accessories",
+    "parentCollection": "Sportswear",
+    "description": "High-performance cushioned athletic socks with arch compression, heel reinforcement, and moisture-wicking yarns.",
+    "images": [
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105330/rebelwear/streetwear-images/sportswear-images/sport-accessory.webp"
+    ],
+    "badge": "",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "status": "published",
+    "isPublished": true,
+    "isFeatured": false,
+    "stockStatus": "in_stock",
+    "createdAt": "2026-11-20T19:56:58.746Z",
+    "updatedAt": "2026-11-20T19:56:58.746Z"
+  },
+  {
+    "_id": "prod_46",
+    "title": "Sports Performance Eyewear",
+    "name": "Sports Performance Eyewear",
+    "slug": "sports-performance-eyewear",
+    "price": "35.00",
+    "category": "Uniform Accessories",
+    "parentCollection": "Sportswear",
+    "description": "Protective impact-resistant sports glasses designed for athlete safety, anti-slip temple grips, and visual clarity.",
+    "images": [
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105211/rebelwear/streetwear-images/glasses1.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105212/rebelwear/streetwear-images/glasses2.jpg"
+    ],
+    "badge": "",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "status": "published",
+    "isPublished": true,
+    "isFeatured": false,
+    "stockStatus": "in_stock",
+    "createdAt": "2026-11-20T19:56:58.746Z",
+    "updatedAt": "2026-11-20T19:56:58.746Z"
+  },
+  {
+    "_id": "prod_47",
+    "title": "Heavy-Duty Team Gear Bag",
+    "name": "Heavy-Duty Team Gear Bag",
+    "slug": "team-gear-bag",
+    "price": "45.00",
+    "category": "Uniform Accessories",
+    "parentCollection": "Sportswear",
+    "description": "Weather-resistant ripstop nylon duffel bag engineered to hold complete athlete equipment, cleats, and jerseys.",
+    "images": [
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105330/rebelwear/streetwear-images/sportswear-images/sport-accessory.webp"
+    ],
+    "badge": "",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "status": "published",
+    "isPublished": true,
+    "isFeatured": false,
+    "stockStatus": "in_stock",
+    "createdAt": "2026-11-20T19:56:58.746Z",
+    "updatedAt": "2026-11-20T19:56:58.746Z"
+  },
+  {
+    "_id": "prod_48",
+    "title": "Custom Embroidered Team Caps",
+    "name": "Custom Embroidered Team Caps",
+    "slug": "team-caps",
+    "price": "20.00",
+    "category": "Uniform Accessories",
+    "parentCollection": "Sportswear",
+    "description": "Pro-style moisture-wicking team caps with 3D raised embroidery, moisture sweatband, and structured crown.",
+    "images": [
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105188/rebelwear/streetwear-images/cap1.jpg",
+      "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105189/rebelwear/streetwear-images/cap2.jpg"
+    ],
+    "badge": "",
+    "sizes": [
+      "XS",
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "status": "published",
+    "isPublished": true,
+    "isFeatured": false,
+    "stockStatus": "in_stock",
+    "createdAt": "2026-11-20T19:56:58.746Z",
+    "updatedAt": "2026-11-20T19:56:58.746Z"
   }
 ]

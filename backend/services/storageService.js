@@ -164,7 +164,7 @@ const defaultCategories = [
     displayOrder: 11,
   },
   {
-    title: "Boxing Uniforms",
+    title: "Boxing Uniforms & Gear",
     slug: "boxing-uniforms",
     parentType: "Sportswear",
     description: "Professional boxing shorts and robes.",
@@ -172,6 +172,17 @@ const defaultCategories = [
     link: "/boxing-uniforms",
     status: "published",
     displayOrder: 12,
+  },
+  {
+    title: "Hockey Uniforms",
+    slug: "hockey-uniforms",
+    parentType: "Sportswear",
+    description: "Pro-weight hockey jerseys with reinforced elbows and breathable fighting-strap construction.",
+    image: "https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105169/rebelwear/sports-1.avif",
+    link: "/hockey-uniforms",
+    badge: "New",
+    status: "published",
+    displayOrder: 13,
   },
 ];
 
@@ -386,29 +397,67 @@ export const getAllProducts = async ({ category, status, search, includeUnpublis
   if (isMongoActive()) {
     const query = {};
     if (!includeUnpublished) {
-      query.status = "published";
+      query.$or = [
+        { status: "published" },
+        { isPublished: true },
+        { status: { $exists: false } },
+      ];
     } else if (status && status !== "all") {
       query.status = status;
     }
-    if (category && category !== "all") query.category = category;
+    if (category && category !== "all") {
+      const cleanCat = category.replace(/-/g, " ").trim();
+      query.$or = [
+        { category: { $regex: new RegExp(`^${category.trim()}$`, "i") } },
+        { category: { $regex: new RegExp(`^${cleanCat}$`, "i") } },
+        { parentCollection: { $regex: new RegExp(`^${category.trim()}$`, "i") } },
+      ];
+    }
     if (search) {
       query.$or = [
         { title: { $regex: search, $options: "i" } },
+        { name: { $regex: search, $options: "i" } },
         { description: { $regex: search, $options: "i" } },
         { category: { $regex: search, $options: "i" } },
       ];
     }
-    return await Product.find(query).sort({ createdAt: -1 });
+    const products = await Product.find(query).sort({ createdAt: -1 }).lean();
+    return products.map((p) => ({
+      ...p,
+      title: p.title || p.name || "Untitled Product",
+      name: p.name || p.title || "Untitled Product",
+      price: (p.price || "29.99").toString().replace("$", ""),
+      status: p.status || (p.isPublished !== false ? "published" : "draft"),
+      images:
+        Array.isArray(p.images) && p.images.length > 0
+          ? p.images
+          : p.primaryImage
+          ? [p.primaryImage]
+          : [],
+      sizes:
+        Array.isArray(p.sizes) && p.sizes.length > 0
+          ? p.sizes
+          : Array.isArray(p.availableSizes)
+          ? p.availableSizes
+          : ["XS", "S", "M", "L", "XL", "XXL"],
+      parentCollection: p.parentCollection || p.parentGroup || "Streetwear",
+    }));
   } else {
     let products = readJson(productsFile);
     if (!includeUnpublished) {
-      products = products.filter((p) => p.status === "published");
+      products = products.filter(
+        (p) => p.status === "published" || p.isPublished !== false
+      );
     } else if (status && status !== "all") {
       products = products.filter((p) => p.status === status);
     }
     if (category && category !== "all") {
+      const qCat = category.toLowerCase().replace(/-/g, " ").trim();
       products = products.filter(
-        (p) => p.category?.toLowerCase() === category.toLowerCase()
+        (p) =>
+          p.category?.toLowerCase() === category.toLowerCase() ||
+          p.category?.toLowerCase().replace(/-/g, " ") === qCat ||
+          p.parentCollection?.toLowerCase() === category.toLowerCase()
       );
     }
     if (search) {
@@ -416,34 +465,66 @@ export const getAllProducts = async ({ category, status, search, includeUnpublis
       products = products.filter(
         (p) =>
           (p.title && p.title.toLowerCase().includes(q)) ||
+          (p.name && p.name.toLowerCase().includes(q)) ||
           (p.description && p.description.toLowerCase().includes(q)) ||
           (p.category && p.category.toLowerCase().includes(q))
       );
     }
-    return products.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    return products
+      .map((p) => ({
+        ...p,
+        title: p.title || p.name || "Untitled Product",
+        name: p.name || p.title || "Untitled Product",
+        price: (p.price || "29.99").toString().replace("$", ""),
+        status: p.status || (p.isPublished !== false ? "published" : "draft"),
+        images:
+          Array.isArray(p.images) && p.images.length > 0
+            ? p.images
+            : p.primaryImage
+            ? [p.primaryImage]
+            : [],
+        sizes:
+          Array.isArray(p.sizes) && p.sizes.length > 0
+            ? p.sizes
+            : ["XS", "S", "M", "L", "XL", "XXL"],
+        parentCollection: p.parentCollection || "Streetwear",
+      }))
+      .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
   }
 };
 
 export const createProduct = async (data) => {
   const slug =
     data.slug ||
-    data.title
+    (data.title || data.name || "product")
       .toLowerCase()
       .replace(/[^a-z0-9]+/g, "-")
       .replace(/(^-|-$)/g, "");
 
   if (isMongoActive()) {
-    const product = new Product({ ...data, slug });
+    const product = new Product({
+      ...data,
+      title: data.title || data.name,
+      name: data.title || data.name,
+      slug,
+      status: data.status || "published",
+      isPublished: data.status !== "draft" && data.status !== "hidden",
+      sizes: data.sizes || ["XS", "S", "M", "L", "XL", "XXL"],
+      images: Array.isArray(data.images) ? data.images : data.images ? [data.images] : [],
+    });
     return await product.save();
   } else {
     const products = readJson(productsFile);
     const newProduct = {
       _id: "prod_" + Date.now() + "_" + Math.floor(Math.random() * 1000),
       ...data,
+      title: data.title || data.name,
+      name: data.title || data.name,
       slug,
       status: data.status || "published",
+      isPublished: data.status !== "draft" && data.status !== "hidden",
       isFeatured: Boolean(data.isFeatured),
-      images: Array.isArray(data.images) ? data.images : (data.images ? [data.images] : []),
+      images: Array.isArray(data.images) ? data.images : data.images ? [data.images] : [],
       sizes: data.sizes || ["XS", "S", "M", "L", "XL", "XXL"],
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
@@ -531,22 +612,31 @@ export const getAllCategories = async ({ includeUnpublished = true } = {}) => {
 export const createCategory = async (data) => {
   const slug =
     data.slug ||
-    data.title
+    (data.title || data.name || "category")
       .toLowerCase()
       .replace(/[^a-z0-9]+/g, "-")
       .replace(/(^-|-$)/g, "");
 
+  const categoryPayload = {
+    ...data,
+    title: data.title || data.name,
+    name: data.title || data.name,
+    image: data.image || data.coverImage || "",
+    coverImage: data.image || data.coverImage || "",
+    link: data.link || `/${slug}`,
+    slug,
+    status: data.status || "published",
+    isPublished: data.status !== "draft" && data.status !== "hidden",
+  };
+
   if (isMongoActive()) {
-    const category = new Category({ ...data, slug });
+    const category = new Category(categoryPayload);
     return await category.save();
   } else {
     const categories = readJson(categoriesFile);
     const newCategory = {
       _id: "cat_" + Date.now() + "_" + Math.floor(Math.random() * 1000),
-      ...data,
-      slug,
-      status: data.status || "published",
-      link: data.link || `/${slug}`,
+      ...categoryPayload,
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     };

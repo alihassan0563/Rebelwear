@@ -4,7 +4,10 @@ const productSchema = new mongoose.Schema(
   {
     title: {
       type: String,
-      required: true,
+      trim: true,
+    },
+    name: {
+      type: String,
       trim: true,
     },
     slug: {
@@ -16,7 +19,7 @@ const productSchema = new mongoose.Schema(
     },
     price: {
       type: String,
-      required: true,
+      default: "29.99",
       trim: true,
     },
     category: {
@@ -26,7 +29,6 @@ const productSchema = new mongoose.Schema(
     },
     parentCollection: {
       type: String,
-      enum: ["Streetwear", "Sportswear", "Accessories", "Special Orders", "Other"],
       default: "Streetwear",
     },
     description: {
