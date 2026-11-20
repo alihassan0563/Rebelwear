@@ -1,3 +1,4 @@
+import { useLiveProducts } from "../hooks/useLiveProducts";
 import { useEffect } from 'react'
 import ProductGallery from '../components/ProductGallery'
 import SEO from '../components/SEO'
@@ -7,7 +8,7 @@ const Sweatshirts = () => {
     window.scrollTo(0, 0)
   }, [])
   
-  const products = [
+  const initialProducts = [
     {
       title: 'Crewneck Sweatshirt',
       price: '45.00',
@@ -44,7 +45,8 @@ const Sweatshirts = () => {
         'https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105331/rebelwear/streetwear-images/sweat1.jpg'
       ],
     },
-  ]
+  ];
+  const products = useLiveProducts("Sweatshirts", initialProducts);
 
   const sweatshirtsSchema = {
     '@context': 'https://schema.org',

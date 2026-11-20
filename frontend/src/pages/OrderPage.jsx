@@ -32,19 +32,47 @@ const OrderPage = () => {
 
   useEffect(() => {
     // Get product data from localStorage or fetch from API
-    const productData = localStorage.getItem('selectedProduct')
-    if (productData) {
-      const parsedProduct = JSON.parse(productData)
-      setProduct(parsedProduct)
-      
-      // Set selected image based on imageIndex
-      const imgIndex = parseInt(imageIndex) || 0
-      if (parsedProduct.images && parsedProduct.images[imgIndex]) {
-        setSelectedImage(parsedProduct.images[imgIndex])
+    const loadProduct = async () => {
+      const productData = localStorage.getItem('selectedProduct')
+      if (productData) {
+        try {
+          const parsedProduct = JSON.parse(productData)
+          if (parsedProduct.slug === productSlug || !productSlug) {
+            setProduct(parsedProduct)
+            const imgIndex = parseInt(imageIndex) || 0
+            if (parsedProduct.images && parsedProduct.images[imgIndex]) {
+              setSelectedImage(parsedProduct.images[imgIndex])
+            }
+            return
+          }
+        } catch (e) {
+          // parse error, fallback to API
+        }
       }
-    } else {
+
+      // If not in localStorage or slug differs, fetch from API
+      try {
+        const apiBase = getApiBaseUrl()
+        const res = await fetch(`${apiBase}/products/${productSlug}`)
+        if (res.ok) {
+          const data = await res.json()
+          if (data.success && data.product) {
+            setProduct(data.product)
+            const imgIndex = parseInt(imageIndex) || 0
+            if (data.product.images && data.product.images[imgIndex]) {
+              setSelectedImage(data.product.images[imgIndex])
+            }
+            return
+          }
+        }
+      } catch (err) {
+        console.warn('Could not fetch product for order:', err)
+      }
+
       navigate('/')
     }
+
+    loadProduct()
   }, [productSlug, imageIndex, navigate])
 
   const handleInputChange = (e) => {

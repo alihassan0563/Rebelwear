@@ -1,3 +1,4 @@
+import { useLiveProducts } from "../hooks/useLiveProducts";
 import { useEffect } from 'react'
 import ProductGallery from '../components/ProductGallery'
 import SEO from '../components/SEO'
@@ -7,7 +8,7 @@ const Accessories = () => {
     window.scrollTo(0, 0)
   }, [])
 
-  const products = [
+  const initialProducts = [
     {
       title: 'Streetwear Glasses',
       price: '29.00',
@@ -61,7 +62,8 @@ const Accessories = () => {
         'https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105173/rebelwear/streetwear-images/belt3.jpg',
       ],
     },
-  ]
+  ];
+  const products = useLiveProducts("Accessories", initialProducts);
 
   const accessoriesSchema = {
     '@context': 'https://schema.org',

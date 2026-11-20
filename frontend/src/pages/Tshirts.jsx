@@ -1,3 +1,4 @@
+import { useLiveProducts } from "../hooks/useLiveProducts";
 import { useEffect } from 'react'
 import ProductGallery from '../components/ProductGallery'
 import SEO from '../components/SEO'
@@ -7,7 +8,7 @@ const Tshirts = () => {
     window.scrollTo(0, 0)
   }, [])
 
-  const products = [
+  const initialProducts = [
     {
       title: 'Graphic Tee',
       price: '23.00',
@@ -82,7 +83,8 @@ const Tshirts = () => {
       ],
       badge: 'New',
     },
-  ]
+  ];
+  const products = useLiveProducts("T-Shirts", initialProducts);
 
   const tshirtsSchema = {
     '@context': 'https://schema.org',

@@ -1,3 +1,4 @@
+import { useLiveProducts } from "../hooks/useLiveProducts";
 import { useEffect } from 'react'
 import ProductGallery from '../components/ProductGallery'
 import SEO from '../components/SEO'
@@ -7,7 +8,7 @@ const Tracksuits = () => {
     window.scrollTo(0, 0)
   }, [])
 
-  const products = [
+  const initialProducts = [
     {
       title: 'Classic Track',
       price: '89.00',
@@ -59,7 +60,8 @@ const Tracksuits = () => {
       ],
       badge: 'New',
     },
-  ]
+  ];
+  const products = useLiveProducts("Tracksuits", initialProducts);
 
   const tracksuitsSchema = {
     '@context': 'https://schema.org',

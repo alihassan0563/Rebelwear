@@ -1,3 +1,4 @@
+import { useLiveProducts } from "../hooks/useLiveProducts";
 import { useEffect } from "react";
 import ProductGallery from "../components/ProductGallery";
 import SEO from "../components/SEO";
@@ -7,7 +8,7 @@ const Hoodies = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  const products = [
+  const initialProducts = [
     {
       title: "Classic Hoodie",
       price: "34.99",
@@ -101,6 +102,7 @@ const Hoodies = () => {
       images: ["https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105210/rebelwear/streetwear-images/customhoodie.webp"],
     },
   ];
+  const products = useLiveProducts("Hoodies", initialProducts);
 
   const hoodiesSchema = {
     '@context': 'https://schema.org',

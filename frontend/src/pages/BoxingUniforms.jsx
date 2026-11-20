@@ -1,3 +1,4 @@
+import { useLiveProducts } from "../hooks/useLiveProducts";
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import SEO from '../components/SEO'
@@ -8,7 +9,7 @@ const BoxingUniforms = () => {
     window.scrollTo(0, 0)
   }, [])
 
-  const products = [
+  const initialProducts = [
     {
       title: 'Pro Boxing Fight Trunks',
       price: '39.99',
@@ -41,7 +42,8 @@ const BoxingUniforms = () => {
         'https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105197/rebelwear/streetwear-images/classictrack1.jpg',
       ],
     },
-  ]
+  ];
+  const products = useLiveProducts("Boxing Uniforms & Gear", initialProducts);
 
   const boxingSchema = {
     '@context': 'https://schema.org',

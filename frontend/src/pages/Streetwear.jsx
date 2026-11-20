@@ -2,13 +2,14 @@ import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { cld } from '../utils/cloudinary'
 import SEO from '../components/SEO'
+import { useLiveCategories } from '../hooks/useLiveCategories'
 
 const Streetwear = () => {
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
 
-  const categories = [
+  const initialCategories = [
     {
       title: 'Hoodies',
       description: 'Warm, bold, and made to stand out. Heavyweight cotton and oversized silhouettes.',
@@ -46,6 +47,8 @@ const Streetwear = () => {
       link: '/accessories',
     },
   ]
+
+  const categories = useLiveCategories('Streetwear', initialCategories)
 
   const streetwearSchema = {
     '@context': 'https://schema.org',

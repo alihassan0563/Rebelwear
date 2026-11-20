@@ -1,3 +1,4 @@
+import { useLiveProducts } from "../hooks/useLiveProducts";
 import { useEffect } from "react";
 import ProductGallery from "../components/ProductGallery";
 import SEO from "../components/SEO";
@@ -7,7 +8,7 @@ const BaseballUniforms = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  const products = [
+  const initialProducts = [
     {
       title: "Professional Baseball Uniform",
       price: "39.99",
@@ -38,6 +39,7 @@ const BaseballUniforms = () => {
       badge: "Premium",
     },
   ];
+  const products = useLiveProducts("Baseball Uniforms", initialProducts);
 
   const baseballSchema = {
     '@context': 'https://schema.org',

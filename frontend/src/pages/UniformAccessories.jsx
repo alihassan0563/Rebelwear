@@ -1,3 +1,4 @@
+import { useLiveProducts } from "../hooks/useLiveProducts";
 import { useEffect } from 'react'
 import ProductGallery from '../components/ProductGallery'
 import SEO from '../components/SEO'
@@ -7,7 +8,7 @@ const UniformAccessories = () => {
     window.scrollTo(0, 0)
   }, [])
   
-  const products = [
+  const initialProducts = [
     {
       title: 'Pro Team Athletic Socks',
       price: '12.00',
@@ -50,7 +51,8 @@ const UniformAccessories = () => {
         'https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105189/rebelwear/streetwear-images/cap2.jpg',
       ],
     },
-  ]
+  ];
+  const products = useLiveProducts("Uniform Accessories", initialProducts);
 
   const accessoriesSchema = {
     '@context': 'https://schema.org',

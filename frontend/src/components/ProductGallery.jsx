@@ -41,14 +41,14 @@ const ProductGallery = ({ products }) => {
             itemScope
             itemType="https://schema.org/Product"
           >
-            <div 
+            <div
               onClick={(e) => handleBuyNow(product, index, e)}
               className="h-72 relative object-cover cursor-pointer bg-neutral-900"
             >
               {product.images && product.images.length > 0 ? (
-                <ImageSlider 
-                  images={product.images} 
-                  autoPlay={false} 
+                <ImageSlider
+                  images={product.images}
+                  autoPlay={false}
                   altText={altLabel}
                   onImageChange={(imageIndex) => handleImageChange(index, imageIndex)}
                 />
@@ -96,13 +96,13 @@ const ProductGallery = ({ products }) => {
                   {product.description}
                 </p>
               )}
-              <Link 
+              <Link
                 to={orderUrl}
                 onClick={(e) => handleBuyNow(product, index, e)}
                 className="w-full text-center bg-secondary text-white py-3 px-6 rounded-xl font-bold uppercase tracking-wider text-xs hover:bg-secondary/90 transition-all shadow-md shadow-secondary/20 mt-auto block"
                 aria-label={`Buy ${product.title} Now`}
               >
-                Order / Customize Now
+                Order Now
               </Link>
             </div>
           </article>

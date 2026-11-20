@@ -1,3 +1,4 @@
+import { useLiveProducts } from "../hooks/useLiveProducts";
 import { useEffect } from 'react'
 import ProductGallery from '../components/ProductGallery'
 import SEO from '../components/SEO'
@@ -7,7 +8,7 @@ const Jackets = () => {
     window.scrollTo(0, 0)
   }, [])
 
-  const products = [
+  const initialProducts = [
     {
       title: 'Bike Jacket',
       price: '89.00',
@@ -71,7 +72,8 @@ const Jackets = () => {
         'https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105368/rebelwear/streetwear-images/wind3.jpg',
       ],
     },
-  ]
+  ];
+  const products = useLiveProducts("Jackets", initialProducts);
 
   const jacketsSchema = {
     '@context': 'https://schema.org',

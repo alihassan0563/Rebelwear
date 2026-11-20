@@ -2,13 +2,14 @@ import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { cld } from '../utils/cloudinary'
 import SEO from '../components/SEO'
+import { useLiveCategories } from '../hooks/useLiveCategories'
 
 const Uniforms = () => {
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
 
-  const uniformTypes = [
+  const initialUniformTypes = [
     {
       title: 'Basketball Uniforms',
       description: 'Professional basketball jerseys and shorts designed for peak performance and full court mobility.',
@@ -62,6 +63,8 @@ const Uniforms = () => {
       image: 'https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105330/rebelwear/streetwear-images/sportswear-images/sport-accessory.webp',
     },
   ]
+
+  const uniformTypes = useLiveCategories('Sportswear', initialUniformTypes)
 
   const uniformsSchema = {
     '@context': 'https://schema.org',

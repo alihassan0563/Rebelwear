@@ -1,3 +1,4 @@
+import { useLiveProducts } from "../hooks/useLiveProducts";
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import SEO from '../components/SEO'
@@ -8,7 +9,7 @@ const HockeyUniforms = () => {
     window.scrollTo(0, 0)
   }, [])
 
-  const products = [
+  const initialProducts = [
     {
       title: 'Pro Ice Hockey Jersey',
       price: '54.99',
@@ -41,7 +42,8 @@ const HockeyUniforms = () => {
         'https://res.cloudinary.com/vevuagbx/image/upload/f_auto,q_auto/v1790105169/rebelwear/sports-1.avif',
       ],
     },
-  ]
+  ];
+  const products = useLiveProducts("Hockey Uniforms", initialProducts);
 
   const hockeySchema = {
     '@context': 'https://schema.org',

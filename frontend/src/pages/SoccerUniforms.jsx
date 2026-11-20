@@ -1,3 +1,4 @@
+import { useLiveProducts } from "../hooks/useLiveProducts";
 import { useEffect } from "react";
 import ProductGallery from "../components/ProductGallery";
 import SEO from "../components/SEO";
@@ -7,7 +8,7 @@ const SoccerUniforms = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  const products = [
+  const initialProducts = [
     {
       title: "Professional Soccer Uniform",
       price: "29.99",
@@ -49,6 +50,7 @@ const SoccerUniforms = () => {
       ],
     },
   ];
+  const products = useLiveProducts("Soccer Uniforms", initialProducts);
 
   const soccerSchema = {
     '@context': 'https://schema.org',
