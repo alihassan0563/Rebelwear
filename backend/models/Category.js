@@ -84,7 +84,7 @@ const categorySchema = new mongoose.Schema(
   }
 );
 
-categorySchema.pre("save", function (next) {
+categorySchema.pre("save", async function () {
   if (!this.title && this.name) {
     this.title = this.name;
   }
@@ -94,7 +94,6 @@ categorySchema.pre("save", function (next) {
   if (!this.image && this.coverImage) {
     this.image = this.coverImage;
   }
-  next();
 });
 
 const Category = mongoose.models.Category || mongoose.model("Category", categorySchema);
